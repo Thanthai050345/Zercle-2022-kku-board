@@ -1,1 +1,1 @@
-# kku-boardr-fontend
+# kku-board-project
