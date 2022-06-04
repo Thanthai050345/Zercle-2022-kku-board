@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Countdown } from 'src/app/interfaces/countdown';
 import "dayjs/locale/th";
@@ -9,6 +9,8 @@ import "dayjs/locale/th";
   styleUrls: ['./count-down.component.css'],
 })
 export class CountDownComponent implements OnInit {
+  @Input() role = ""
+
   dataBase = [
     {
       eventId: '1',
