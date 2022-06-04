@@ -18,3 +18,18 @@ export const createUser = async (body: User) => {
   return body;
 };
 
+export const createAdmin = async (body: User) => {
+  const clubAdmin = await admin.auth().createUser({
+    email: body.email,
+    password: body.password,
+    uid: body.uid,
+  });
+
+  await admin.auth().setCustomUserClaims(clubAdmin.uid, {
+    authority: body.role,
+  });
+  await db.collection("clubAdmin").doc(clubAdmin.uid).set({...body, uid: `${clubAdmin.uid}`});
+
+  return body;
+};
+
