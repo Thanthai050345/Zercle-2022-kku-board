@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestComponent } from './components/test/test.component';
 import { CountDownComponent } from './components/count-down/count-down.component';
+import { MyTableEventComponent } from './components/my-table-event/my-table-event.component';
 
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -17,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 registerLocaleData(th);
 @NgModule({
@@ -24,6 +27,7 @@ registerLocaleData(th);
     AppComponent,
     TestComponent,
     CountDownComponent,
+    MyTableEventComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +35,8 @@ registerLocaleData(th);
     NzTypographyModule,
     NzStatisticModule,
     NzIconModule,
+    NzTableModule,
+    NzButtonModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule

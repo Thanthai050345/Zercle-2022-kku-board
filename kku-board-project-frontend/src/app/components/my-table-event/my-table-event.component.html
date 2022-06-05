@@ -1,0 +1,30 @@
+<nz-table #myTableEvent [nzData]="listOfData" [nzPageSize]="4">
+  <thead>
+    <tr>
+      <th>ชื่อกิจกรรม</th>
+      <th>วันที่เริ่มกิจกรรม</th>
+      <th>วันที่สิ้นสุดกิจกรรม</th>
+      <th>นับเวลาถอยหลัง</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of myTableEvent.data">
+      <td class=" w-40"><p class=" truncate">{{ item.eventHeader }}</p></td>
+      <td>{{ item.startDate }}</td>
+      <td>{{ item.endDate }}</td>
+      <td>
+        <nz-countdown
+          [nzValue]="item.deadline"
+          [nzFormat]="'D:HH:mm'"
+        ></nz-countdown>
+      </td>
+      <td>
+        <div class="flex gap-2">
+          <button class=" bg-[#243A73] rounded-2xl" nz-button nzType="primary">รายละเอียด</button>
+          <button class=" bg-[#B73151] rounded-2xl" nz-button nzType="primary">ลบ</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
