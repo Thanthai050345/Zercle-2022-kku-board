@@ -1,0 +1,38 @@
+<div class="flex w-[330px] h-[40px] sm:w-[700px] sm:h-[100px] bg-violet-500 rounded-[18px] items-center p-5" *ngFor="let item of dataBase">
+    <img class="rounded-full sm:w-[50px] sm:h-[50px] w-[22px] h-[22px]" src="{{item.image}}">
+    <button   (click)="showModal()" class=" w-[280px] sm:w-[600px] h-[23px] sm:h-[50px] bg-[#EAEAEA] ml-3 rounded-[18px]">
+        <p class="flex self-start ml-[23px] text-[#243A73] sm:text-base text-xs">คุณต้องการเพิ่มกิจกรรมอะไร?</p>
+    </button>
+
+    <nz-modal
+    [(nzVisible)]="isVisible"
+    
+    [nzContent]="modalContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+  >
+    
+
+    <ng-template #modalContent >
+      <p nz-row nzJustify="center">Modal Content</p>
+      <p nzWidth="30%">Modal Content</p>
+      <p>Modal Content</p>
+      <p>Modal Content</p>
+      <p>Modal Content</p>
+      <div>
+        <button  class="rounded-2xl border-2 bg-blue-900"  nzType="default" (click)="handleActivity()">Custom Callback</button>
+      </div>
+    </ng-template>
+    
+    
+    
+    
+    
+    
+    
+  </nz-modal>
+  
+  
+
+</div>
+
