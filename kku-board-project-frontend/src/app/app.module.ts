@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestComponent } from './components/test/test.component';
+import { PopularComponent } from './components/popular/popular.component';
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
@@ -23,7 +24,8 @@ registerLocaleData(th);
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent
+    TestComponent,
+    PopularComponent
   ],
   imports: [
     BrowserModule,
