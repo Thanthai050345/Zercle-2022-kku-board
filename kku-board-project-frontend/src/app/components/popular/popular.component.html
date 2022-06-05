@@ -1,0 +1,23 @@
+<div class="flex flex-col  w-1/3 h-3/6 drop-shadow-lg bg-white rounded-3xl mt-10 ml-10" *ngFor="let item of dataBase">
+  <img class="object-cover rounded-t-3xl h-2/3" src="{{item.image}}" />
+  <div class="ml-10 mt-5">
+    <p class="uppercase text-gray-500"> {{item.startDate* 1000 | date:'EEE, MMM d'}} | {{item.endTime | date:'shortTime'}}</p>
+    <p class=" uppercase text-3xl font-bold">{{item.eventHeader}}</p>
+    <p class=" text-gray-500">{{item.location}}</p>
+    <div class="flex flex-row  mb-5">
+      <p class="text-center text-gray-500 mr-2">{{item.attendees}} ท่าน </p>
+      <button class="border-2 border-blue-900 rounded-2xl text-blue-900 px-2 mr-1" > รายละเอียด</button>
+      <button class="rounded-2xl px-2 text-white bg-blue-900">เข้าร่วม</button>
+      <!-- <nz-modal [(nzVisible)]="isVisible" nzTitle="{{item.description}}" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+          <img class="sm:h-full h-[80px] sm:w-[300px] w-[140px] rounded-2xl sm:rounded-l-2xl  mt-[20px] sm:mt-0" src="{{item.image}}" alt="content" />
+          <p>{{item.location}}</p>
+          <p>{{item.startDate * 1000 | date}}</p>
+
+        </ng-container>
+      </nz-modal> -->
+    </div>
+  </div>
+
+</div>
+
