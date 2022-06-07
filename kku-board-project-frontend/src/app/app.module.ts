@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,8 +40,10 @@ registerLocaleData(th);
     NzDividerModule,
     NzTypographyModule,
     BrowserAnimationsModule
+  ],schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
