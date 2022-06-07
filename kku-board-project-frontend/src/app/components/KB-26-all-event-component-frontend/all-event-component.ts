@@ -1,6 +1,6 @@
 import { Component,Input ,OnInit } from '@angular/core';
 import * as dayjs from 'dayjs'
-import{ Time } from 'src/app/interfaces/time'
+import{ Even } from 'src/app/interfaces/even'
 import "dayjs/locale/th";
 
 @Component({
@@ -28,7 +28,7 @@ export class AllEventComponent implements OnInit {
       clubName: "พุทธรรม",
     }
   ];
-  convertDatas = (data: Time[]): any => {
+  convertDatas = (data: Even[]): any => {
     return data.map((item) => {
       const dateS = item.startDate * 1000;
       return {

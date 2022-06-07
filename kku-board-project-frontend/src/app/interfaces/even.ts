@@ -1,4 +1,4 @@
-export interface Time {
+export interface Even {
     eventHeader: String,
     description: String,
     attendees: number,

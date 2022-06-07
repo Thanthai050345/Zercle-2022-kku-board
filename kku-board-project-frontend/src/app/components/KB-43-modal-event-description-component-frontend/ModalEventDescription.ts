@@ -1,10 +1,25 @@
 import { Component,Input ,OnInit } from '@angular/core';
+import { endOfMonth } from 'date-fns';
+
+const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 @Component({
   selector: 'modal-event',
   templateUrl: './ModalEventDescription.html',
   styleUrls: ['./ModalEventDescription.css'],
 })
 export class ModalEventDescription implements OnInit {
+
+  
+  previewImage: string | undefined = '';
+  previewVisible = false;
+
+  
 
   @Input() role = ""
   dataBase = [
@@ -30,7 +45,21 @@ export class ModalEventDescription implements OnInit {
     this.isVisible = false;
   }
 
-  ngOnInit(): void {
+  ranges = { Today: [new Date(), new Date()], 'This Month': [new Date(), endOfMonth(new Date())] };
 
+  onChange(result: Date[]): void {
+    console.log('From: ', result[0], ', to: ', result[1]);
   }
+
+  listOfOption: string[] = [];
+  listOfSelectedValue = [];
+
+  ngOnInit(): void {
+    const children: string[] = [];
+    for (let i = 10; i < 36; i++) {
+      children.push(`${i.toString(36)}${i}`);
+    }
+    this.listOfOption = children;
+  }
+
 }

@@ -38,12 +38,12 @@
       </p>
       <button
         (click)="showModal()"
-        class="bg-white ml-8 sm:ml-12 w-28 h-8 rounded-2xl border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white"
+        class="bg-white ml-8 sm:ml-12 w-28 h-8 rounded-2xl border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white delay-100"
       >
         รายละเอียด
       </button>
       <button
-        class="bg-blue-900 ml-4 sm:ml-8 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white"
+        class="bg-blue-900 ml-4 sm:ml-8 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
       >
         เข้าร่วม
       </button>
@@ -55,7 +55,7 @@
         (nzOnOk)="handleOk() "
       >
         <ng-container *nzModalContent>
-          <p class="" nz-col  nzOffset="21">{{item.startDate}}</p>
+          <p class="" nz-row nzJustify="end">{{item.startDate}}</p>
           
           <img
             class="h-full w-full"
@@ -63,7 +63,7 @@
             
           />
           <p>{{item.description}}</p>
-          <p class="mt-[10px]" nz-col  nzOffset="16">{{item.location}}</p>
+          <p class="mt-[10px]" nz-row nzJustify="end">{{item.location}}</p>
           
         </ng-container>
       </nz-modal>

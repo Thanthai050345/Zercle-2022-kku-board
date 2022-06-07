@@ -29,6 +29,8 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import {ModalEventDescription} from './components/KB-43-modal-event-description-component-frontend/ModalEventDescription'
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+
 
 
 
@@ -65,7 +67,8 @@ registerLocaleData(th);
     NzButtonModule,
     NzImageModule,
     NzBreadCrumbModule,
-    NzModalModule
+    NzModalModule,
+    NzUploadModule
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent]
