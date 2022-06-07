@@ -17,13 +17,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
+
 registerLocaleData(th);
 
 @NgModule({
@@ -36,20 +38,22 @@ registerLocaleData(th);
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
     NzTypographyModule,
     NzStatisticModule,
     NzButtonModule,
-    FormsModule,
-    HttpClientModule,
     NzIconModule,
     NzDatePickerModule,
     NzCalendarModule,
     NzBadgeModule,
     NzTableModule,
     NzDividerModule,
-    BrowserAnimationsModule
+    NzButtonModule,
+    NzAlertModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
