@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { TestComponent } from './components/test/test.component';
 import { CountDownComponent } from './components/count-down/count-down.component';
 import { MyTableEventComponent } from './components/my-table-event/my-table-event.component';
 
@@ -31,7 +30,6 @@ registerLocaleData(th);
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent,
     CountDownComponent,
     MyTableEventComponent,
   ],
