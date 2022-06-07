@@ -75,6 +75,12 @@ export class MyTableEventComponent implements OnInit {
   
   listOfData = this.convertDatas(this.dataBase)
   
+  getEvent () {
+    console.log('รายละเอียด');
+  }
+  deleteEvent () {
+    console.log('ออกจากกิจกรรม');
+  }
   constructor() {}
   ngOnInit(): void {
     // this.getData();

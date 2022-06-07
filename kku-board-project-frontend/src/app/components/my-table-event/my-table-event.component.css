@@ -1,20 +1,10 @@
-.detail-button {
-    background-color: #243A73;
-    color: #fff;
-    border-radius: 20px;
-    padding: 5px 15px;
+@media screen and (max-width: 800px) {
+  .res-width {
+    width: 500px;
+  }
 }
-:hover .detail-button {
-    background-color: #A5BECC;
-    color: #000;
-}
-.delete-button {
-    background-color: #B73151;
-    color: #fff;
-    border-radius: 20px;
-    padding: 5px 15px;
-}
-:hover .delete-button {
-    background-color: #b84f67;
-    color: #000;
-}
+@media screen and (max-width: 500px) {
+    .res-width {
+      width: 355px;
+    }
+  }
