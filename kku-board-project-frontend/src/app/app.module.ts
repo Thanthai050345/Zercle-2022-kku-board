@@ -14,9 +14,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzCalendarModule } from 'ng-zorro-antd/calendar';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+registerLocaleData(th);
 
 registerLocaleData(th);
 @NgModule({
@@ -28,11 +34,16 @@ registerLocaleData(th);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NzTypographyModule,
     NzStatisticModule,
-    NzIconModule,
     FormsModule,
     HttpClientModule,
+    NzIconModule,
+    NzDatePickerModule,
+    NzCalendarModule,
+    NzBadgeModule,
+    NzTableModule,
+    NzDividerModule,
+    NzTypographyModule,
     BrowserAnimationsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
