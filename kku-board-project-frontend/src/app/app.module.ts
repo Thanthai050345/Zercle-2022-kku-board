@@ -1,10 +1,11 @@
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestComponent } from './components/test/test.component';
 import { PopularComponent } from './components/popular/popular.component';
+// import { LoginComponent } from './pages/login/login';
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
@@ -19,13 +20,15 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 registerLocaleData(th);
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
-    PopularComponent
+    PopularComponent,
+    // LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +42,8 @@ registerLocaleData(th);
     NzTableModule,
     NzDividerModule,
     NzTypographyModule,
-    BrowserAnimationsModule
-  ],schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
+    BrowserAnimationsModule,
+    NzCarouselModule
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],
