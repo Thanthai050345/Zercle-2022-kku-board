@@ -1,5 +1,5 @@
 import * as express from "express";
-import { createEvents, getAllEvents } from "../services/events";
+import { createEvents, getAllEvents, updateUserJoinEvent } from "../services/events";
 import { catchingError } from "../templates/errorsTemplate";
 import { Event } from "../interface/events";
 
@@ -26,4 +26,16 @@ router.get("/", async (_: express.Request, res: express.Response) => {
   }
 });
 
-export default router; 
+router.patch("/updateJoin/:clubId/:uid", async (req: express.Request, res: express.Response) => {
+  const uid = req.params.uid;
+  const clubId = req.params.clubId;
+  try {
+    await updateUserJoinEvent(uid, clubId);
+    return res.status(201).json({ message: "Update success" });
+  } catch (error) {
+    const err = error as any;
+    return catchingError(res, { message: err.code }, err?.code);  
+  }
+});
+
+export default router;

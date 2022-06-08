@@ -2,7 +2,7 @@
 import * as admin from "firebase-admin";
 import * as bodyParser from "body-parser";
 import routes from "./routes";
-import migrate from "./migrations/function";
+import migrate from "./migrations/function";   
 import * as express from "express";
 
 const app = express();
@@ -13,7 +13,7 @@ export const db = admin.firestore()
 
 app.use(bodyParser.json());
 
-app.post("/", async (req: express.Request, res: express.Response) => {
+app.get("/", async (req: express.Request, res: express.Response) => {
   res.send("Hello World!");
 });
 

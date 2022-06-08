@@ -1,7 +1,7 @@
 import { User } from "../../interface/user";
-import { createUser } from "../../services/register";
+import { createAdmin, createStudent } from "../../services/register";
 
-export const MOCKUP_USER: (User)[] = [
+export const MOCKUP_STUDENTS: User[] = [
   {
     firstName: "เหลี่ยม",
     lastName: "ทำเทส",
@@ -12,7 +12,7 @@ export const MOCKUP_USER: (User)[] = [
     phoneNumber: "0863610041",
     password: "123456",
     urlImage: "https://picsum.photos/200/300",
-    authority: "clubAdmin",
+    authority: "student",
   },
   {
     firstName: "แทนไทย",
@@ -27,10 +27,22 @@ export const MOCKUP_USER: (User)[] = [
     authority: "student",
   },
 ];
+
+export const MOCKUP_ADMINS = [
+  {
+    clubName: "Mnics",
+    password: "123456",
+    faculty: "Engineering",
+    email: "test3@test.com",
+    urlImage: "https://picsum.photos/200/300",
+    authority: "clubAdmin",
+  },
+];
+
 export const migrateUsers = async () => {
-  for (const user of MOCKUP_USER) {
+  for (const user of MOCKUP_STUDENTS) {
     try {
-      const userRegistered = await createUser(user);
+      const userRegistered = await createStudent(user);
       console.log(
         `   - Migrate users successfully: ${userRegistered.authority} -> ${userRegistered.firstName} ${userRegistered.lastName}`
       );
@@ -44,6 +56,26 @@ export const migrateUsers = async () => {
       } else {
         console.log(
           `   - Migrate users already: ${user.authority} -> ${user.firstName} ${user.lastName}`
+        );
+      }
+    }
+  }
+  for (const admin of MOCKUP_ADMINS) {
+    try {
+      const adminRegistered = await createAdmin(admin);
+      console.log(
+        `   - Migrate admins successfully: ${adminRegistered.authority} -> ${adminRegistered.clubName}`
+      );
+    } catch (error) {
+      const err = error as any;
+      if (
+        err.errorInfo.code !== "auth/email-already-exists" &&
+        err.errorInfo.code !== "auth/uid-already-exists"
+      ) {
+        console.warn(`   - Migrate users error: ${err.errorInfo.code}`);
+      } else {
+        console.log(
+          `   - Migrate users already: ${admin.authority} -> ${admin.clubName}`
         );
       }
     }

@@ -1,3 +1,4 @@
+import { migrateEvents } from "./events";
 import { migrateUsers } from "./users";
 
 // Environment
@@ -10,10 +11,9 @@ export default async () => {
 
   switch (appEnvironment) {
     case "development":
+      await migrateEvents();
       await migrateUsers();
       break;
-    default:
-        console.log("No migration for this environment");
   }
 
   console.log("\n===================== ========= =====================\n\n");

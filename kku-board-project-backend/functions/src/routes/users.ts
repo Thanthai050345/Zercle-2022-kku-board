@@ -1,6 +1,7 @@
 import * as express from "express";
 import {
-  deleteUserById,
+  deleteClubAdminById,
+  deleteStudentById,
   getAllClubAdmins,
   getAllStudents,
   getAllUsers,
@@ -38,11 +39,11 @@ router.get("/students", async (_: express.Request, res: express.Response) => {
 });
 
 router.get(
-  "/students/:studentId",
+  "/students/:uid",
   async (req: express.Request, res: express.Response) => {
-    const studentId = req.params.studentId;
+    const uid = req.params.uid;
     try {
-      const user = await getStudentById(studentId);
+      const user = await getStudentById(uid);
       return res.json(user);
     } catch (error) {
       return catchingError(res, error, "user/bad-request");
@@ -50,7 +51,7 @@ router.get(
   }
 );
 
-router.delete("/:uid", async (req: express.Request, res: express.Response) => {
+router.delete("/student/:uid", async (req: express.Request, res: express.Response) => {
   const uid = req.params.uid;
   try {
     const users = await getAllUsers();
@@ -58,7 +59,22 @@ router.delete("/:uid", async (req: express.Request, res: express.Response) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const resDelete = await deleteUserById(uid);
+    const resDelete = await deleteStudentById(uid);
+    return res.status(200).json(resDelete);
+  } catch (error) {
+    return catchingError(res, error, "user/bad-request");
+  }
+});
+
+router.delete("/clubAdmin/:uid", async (req: express.Request, res: express.Response) => {
+  const uid = req.params.uid;
+  try {
+    const users = await getAllUsers();
+    const user = users.find((user) => user.uid === uid);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const resDelete = await deleteClubAdminById(uid);
     return res.status(200).json(resDelete);
   } catch (error) {
     return catchingError(res, error, "user/bad-request");

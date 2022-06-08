@@ -2,12 +2,12 @@ import * as admin from "firebase-admin";
 import { db } from "../index";
 import { Event } from "../interface/events";
 
-export const createEvents = async (body: Event) => {
-  const event = body;
+export const createEvents = async (body: Omit<Event, "eventId">) => {
+  const eventId = `${body.clubName}_${body.header}`;
   await db
     .collection("events")
-    .doc(event.eventId as string)
-    .set(event);
+    .doc(eventId)
+    .set({ ...body, eventId: eventId });
   return body;
 };
 
@@ -62,4 +62,23 @@ export const getAllEventsByStudentId = async (studentId: string) => {
   let events: Event[] = [];
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
   return events;
+};
+
+export const updateUserJoinEvent = async (uid: string, eventId: string) => {
+  const db = admin.firestore();
+  const user = await db.collection("student").doc(uid).get();
+  const event = await db.collection("events").doc(eventId).get();
+  const userData = await user.data();
+  const eventData = await event.data();
+  const firstName = userData?.firstName;
+  const lastName = userData?.lastName;
+  const attendees = eventData?.attendees;
+  const join = eventData?.join;
+  return db
+    .collection("events")
+    .doc(eventId)
+    .update({
+      join: [...join, { firstName: firstName, lastName: lastName, uid: uid }],
+      attendees: attendees + 1,
+    });
 };
