@@ -1,12 +1,12 @@
 import * as admin from "firebase-admin";
-import { User } from "../interface/User";
+import { ClubAdmin, Student } from "../interface/User";
 
 export const getAllUsers = async () => {
   const db = admin.firestore();
   const docs = await db.collection("students").get();
-  let users: User[] = [];
-  docs.forEach((doc) => users.push({ ...(doc.data() as User), id: doc.id }));
-  return users;
+  let students: Student[] = [];
+  docs.forEach((doc) => students.push({ ...(doc.data() as Student), id: doc.id }));
+  return students;
 };
 
 export const getAllClubAdmins = async () => {
@@ -15,9 +15,9 @@ export const getAllClubAdmins = async () => {
     .collection("clubAdmins")
     .where("authority", "==", "clubAdmin")
     .get();
-  let users: User[] = [];
-  docs.forEach((doc) => users.push({ ...(doc.data() as User), id: doc.id }));
-  return users;
+  let clubAdmins: ClubAdmin[] = [];
+  docs.forEach((doc) => clubAdmins.push({ ...(doc.data() as ClubAdmin), id: doc.id }));
+  return clubAdmins;
 };
 
 export const getAllStudents = async () => {
@@ -26,20 +26,20 @@ export const getAllStudents = async () => {
     .collection("students")
     .where("  ", "==", "student")
     .get();
-  let users: User[] = [];
-  docs.forEach((doc) => users.push({ ...(doc.data() as User), id: doc.id }));
-  return users;
+  let students: Student[] = [];
+  docs.forEach((doc) => students.push({ ...(doc.data() as Student), id: doc.id }));
+  return students;
 };
 
 export const getStudentById = async (uid: string) => {
   const db = admin.firestore();
   const student = await db.collection("students").where("uid", "==", uid).get();
   // const events = await db.collection("events").where("uid", "==", uid).get();
-  let user: any = {};
+  let students: any = {};
   // let event: any = {};
   // events.forEach((doc) => event = { ...(doc.data() as Event), eventId: doc.id });
-  student.forEach((doc) => user = {...doc.data() as User, id: doc.id});
-  return user
+  student.forEach((doc) => students = {...doc.data() as Student, id: doc.id});
+  return students
 };
 
 export const deleteStudentById = async (uid: string) => {

@@ -1,7 +1,7 @@
-import { User } from "../../interface/user";
-import { createAdmin, createStudent } from "../../services/register";
+import { Student } from "../../interface/user";
+import { createClubAdmin, createStudent } from "../../services/register";
 
-export const MOCKUP_STUDENTS: User[] = [
+export const MOCKUP_STUDENTS: Student[] = [
   {
     firstName: "เหลี่ยม",
     lastName: "ทำเทส",
@@ -62,7 +62,7 @@ export const migrateUsers = async () => {
   }
   for (const admin of MOCKUP_ADMINS) {
     try {
-      const adminRegistered = await createAdmin(admin);
+      const adminRegistered = await createClubAdmin(admin);
       console.log(
         `   - Migrate admins successfully: ${adminRegistered.authority} -> ${adminRegistered.clubName}`
       );
