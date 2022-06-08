@@ -20,12 +20,12 @@ export class CountDownComponent implements OnInit {
     {
       eventId: '2',
       eventHeader: 'ค่าย CESCa ครั้งที่ 17',
-      startDate: 1654583400,
+      startDate: 1654679816,
     },
     {
       eventId: '3',
       eventHeader: 'โครงการ ZERCLE INCUBATION PROGRAM',
-      startDate: 1654320600,
+      startDate: 1654675196,
     },
   ];
   convertDatas = (data: Countdown[]): any => {
@@ -41,8 +41,15 @@ export class CountDownComponent implements OnInit {
     });
   };
   datas = this.convertDatas(this.dataBase);
-  countdownFormat = 'D ว. H ชม. m น.';
+  countdownFormat = 'D ว. H ชม. m น. ss';
+  toDay = Date.now();
+  aDay = 86400 * 1000;
+  aHour = 3600 * 1000;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.toDay);
+    console.log(this.datas[1].deadline);
+    console.log((this.datas[1].deadline - this.toDay) < this.aDay);
+  }
 }
