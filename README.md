@@ -1,1 +1,0 @@
-# kku-board-project
