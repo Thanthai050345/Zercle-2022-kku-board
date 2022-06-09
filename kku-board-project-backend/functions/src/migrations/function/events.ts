@@ -54,16 +54,12 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
     clubName: "Mnics",
     join: [],
   },
-  
- 
 ];
 export const migrateEvents = async () => {
   for (const event of MOCKUP_EVENT) {
     try {
       await createEvents(event);
-      console.log(
-        `   - Migrate event successfully: ${event.eventId} -> ${event.header}`
-      );
+      console.log(`   - Migrate event successfully: ${event.eventId} -> ${event.header}`);
     } catch (error) {
       const err = error as any;
       console.log(err);
