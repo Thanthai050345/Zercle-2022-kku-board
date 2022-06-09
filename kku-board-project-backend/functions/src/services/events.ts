@@ -3,7 +3,7 @@ import { db } from "../index";
 import { Event } from "../interface/events";
 
 export const createEvents = async (body: Omit<Event, "eventId">) => {
-  const eventId = `${body.clubName}_${body.header}`;
+  const eventId = `${body.clubName}_${body.startDate}`;
   await db
     .collection("events")
     .doc(eventId)
@@ -46,7 +46,7 @@ export const getAllEventsByClubId = async (clubId: string) => {
   const db = admin.firestore();
   const docs = await db
     .collection("events")
-    .where("clubId", "==", clubId)
+    .where("uid", "==", clubId)
     .get();
   let events: Event[] = [];
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
@@ -66,7 +66,7 @@ export const getAllEventsByStudentId = async (studentId: string) => {
 
 export const updateUserJoinEvent = async (uid: string, eventId: string) => {
   const db = admin.firestore();
-  const user = await db.collection("student").doc(uid).get();
+  const user = await db.collection("students").doc(uid).get();
   const event = await db.collection("events").doc(eventId).get();
   const userData = await user.data();
   const eventData = await event.data();
@@ -81,4 +81,41 @@ export const updateUserJoinEvent = async (uid: string, eventId: string) => {
       join: [...join, { firstName: firstName, lastName: lastName, uid: uid }],
       attendees: attendees + 1,
     });
+};
+
+export const getEventByUid = async (uid: string) => {
+  const db = admin.firestore();
+  const docs = await db.collection("events").get();
+  // let events: (Omit<
+  //   Event,
+  //   | "description"
+  //   | "attendees"
+  //   | "eventType"
+  //   | "location"
+  //   | "endDate"
+  //   | "roleAccept"
+  //   | "image"
+  //   | "clubName"
+  //   | "join"
+  // >)[] = [];
+  let events: any[] = []
+  docs.forEach((doc) => {
+    const eventData = doc.data();
+    const join = eventData?.join;
+    if (join) {
+      join.forEach((joinData: any) => {
+        if (joinData.uid === uid) {
+          const eventId = eventData?.eventId;
+          const eventHeader = eventData?.header;
+          const startDate = eventData?.startDate;
+          events.push({
+            eventId: eventId,
+            startDate: startDate,
+            header: eventHeader,
+          });
+        }
+      });
+    }
+  });
+  return events;
 };
