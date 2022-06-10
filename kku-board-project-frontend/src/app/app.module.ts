@@ -24,6 +24,7 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 registerLocaleData(th);
 
 @NgModule({
@@ -50,7 +51,8 @@ registerLocaleData(th);
     NzFormModule,
     ReactiveFormsModule,
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
+    NzModalModule
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],

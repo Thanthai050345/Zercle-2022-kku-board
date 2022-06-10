@@ -2,6 +2,8 @@ import { Component, OnInit  } from '@angular/core';
 import "dayjs/locale/th";
 import * as dayjs from 'dayjs'
 import {dataEvent} from 'src/app/interfaces/dataEvent'
+import { NzModalService } from 'ng-zorro-antd/modal';
+
 @Component({
   selector: 'popular' ,
   templateUrl: './popular.component.html',
@@ -18,7 +20,7 @@ export class PopularComponent implements OnInit {
       attendees: 99,
       eventType: "onsite",
       location: "ณ หอกาญจนาภิเษก",
-      startDate: 1654275600,
+      startDate: 1554275600,
       endDate: 1654362000,
       startTime: 1654327541,
       endTime: 1654328541,
@@ -26,23 +28,7 @@ export class PopularComponent implements OnInit {
       image: "https://campus.campus-star.com/app/uploads/2019/07/KKU01-768x511.jpg",
       eventId: 123,
       clubName: "องค์การนักศึกษา",
-    },
-    {
-      eventHeader: "โครงการ ZERCLE INCUBATION PROGRAM",
-      description: "ปฐมนิเทศนักศึกษาใหม่และพิธีบายศรีสู่ขวัญนักศึกษาใหม่",
-      attendees: 99,
-      eventType: "onsite",
-      location: "ณ หอกาญจนาภิเษก",
-      startDate: 1654320600,
-      endDate: 1654362000,
-      startTime: 1654327541,
-      endTime: 1654328541,
-      roleAccept: ["KKU59"],
-      image: "https://storage.googleapis.com/techsauce-prod/ugc/uploads/2022/1/2_1200X800_8868054.jpg",
-      eventId: 456,
-      clubName: "CoE EN",
-    },
-    {
+    },{
       eventHeader: "มข.เข้าร่วมพิธีทอดผ้าป่าสนับสนุนโครงการทุนเล่าเรียนหลวงฯ",
       description: "ในสมัยพุทธกาล เมื่อพระผู้มีพระภาคเจ้าประทับ ณ พระเชตวนาราม ซึ่งเป็นพระอารามที่อนาถบิณฑิกเศรษฐีได้สร้างถวายเป็นพุทธนิวาส ได้มีภิกษุ ๓๐ รูป ชาวเมืองปาฐา ซึ่งอยู่ด้านทิศตะวันตกในแคว้นโกศลเดินทางมาหมายจะเฝ้าพระพุทธองค์ที่เมืองสาวัตถี แต่มาไม่ทันเพราะใกล้ถึงวัน",
       attendees: 99,
@@ -56,7 +42,23 @@ export class PopularComponent implements OnInit {
       image: "https://image.makewebeasy.net/makeweb/0/wdU8ZjHiP/PicAngthong62/%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B8%9C%E0%B9%89%E0%B8%B2%E0%B8%9B%E0%B9%88%E0%B8%B2_%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%AD%E0%B8%87_%E0%B8%88_%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87_11052019_%E0%B9%91%E0%B9%99%E0%B9%90%E0%B9%95%E0%B9%91%E0%B9%93_0286.jpg",
       eventId: 12345,
       clubName: "พุทธรรม",
-    }
+    },
+    {
+      eventHeader: "โครงการ ZERCLE INCUBATION PROGRAM",
+      description: "ปฐมนิเทศนักศึกษาใหม่และพิธีบายศรีสู่ขวัญนักศึกษาใหม่",
+      attendees: 99,
+      eventType: "onsite",
+      location: "sci-park ชั้น 1",
+      startDate: 1654220600,
+      endDate: 1654362000,
+      startTime: 1654327541,
+      endTime: 1654328541,
+      roleAccept: ["KKU59"],
+      image: "https://storage.googleapis.com/techsauce-prod/ugc/uploads/2022/1/2_1200X800_8868054.jpg",
+      eventId: 456,
+      clubName: "CoE EN",
+    },
+
   ];
   convertDatas = (data: dataEvent[]): any => {
     return data.map((item) => {
@@ -79,8 +81,19 @@ export class PopularComponent implements OnInit {
     });
   };
   datas = this.convertDatas(this.dataBase);
+  isVisible = false;
 
-  constructor() {}
   ngOnInit() {}
+
+  constructor(private modalService: NzModalService) {}
+
+  success(): void {
+
+    this.isVisible = true;
+  }
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
 }
 

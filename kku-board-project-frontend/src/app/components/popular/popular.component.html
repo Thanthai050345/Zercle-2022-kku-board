@@ -9,8 +9,21 @@
         <div class="flex flex-row text-base sm:text-2xl justify-between">
           <p class=" text-center text-gray-500 mr-2">{{item.attendees}}   ท่าน </p>
           <div>
-            <button class=" border-2 border-blue-900 rounded-2xl text-blue-900 px-2 mr-2" > รายละเอียด</button>
+            <button class=" border-2 border-blue-900 rounded-2xl text-blue-900 px-2 mr-2  " (click)="success()"> รายละเอียด</button>
             <button class="px-5 rounded-2xl  text-white bg-blue-900">เข้าร่วม</button>
+
+            <nz-modal
+              [(nzVisible)]="isVisible"
+              nzTitle="{{item.eventHeader}}"
+              (nzOnOk)="handleOk() "
+            >
+            <ng-container *nzModalContent>
+              <p class="" nz-row nzJustify="end">{{item.startDate}}</p>
+              <img class="h-full w-full" src="{{item.image}}"/>
+              <p>{{item.description}}</p>
+              <p class="mt-[10px]" nz-row nzJustify="end">{{item.location}}</p>
+            </ng-container>
+          </nz-modal>
           </div>
 
         </div>
