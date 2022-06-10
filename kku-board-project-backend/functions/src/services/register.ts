@@ -10,12 +10,15 @@ export const createStudent = async (body: Student) => {
     password: body.password,
     uid: body.uid,
     photoURL: body.urlImage,
-    disabled: false
+    disabled: false,
   });
   await admin.auth().setCustomUserClaims(user.uid, {
     authority: body.authority,
   });
-  await db.collection("students").doc(user.uid).set({...body, uid: `${user.uid}`});
+  await db
+    .collection("students")
+    .doc(user.uid)
+    .set({ ...body, uid: `${user.uid}` });
 
   return body;
 };
@@ -27,14 +30,16 @@ export const createClubAdmin = async (body: ClubAdmin) => {
     password: body.password,
     uid: body.uid,
     photoURL: body.urlImage,
-    disabled: false
+    disabled: false,
   });
 
   await admin.auth().setCustomUserClaims(clubAdmin.uid, {
     authority: body.authority,
   });
-  await db.collection("clubAdmins").doc(clubAdmin.uid).set({...body, uid: `${clubAdmin.uid}`});
+  await db
+    .collection("clubAdmins")
+    .doc(clubAdmin.uid)
+    .set({ ...body, uid: `${clubAdmin.uid}` });
 
   return body;
 };
-
