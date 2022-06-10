@@ -1,12 +1,11 @@
-import { db } from "../index";
-import { Event } from "../interface/events";
+import { getEventForMyRole } from "./events";
 
-export const getEventById = async (eventId: string) => {
-    const event = await db
-      .collection("events")
-      .where("eventId", "==", eventId)
-      .get();
-    let user: any = {};
-    event.forEach((doc) => (user = { ...(doc.data() as Event), id: doc.id }));
-    return user;
-  };
+export const getTopEventByRole = async (uid: string) => {
+  const event = await getEventForMyRole(uid);
+  let sortedEventByAttendees = event.sort((a, b) =>
+    a.attendees > b.attendees ? -1 : 1
+  );
+  let slicedEvent = sortedEventByAttendees.slice(0, 5);
+
+  return slicedEvent;
+};
