@@ -1,0 +1,17 @@
+<div
+  class="flex w-[330px] h-[40px] sm:w-[700px] sm:h-[100px] border-2 border-gray-200 bg-white rounded-[25px] items-center p-5"
+  *ngFor="let item of dataBase"
+>
+  <img
+    class="rounded-full sm:w-[50px] sm:h-[50px] w-[22px] h-[22px]"
+    src="{{item.image}}"
+  />
+  <button
+    (click)="showModal()"
+    class="w-[280px] sm:w-[600px] h-[23px] sm:h-[50px] bg-[#EAEAEA] ml-3 rounded-[18px]"
+  >
+    <p class="flex self-start ml-[23px] text-[#243A73] sm:text-base text-xs">
+      คุณต้องการเพิ่มกิจกรรมอะไร?
+    </p>
+  </button>
+</div>
