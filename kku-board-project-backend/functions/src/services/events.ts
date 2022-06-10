@@ -3,7 +3,7 @@ import { db } from "../index";
 import { Event } from "../interface/events";
 
 export const createEvents = async (body: Omit<Event, "eventId">) => {
-  const eventId = `${body.clubName}_${body.startDate}`;
+  const eventId = `${body.clubName}_${body.header}`;
   await db
     .collection("events")
     .doc(eventId)
@@ -44,10 +44,7 @@ export const updateEventById = async (eventId: string, body: Event) => {
 
 export const getAllEventsByClubId = async (clubId: string) => {
   const db = admin.firestore();
-  const docs = await db
-    .collection("events")
-    .where("uid", "==", clubId)
-    .get();
+  const docs = await db.collection("events").where("uid", "==", clubId).get();
   let events: Event[] = [];
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
   return events;
@@ -98,7 +95,7 @@ export const getEventByUid = async (uid: string) => {
   //   | "clubName"
   //   | "join"
   // >)[] = [];
-  let events: any[] = []
+  let events: any[] = [];
   docs.forEach((doc) => {
     const eventData = doc.data();
     const join = eventData?.join;
@@ -118,4 +115,9 @@ export const getEventByUid = async (uid: string) => {
     }
   });
   return events;
+};
+
+export const getEventForMyRoles = (uid: string) => {
+  const db = admin.firestore();
+  return db.collection("events").where("roleAccept", "==", uid).get();
 };

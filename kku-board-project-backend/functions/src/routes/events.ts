@@ -81,4 +81,6 @@ router.get(
   }
 );
 
+// events สำหรับ role เดียวกันกับ student
+
 export default router;
