@@ -5,7 +5,7 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
   {
     header: "กิจกรรมอบรมเพิ่มทักษะ",
     description: "กิจกรรมเพิ่มความรู้เรื่องการสัมภาษณ์งานให้นักศึกษา",
-    attendees: 0,
+    attendees: 5,
     eventType: "ออนไลน์",
     location: "อาคาร 50 ปี วิศวกรรมศาสตร์",
     startDate: 1654589629,
@@ -31,7 +31,7 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
   {
     header: "กิจกรรมปลูกต้นไม้",
     description: "กิจกรรมปลูกต้นไม้เฉลิมพระเกียรติ",
-    attendees: 0,
+    attendees: 2,
     eventType: "ออนไซต์",
     location: "ถนนเส้นสักสายรหัส",
     startDate: 1654589629,
@@ -44,7 +44,7 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
   {
     header: "กิจกรรมปลูกป่า",
     description: "กิจกรรมปลูกป่า",
-    attendees: 0,
+    attendees: 10,
     eventType: "ออนไซต์",
     location: "ถนนเส้นสักสายรหัส",
     startDate: 1657188505,
