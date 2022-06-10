@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import { db } from "../index";
 import { Event } from "../interface/events";
+import { getStudentById } from "./users";
 
 export const createEvents = async (body: Omit<Event, "eventId">) => {
   const eventId = `${body.clubName}_${body.header}`;
@@ -117,7 +118,21 @@ export const getEventByUid = async (uid: string) => {
   return events;
 };
 
-export const getEventForMyRoles = (uid: string) => {
-  const db = admin.firestore();
-  return db.collection("events").where("roleAccept", "==", uid).get();
+export const getEventForMyRole = async (uid: string) => {
+  // const db = admin.firestore();
+  const student = await getStudentById(uid);
+  const faculty = student.faculty;
+  const major = student.major;
+  const clubed = student.clubed;
+  const myRole = [faculty, major, ...clubed];
+  const event = await getAllEvents();
+  const eventForMyRole: any[] = [];
+  event.forEach((eventData: any) => {
+    const roleAccepted = eventData.roleAccept;
+    var common = myRole.filter((x) => roleAccepted.indexOf(x) !== -1);
+    if (common.length > 0) {
+      eventForMyRole.push(eventData);
+    }
+  });
+  return eventForMyRole;
 };

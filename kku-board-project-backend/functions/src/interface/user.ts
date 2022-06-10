@@ -10,6 +10,7 @@ export interface Student {
   phoneNumber: string;
   urlImage: string;
   authority: string;
+  clubed: string[];
 }
 
 export interface ClubAdmin {

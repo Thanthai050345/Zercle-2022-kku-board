@@ -13,11 +13,12 @@ export const MOCKUP_STUDENTS: Student[] = [
     password: "123456",
     urlImage: "https://picsum.photos/200/300",
     authority: "student",
+    clubed: ["Mnics"],
   },
   {
     firstName: "แทนไทย",
     lastName: "จิตต์ประทุม",
-    faculty: "วิศวกรรมศาสตร์",
+    faculty: "EN",
     major: "EN",
     email: "test@test.com",
     studentId: "633040157-2",
@@ -25,6 +26,7 @@ export const MOCKUP_STUDENTS: Student[] = [
     password: "123456",
     urlImage: "https://picsum.photos/200/300",
     authority: "student",
+    clubed: ["Mnics", "Engine"],
   },
 ];
 
