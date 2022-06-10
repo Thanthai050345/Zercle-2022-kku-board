@@ -1,7 +1,7 @@
 import * as admin from "firebase-admin";
 import { db } from "../index";
 import { Event } from "../interface/events";
-import { getStudentById } from "./users";
+import { getClubAdminById, getStudentById } from "./users";
 
 export const createEvents = async (body: Omit<Event, "eventId">) => {
   const eventId = `${body.clubName}_${body.header}`;
@@ -26,7 +26,7 @@ export const getEventById = async (eventId: string) => {
     .collection("events")
     .where("eventId", "==", eventId)
     .get();
-  let user: any = {};
+  let user: object = {};
   event.forEach((doc) => (user = { ...(doc.data() as Event), id: doc.id }));
   return user;
 };
@@ -45,22 +45,24 @@ export const updateEventById = async (eventId: string, body: Event) => {
 
 export const getAllEventsByClubId = async (clubId: string) => {
   const db = admin.firestore();
-  const docs = await db.collection("events").where("uid", "==", clubId).get();
+  const clubAdmin = await getClubAdminById(clubId);
+  const clubName = clubAdmin.clubName;
+  const docs = await db.collection("events").where("clubName", "==", clubName).get();
   let events: Event[] = [];
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
   return events;
 };
 
-export const getAllEventsByStudentId = async (studentId: string) => {
-  const db = admin.firestore();
-  const docs = await db
-    .collection("events")
-    .where("studentId", "==", studentId)
-    .get();
-  let events: Event[] = [];
-  docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
-  return events;
-};
+// export const getAllEventsByStudentId = async (studentId: string) => {
+//   const db = admin.firestore();
+//   const docs = await db
+//     .collection("events")
+//     .where("studentId", "==", studentId)
+//     .get();
+//   let events: Event[] = [];
+//   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
+//   return events;
+// };
 
 export const updateUserJoinEvent = async (uid: string, eventId: string) => {
   const db = admin.firestore();
