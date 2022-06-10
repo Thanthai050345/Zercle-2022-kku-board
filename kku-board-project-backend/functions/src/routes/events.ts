@@ -5,6 +5,7 @@ import {
   getAllEvents,
   getAllEventsByClubId,
   getEventByUid,
+  getEventForMyRole,
   updateUserJoinEvent,
 } from "../services/events";
 import { catchingError } from "../templates/errorsTemplate";
@@ -82,5 +83,19 @@ router.get(
 );
 
 // events สำหรับ role เดียวกันกับ student
+
+router.get(
+  "/eventForMyRole/:uid",
+  async (req: express.Request, res: express.Response) => {
+    const uid = req.params.uid;
+    try {
+      const event = await getEventForMyRole(uid);
+      return res.status(201).json(event);
+    } catch (error) {
+      const err = error as any;
+      return catchingError(res, { message: err.code }, err?.code);
+    }
+  }
+);
 
 export default router;
