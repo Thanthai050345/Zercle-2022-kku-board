@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.use("/users", users);
 router.use("/register", register);
-router.use("/events", events)
+router.use("/events", events);
 
 export default router;

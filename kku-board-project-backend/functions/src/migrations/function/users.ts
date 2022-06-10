@@ -5,7 +5,7 @@ export const MOCKUP_STUDENTS: Student[] = [
   {
     firstName: "เหลี่ยม",
     lastName: "ทำเทส",
-    faculty: "บริหารธุรกิจ",
+    faculty: "KKBS",
     major: "การเงิน",
     email: "test2@test.com",
     studentId: "633040000-1",
@@ -18,7 +18,7 @@ export const MOCKUP_STUDENTS: Student[] = [
     firstName: "แทนไทย",
     lastName: "จิตต์ประทุม",
     faculty: "วิศวกรรมศาสตร์",
-    major: "วิศวกรรมคอมพิวเตอร์",
+    major: "EN",
     email: "test@test.com",
     studentId: "633040157-2",
     phoneNumber: "0996569600",

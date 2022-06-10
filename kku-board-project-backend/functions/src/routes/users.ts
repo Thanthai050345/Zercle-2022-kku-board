@@ -55,34 +55,40 @@ router.get(
   }
 );
 
-router.delete("/students/:uid", async (req: express.Request, res: express.Response) => {
-  const uid = req.params.uid;
-  try {
-    const users = await getAllStudents();
-    const user = users.find((user) => user.uid === uid);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+router.delete(
+  "/students/:uid",
+  async (req: express.Request, res: express.Response) => {
+    const uid = req.params.uid;
+    try {
+      const users = await getAllStudents();
+      const user = users.find((user) => user.uid === uid);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const resDelete = await deleteStudentById(uid);
+      return res.status(200).json(resDelete);
+    } catch (error) {
+      return catchingError(res, error, "user/bad-request");
     }
-    const resDelete = await deleteStudentById(uid);
-    return res.status(200).json(resDelete);
-  } catch (error) {
-    return catchingError(res, error, "user/bad-request");
   }
-});
+);
 
-router.delete("/clubAdmins/:uid", async (req: express.Request, res: express.Response) => {
-  const uid = req.params.uid;
-  try {
-    const users = await getAllClubAdmins();
-    const user = users.find((user) => user.uid === uid);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+router.delete(
+  "/clubAdmins/:uid",
+  async (req: express.Request, res: express.Response) => {
+    const uid = req.params.uid;
+    try {
+      const users = await getAllClubAdmins();
+      const user = users.find((user) => user.uid === uid);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const resDelete = await deleteClubAdminById(uid);
+      return res.status(200).json(resDelete);
+    } catch (error) {
+      return catchingError(res, error, "user/bad-request");
     }
-    const resDelete = await deleteClubAdminById(uid);
-    return res.status(200).json(resDelete);
-  } catch (error) {
-    return catchingError(res, error, "user/bad-request");
   }
-});
+);
 
 export default router;
