@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TestComponent } from './components/test/test.component';
 import { PopularComponent } from './components/popular/popular.component';
-// import { LoginComponent } from './pages/login/login';
+import { LoginPage } from './pages/login/login';
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,6 +21,9 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 registerLocaleData(th);
 
 @NgModule({
@@ -28,7 +31,7 @@ registerLocaleData(th);
     AppComponent,
     TestComponent,
     PopularComponent,
-    // LoginComponent,
+    LoginPage,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,11 @@ registerLocaleData(th);
     NzDividerModule,
     NzTypographyModule,
     BrowserAnimationsModule,
-    NzCarouselModule
+    NzCarouselModule,
+    NzFormModule,
+    ReactiveFormsModule,
+    NzInputModule,
+    NzButtonModule
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],

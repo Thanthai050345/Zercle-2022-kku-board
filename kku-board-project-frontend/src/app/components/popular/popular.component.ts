@@ -67,7 +67,7 @@ export class PopularComponent implements OnInit {
         attendees: item.attendees,
         eventType: item.eventType,
         location: item.location,
-        startDate: dayjs(item.startDate * 1000).locale("th").format('dd D MMM'),
+        startDate: dayjs(item.startDate * 1000).locale("th").format('ddd D MMM YYYY'),
         endDate: dayjs(item.endDate * 1000).locale("th").format('dd D MMM'),
         startTime: dayjs(item.startTime * 1000).locale("th").format('H:mm'),
         endTime: dayjs(item.endTime * 1000).locale("th").format('H:mm'),
