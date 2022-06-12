@@ -54,7 +54,7 @@ export class PopularComponent implements OnInit {
       startTime: 1654327541,
       endTime: 1654328541,
       roleAccept: ["KKU59"],
-      image: "https://storage.googleapis.com/techsauce-prod/ugc/uploads/2022/1/2_1200X800_8868054.jpg",
+      image: "https://www.bloggang.com/data/vinitsiri/picture/1331280812.jpg",
       eventId: 456,
       clubName: "CoE EN",
     },
@@ -70,7 +70,7 @@ export class PopularComponent implements OnInit {
         eventType: item.eventType,
         location: item.location,
         startDate: dayjs(item.startDate * 1000).locale("th").format('ddd D MMM YYYY'),
-        endDate: dayjs(item.endDate * 1000).locale("th").format('dd D MMM'),
+        endDate: dayjs(item.endDate * 1000).locale("th").format('ddd D MMM YYYY'),
         startTime: dayjs(item.startTime * 1000).locale("th").format('H:mm'),
         endTime: dayjs(item.endTime * 1000).locale("th").format('H:mm'),
         roleAccept: item.roleAccept,
@@ -81,19 +81,32 @@ export class PopularComponent implements OnInit {
     });
   };
   datas = this.convertDatas(this.dataBase);
+
   isVisible = false;
 
   ngOnInit() {}
 
-  constructor(private modalService: NzModalService) {}
+  constructor() {}
 
-  success(): void {
-
+  showModal(): void {
     this.isVisible = true;
   }
-  handleOk(): void {
-    console.log('Button ok clicked!');
+
+  joined(name:string):void{
+    let Message = "คุณเข้าร่วมกิจกรรม"+name+" แล้ว"
+    if (confirm(Message) == true) {
+      console.log("user joined " + name)
+    } else {
+      console.log("user cancel to joined " + name)
+    }
+  }
+
+  handleCancel(): void {
+    console.log('closed detail modal!');
     this.isVisible = false;
   }
+
+
 }
+
 

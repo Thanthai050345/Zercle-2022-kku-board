@@ -4,3 +4,6 @@
 
   overflow: hidden;
 }
+.ant-row-end {
+  justify-content: flex-start;
+}
