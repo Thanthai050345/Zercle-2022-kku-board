@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountDownComponent } from './components/count-down/count-down.component';
+// import {registerForGeneralUsers} from './pages/register for general user/register.generalUser'
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -37,6 +38,7 @@ registerLocaleData(th);
     PopularComponent,
     LoginPage,
     CountDownComponent,
+    // registerForGeneralUsers
   ],
   imports: [
     BrowserModule,
