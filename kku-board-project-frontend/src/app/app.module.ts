@@ -12,7 +12,7 @@ import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountDownComponent } from './components/count-down/count-down.component';
-import {registerForGeneralUsers} from './pages/register for general user/register.generalUser'
+// import {registerForGeneralUsers} from './pages/register for general user/register.generalUser'
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -29,6 +29,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { LoginComponent } from './components/login/login.component';
 
 
 registerLocaleData(th);
@@ -41,8 +42,9 @@ registerLocaleData(th);
     PopularComponent,
     LoginPage,
     CountDownComponent,
-    registerForGeneralUsers,
-    chooseUser
+    // registerForGeneralUsers,
+    chooseUser,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

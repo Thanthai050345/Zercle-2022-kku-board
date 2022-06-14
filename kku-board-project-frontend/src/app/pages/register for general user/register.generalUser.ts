@@ -10,7 +10,6 @@ import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 })
 export class registerForGeneralUsers implements OnInit {
   validateForm!: FormGroup;
-
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
     theme: 'twotone'
