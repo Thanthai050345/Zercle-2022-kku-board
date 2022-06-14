@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 // import { TestComponent } from './components/test/test.component';
 import { PopularComponent } from './components/popular/popular.component';
 import { LoginPage } from './pages/login/login';
+import{chooseUser} from './pages/chooseUser/chooseUser';
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountDownComponent } from './components/count-down/count-down.component';
-// import {registerForGeneralUsers} from './pages/register for general user/register.generalUser'
+import {registerForGeneralUsers} from './pages/register for general user/register.generalUser'
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -27,6 +28,8 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+
 
 registerLocaleData(th);
 
@@ -38,7 +41,8 @@ registerLocaleData(th);
     PopularComponent,
     LoginPage,
     CountDownComponent,
-    // registerForGeneralUsers
+    registerForGeneralUsers,
+    chooseUser
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,8 @@ registerLocaleData(th);
     NzInputModule,
     NzButtonModule,
     NzModalModule,
-    NzCheckboxModule
+    NzCheckboxModule,
+    NzSelectModule
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],
