@@ -20,12 +20,12 @@ export class CountDownComponent implements OnInit {
     {
       eventId: '2',
       eventHeader: 'ค่าย CESCa ครั้งที่ 17',
-      startDate: 1654679816,
+      startDate: 1655246997,
     },
     {
       eventId: '3',
       eventHeader: 'โครงการ ZERCLE INCUBATION PROGRAM',
-      startDate: 1654675196,
+      startDate: 1655225397,
     },
   ];
   convertDatas = (data: Countdown[]): any => {

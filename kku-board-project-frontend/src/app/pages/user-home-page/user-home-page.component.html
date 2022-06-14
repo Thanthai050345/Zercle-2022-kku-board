@@ -1,0 +1,38 @@
+<nav class="bg-[#A5BECC] h-24 w-screen px-10 flex items-center text-white">
+  <div class="flex items-center justify-between basis-5/12 h-full">
+    <a href="" class="text-4xl font-bold text-white">KKU BOARDS</a>
+    <ul class="flex gap-28 text-xl h-full">
+      <li class=" h-full flex items-center"><a href="">หน้าหลัก</a></li>
+      <li class=" h-full flex items-center"><a href="">ตารางกิจกรรม</a></li>
+    </ul>
+  </div>
+  <div class="basis-7/12 h-full flex items-center justify-end gap-16">
+    <div class="flex items-center gap-4">
+      <nz-avatar class="center" nzIcon="user" [nzSize]="48"></nz-avatar>
+      <p class="text-xl font-medium">{{ userName }}</p>
+    </div>
+    <button
+      nz-button
+      nzDanger
+      nzType="primary"
+      class="flex items-center gap-1 text-lg h-10"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+        ></path>
+      </svg>
+      ออกจากระบบ
+    </button>
+  </div>
+</nav>
+<div class=" w-screen height-content bg-[#F2EBE9]"><app-count-down></app-count-down></div>

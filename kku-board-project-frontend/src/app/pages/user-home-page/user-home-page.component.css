@@ -1,0 +1,9 @@
+.height-content {
+    height: calc(100vh - 96px);
+}
+ul li:hover {
+    color: #243A73;
+    border-bottom: 8px solid #243A73;
+    transition: all 0.25s ease;
+}
+

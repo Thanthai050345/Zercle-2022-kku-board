@@ -18,6 +18,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { UserHomePageComponent } from './pages/user-home-page/user-home-page.component';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 
 registerLocaleData(th);
 
@@ -26,6 +28,7 @@ registerLocaleData(th);
   declarations: [
     AppComponent,
     CountDownComponent,
+    UserHomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ registerLocaleData(th);
     NzAlertModule,
     NzIconModule,
     NzTypographyModule,
+    NzAvatarModule
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent]
