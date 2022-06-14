@@ -1,7 +1,8 @@
 import * as express from "express";
-// import * as dayjs from "dayjs";
 import {
   createEvents,
+  deleteEventById,
+  deleteEventByUid,
   getAllEvents,
   getAllEventsByClubId,
   getEventByUid,
@@ -40,13 +41,13 @@ router.get("/", async (_: express.Request, res: express.Response) => {
 });
 
 router.patch(
-  "/updateJoin/:clubId/:uid",
+  "/updateJoin/:eventId/:uid",
   async (req: express.Request, res: express.Response) => {
     const uid = req.params.uid;
-    const clubId = req.params.clubId;
+    const eventId = req.params.eventId;
     try {
-      await updateUserJoinEvent(uid, clubId);
-      return res.status(201).json({ message: "Update success" });
+      const updateJoin = await updateUserJoinEvent(uid, eventId);
+      return res.status(201).send(updateJoin);
     } catch (error) {
       const err = error as any;
       return catchingError(res, { message: err.code }, err?.code);
@@ -82,8 +83,6 @@ router.get(
   }
 );
 
-// events สำหรับ role เดียวกันกับ student
-
 router.get(
   "/eventForMyRole/:uid",
   async (req: express.Request, res: express.Response) => {
@@ -94,6 +93,39 @@ router.get(
     } catch (error) {
       const err = error as any;
       return catchingError(res, { message: err.code }, err?.code);
+    }
+  }
+);
+
+router.patch(
+  "/leftFromEvent/:eventId/:uid",
+  async (req: express.Request, res: express.Response) => {
+    const uid = req.params.uid;
+    const eventId = req.params.eventId;
+    try {
+      const delEvent = await deleteEventByUid(uid, eventId);
+      return res.status(201).send(delEvent);
+    } catch (error) {
+      const err = error as any;
+      return catchingError(res, { message: err.code }, err?.code);
+    }
+  }
+);
+
+router.delete(
+  "/:eventId",
+  async (req: express.Request, res: express.Response) => {
+    const eventId = req.params.eventId;
+    try {
+      const events = await getAllEvents();
+      const event = events.find((event) => event.eventId === eventId);
+      if (!event) {
+        return res.status(404).json({ message: "Event not found" });
+      }
+      const resDelete = await deleteEventById(eventId);
+      return res.status(200).json(resDelete);
+    } catch (error) {
+      return catchingError(res, error, "user/bad-request");
     }
   }
 );

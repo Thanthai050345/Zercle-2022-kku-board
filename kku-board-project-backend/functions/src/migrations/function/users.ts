@@ -13,7 +13,7 @@ export const MOCKUP_STUDENTS: Student[] = [
     password: "123456",
     urlImage: "https://picsum.photos/200/300",
     authority: "student",
-    clubed: ["Mnics"],
+    clubed: [],
   },
   {
     firstName: "แทนไทย",
@@ -26,7 +26,7 @@ export const MOCKUP_STUDENTS: Student[] = [
     password: "123456",
     urlImage: "https://picsum.photos/200/300",
     authority: "student",
-    clubed: ["Mnics", "Engine"],
+    clubed: ["Engine"],
   },
 ];
 
@@ -38,6 +38,7 @@ export const MOCKUP_ADMINS = [
     email: "test3@test.com",
     urlImage: "https://picsum.photos/200/300",
     authority: "clubAdmin",
+    members: [],
   },
 ];
 
