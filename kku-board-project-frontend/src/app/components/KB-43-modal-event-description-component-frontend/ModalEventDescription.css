@@ -7,3 +7,12 @@ nz-range-picker {
 nz-select {
     width: 100%;
   }
+
+::ng-deep .ant-upload-list-picture-card .ant-upload-list-item-actions  a {
+  display: none;
+}
+
+::ng-deep .ant-modal {
+  top: 0px;
+  
+}

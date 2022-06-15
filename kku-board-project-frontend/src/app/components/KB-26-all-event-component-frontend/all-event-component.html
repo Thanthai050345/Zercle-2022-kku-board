@@ -53,6 +53,7 @@
         nzTitle="{{item.eventHeader}}"
         (nzOnCancel)="handleCancel()"
         (nzOnOk)="handleOk() "
+        [nzFooter]="null"
       >
         <ng-container *nzModalContent>
           <p class="" nz-row nzJustify="end">{{item.startDate}}</p>

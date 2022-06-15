@@ -22,97 +22,147 @@
     (nzOnCancel)="handleCancel()"
   >
     <ng-template #modalContent>
-      <p nz-row nzJustify="center">สร้างกิจกรรม</p>
-      <hr />
-      <p>หัวข้อกิจกรรม</p>
-      <textarea
-        [rows]="1"
-        class="resize-none px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-        placeholder="..."
-      ></textarea>
-      <p>รายละเอียดกิจกรรม</p>
-      <textarea
-        [rows]="4"
-        class="resize-none px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-        placeholder="..."
-      ></textarea>
-      <p>จำนวนคนเข้าร่วม</p>
-      <textarea
-        [rows]="1"
-        class="resize-none px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-        placeholder="..."
-      ></textarea>
-      <p>รูปแบบกิจกรรม</p>
-      <select
-        id="small"
-        class="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      >
-        <option selected></option>
-        <option value="ออนไซต์">ออนไซต์</option>
-        <option value="ออนไลน์">ออนไลน์</option>
-      </select>
-      <p>สถานที่จัดกิจกรรม</p>
-      <textarea
-        [rows]="1"
-        class="resize-none px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-        placeholder="..."
-      ></textarea>
-      <p>วันที่จัดกิจกรรม</p>
-      <nz-range-picker
-        [nzRanges]="ranges"
-        nzShowTime
-        nzWidth="100%"
-        nzFormat="yyyy/MM/dd HH:mm:ss"
-        ngModel
-        (ngModelChange)="onChange($event)"
-      ></nz-range-picker>
-      <p>กำหนดโรลที่มองเห็นกิจกรรม</p>
-      <nz-select
-        [nzMaxTagCount]="3"
-        [nzMaxTagPlaceholder]="tagPlaceHolder"
-        nzMode="multiple"
-        nzPlaceHolder="โรลที่มองเห็นได้"
-        [(ngModel)]="listOfSelectedValue"
-      >
-        <nz-option
-          *ngFor="let item of listOfOption"
-          [nzLabel]="item"
-          [nzValue]="item"
-        ></nz-option>
-      </nz-select>
-      <ng-template #tagPlaceHolder let-selectedList
-        >และอีก {{ selectedList.length }} โรล</ng-template
-      >
-      <p>อัปโหลดรูปภาพ</p>
-      <div class="clearfix">
-        <nz-upload nzListType="picture-card">
+      <form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <p nz-row nzJustify="center">สร้างกิจกรรม</p>
+        <hr />
+        <p>หัวข้อกิจกรรม</p>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="กรุณากรอกหัวข้อกิจกรรม">
+            <textarea
+              formControlName="topic"
+              nz-input
+              rows="1"
+              class="resize-none"
+              placeholder="กรุณากรอกหัวข้อกิจกรรม"
+              #topic
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+        <p>รายละเอียดกิจกรรม</p>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="กรุณากรอกรายละเอียดกิจกรรม">
+            <textarea
+              formControlName="details"
+              nz-input
+              rows="4"
+              class="resize-none"
+              placeholder="กรุณากรอกรายละเอียดกิจกรรม"
+              #details
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+        <p>จำนวนคนเข้าร่วม</p>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="กรุณากรอกตัวเลขเท่านั้น">
+            <textarea
+              formControlName="attendance"
+              nz-input
+              rows="1"
+              class="resize-none"
+              placeholder="กรุณากรอกจำนวนคนเข้าร่วมกิจกรรม"
+              #attendance
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+        <p>รูปแบบกิจกรรม</p>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="กรุณากรอกรูปแบบกิจกรรม">
+            <select
+              formControlName="pattern"
+              id="small"
+              class="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              #pattern
+            >
+              <option selected>กรุณากรอกรูปแบบกิจกรรม</option>
+              <option value="ออนไซต์">ออนไซต์</option>
+              <option value="ออนไลน์">ออนไลน์</option>
+            </select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <p>สถานที่จัดกิจกรรม</p>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="กรุณากรอกสถานที่จัดกิจกรรม">
+            <textarea
+              formControlName="location"
+              nz-input
+              rows="1"
+              class="resize-none"
+              placeholder="กรุณากรอกสถานที่จัดกิจกรรม"
+              #location
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+        <p>วันที่จัดกิจกรรม</p>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="กรุณากรอกวันที่จัดกิจกรรม">
+            <nz-range-picker
+              formControlName="eventDate"
+              required
+              [nzRanges]="ranges"
+              [nzShowTime]="{ nzFormat: 'HH:mm' }"
+              nzWidth="100%"
+              nzFormat="yyyy-MM-dd HH:mm"
+              #eventDate
+            ></nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+
+        <p>กำหนดโรลที่มองเห็นกิจกรรม</p>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="กรุณากรอกสถานที่จัดกิจกรรม">
+            <nz-tree-select
+              formControlName="role"
+              style="width: 100%"
+              nzPlaceHolder="กรุณากรอกโรลที่ต้องการให้เห็น"
+              [(ngModel)]="value"
+              [nzMaxTagCount]="3"
+              [nzMaxTagPlaceholder]="omittedPlaceHolder"
+              [nzNodes]="nodes"
+              [nzDefaultExpandAll]="true"
+              [nzAllowClear]="false"
+              [nzMultiple]="true"
+              #role
+            ></nz-tree-select>
+            <ng-template #omittedPlaceHolder let-omittedValues
+              >และอีก {{ omittedValues.length }} โรล...</ng-template
+            >
+          </nz-form-control>
+        </nz-form-item>
+
+        <p>อัปโหลดรูปภาพ</p>
+
+        <nz-upload
+          nzListType="picture-card"
+          [(nzFileList)]="fileList"
+          [nzShowButton]="fileList.length < 4"
+        >
           <div>
             <i nz-icon nzType="plus"></i>
             <div style="margin-top: 8px">Upload</div>
           </div>
         </nz-upload>
-        <nz-modal
-          [nzVisible]="previewVisible"
-          [nzContent]="modalContent"
-          [nzFooter]="null"
-          (nzOnCancel)="previewVisible = false"
-        >
-          <ng-template #modalContent>
-            <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
-          </ng-template>
-        </nz-modal>
-      </div>
 
-      <div nz-row nzJustify="center">
-        <button
-          class="bg-blue-900 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
-          nzType="default"
-          (click)="handleActivity() "
-          nzAlign="middle"
-        >
-          เพิ่มกิจกรรม
-        </button>
-      </div>
+        <div nz-row nzJustify="center">
+          <button
+            class="bg-blue-900 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
+            nzType="default"
+            (click)="handleActivity([topic.value,details.value,attendance.value,pattern.value,location.value,eventDate.inputValue[0],eventDate.inputValue[1],role.value]) "
+            nzAlign="middle"
+            type="submit"
+          >
+            เพิ่มกิจกรรม
+          </button>
+        </div>
+      </form>
     </ng-template>
   </nz-modal>
 </div>

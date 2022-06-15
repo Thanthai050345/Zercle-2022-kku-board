@@ -29,6 +29,12 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import {ModalEventDescription} from './components/KB-43-modal-event-description-component-frontend/ModalEventDescription'
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import{ ClubHomePage } from './components/KB-36-component-in-club-home-page-frontend/ClubHomePage'
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { ReactiveFormsModule } from "@angular/forms";
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 registerLocaleData(th);
 
@@ -37,7 +43,8 @@ registerLocaleData(th);
     AppComponent,
     AllEventComponent,
     ModalEventDescription,
-    CountDownComponent
+    CountDownComponent,
+    ClubHomePage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,12 @@ registerLocaleData(th);
     NzImageModule,
     NzBreadCrumbModule,
     NzModalModule,
-    NzUploadModule
+    NzUploadModule,
+    NzDatePickerModule,
+    NzInputModule,
+    NzTreeSelectModule,
+    ReactiveFormsModule,
+    NzFormModule
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent]

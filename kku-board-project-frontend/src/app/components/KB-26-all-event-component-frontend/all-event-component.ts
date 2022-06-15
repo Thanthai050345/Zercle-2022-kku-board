@@ -30,7 +30,6 @@ export class AllEventComponent implements OnInit {
   ];
   convertDatas = (data: Even[]): any => {
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
       return {
         eventHeader: item.eventHeader,
         description: item.description,
