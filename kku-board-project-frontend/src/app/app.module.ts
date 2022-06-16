@@ -4,8 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { PopularComponent } from './components/popular/popular.component';
-import { LoginPage } from './pages/login/login';
-import { chooseUser } from './pages/chooseUser/chooseUser';
+
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
@@ -27,7 +26,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { LoginComponent } from './components/login/login.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -44,10 +42,7 @@ registerLocaleData(th);
   declarations: [
     AppComponent,
     PopularComponent,
-    LoginPage,
     CountDownComponent,
-    chooseUser,
-    LoginComponent,
     LoginPageComponent,
     HomePageComponent,
     SignUpPageComponent,
