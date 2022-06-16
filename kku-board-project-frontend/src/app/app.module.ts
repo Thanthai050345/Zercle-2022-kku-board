@@ -1,19 +1,16 @@
-import { NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-// import { TestComponent } from './components/test/test.component';
 import { PopularComponent } from './components/popular/popular.component';
 import { LoginPage } from './pages/login/login';
-import{chooseUser} from './pages/chooseUser/chooseUser';
+import { chooseUser } from './pages/chooseUser/chooseUser';
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountDownComponent } from './components/count-down/count-down.component';
-// import {registerForGeneralUsers} from './pages/register for general user/register.generalUser'
-
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,22 +26,34 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { LoginComponent } from './components/login/login.component';
-
-
-registerLocaleData(th);
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
+import { BackButtonDirective } from './directives/back-button.directive';
+import { RegUserFormComponent } from './components/reg-user-form/reg-user-form.component';
+import { RegClubFormComponent } from './components/reg-club-form/reg-club-form.component';
 
 registerLocaleData(th);
 @NgModule({
   declarations: [
     AppComponent,
-    // TestComponent,
     PopularComponent,
     LoginPage,
     CountDownComponent,
-    // registerForGeneralUsers,
     chooseUser,
-    LoginComponent
+    LoginComponent,
+    LoginPageComponent,
+    HomePageComponent,
+    SignUpPageComponent,
+    BackButtonDirective,
+    RegUserFormComponent,
+    RegClubFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,9 +74,13 @@ registerLocaleData(th);
     NzButtonModule,
     NzModalModule,
     NzCheckboxModule,
-    NzSelectModule
+    NzSelectModule,
+    NzUploadModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    HotToastModule.forRoot(),
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

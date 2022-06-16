@@ -1,0 +1,78 @@
+<div class="flex w-screen h-screen bg-[#F2EBE9]">
+  <img
+    class="md:w-1/2 h-screen object-cover w-0"
+    src="https://media.discordapp.net/attachments/982610388510212136/985605082965999726/5sneSHZl.jpg"
+    alt="login-img"
+  />
+  <div
+    class="md:w-1/2 w-screen h-screen flex flex-col justify-center items-center p-10 gap-4"
+  >
+    <div>
+      <h1 class="font-extrabold text-7xl text-[#243A73]">KKU BOARDS</h1>
+      <h5 class="font-semibold text-xl text-[#243A73]">
+        บอร์ดรวมกิจกรรมสำหรับคุณ
+      </h5>
+    </div>
+    <form
+      class="flex flex-col lg:w-[440px] md:w-80 w-[350px] gap-2 text-[#243A73]"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <label class="text-lg px-2" for="email">อีเมล</label>
+      <input
+        nz-input
+        nzSize="large"
+        class="rounded-[15px]"
+        placeholder="อีเมล"
+        type="email"
+        formControlName="email"
+      />
+      <small
+        *ngIf="
+          loginForm.controls['email'].hasError('required') &&
+          loginForm.controls['email'].invalid &&
+          loginForm.controls['email'].touched
+        "
+        >*กรุณากรองอีเมล
+      </small>
+      <small
+        *ngIf="
+          loginForm.controls['email'].hasError('email') &&
+          loginForm.controls['email'].invalid &&
+          loginForm.controls['email'].touched
+        "
+        >กรุณากรองอีเมลให้ถูกต้อง
+      </small>
+      <label class="text-lg px-2" for="password">รหัสผ่าน</label>
+      <input
+        nz-input
+        nzSize="large"
+        class="rounded-[15px]"
+        placeholder="รหัสผ่าน"
+        type="password"
+        formControlName="password"
+      />
+      <small
+        *ngIf="
+          loginForm.controls['password'].hasError('required') &&
+          loginForm.controls['password'].invalid &&
+          loginForm.controls['password'].touched
+        "
+        >*กรุณากรองรหัสผ่าน
+      </small>
+      <button
+        class="h-14 text-2xl"
+        nz-button
+        [disabled]="loginForm.invalid"
+        nzType="primary"
+      >
+        เข้าสู่ระบบ
+      </button>
+    </form>
+    <div class="lg:w-[440px] md:w-80 w-[350px]">
+      <button class="h-14 text-2xl w-full" nz-button>
+        <a [routerLink]="'/sign-up'">สมัครสมาชิก</a>
+      </button>
+    </div>
+  </div>
+</div>
