@@ -1,0 +1,25 @@
+<form
+  class="flex flex-col lg:w-[440px] md:w-80 w-[350px] gap-1 text-[#243A73]"
+  [formGroup]="regUserForm"
+  (ngSubmit)="onSubmit()"
+>
+  
+  <label class="text-lg px-2" for="firstName">ชื่อ</label>
+  <input
+    nz-input
+    class="rounded-[15px]"
+    placeholder="ชื่อ"
+    type="text"
+    formControlName="firstName"
+  />
+
+  <label class="text-lg px-2" for="password">รหัสผ่าน</label>
+  <input
+    nz-input
+    nzSize="large"
+    class="rounded-[15px]"
+    placeholder="รหัสผ่าน"
+    type="password"
+    formControlName="password"
+  />
+</form>
