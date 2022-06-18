@@ -6,21 +6,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sign-up-page.component.css'],
 })
 export class SignUpPageComponent implements OnInit {
-  isSignUp = true;
+  // isSignUp = true;
+  // isSignUpUser = false;
+  // isSignUpClub = false;
+  //test Sign-up club
+  isSignUp = false;
   isSignUpUser = false;
-  isSignUpClub = false;
-
-  handleSignUpUser():void {
+  isSignUpClub = true;
+  handleSignUpUser(): void {
     this.isSignUp = false;
     this.isSignUpUser = true;
     this.isSignUpClub = false;
   }
-  handleSignUpClub():void {
+  handleSignUpClub(): void {
     this.isSignUp = false;
     this.isSignUpUser = false;
     this.isSignUpClub = true;
   }
-  handleSignUp():void {
+  handleSignUp(): void {
     this.isSignUp = true;
     this.isSignUpUser = false;
     this.isSignUpClub = false;

@@ -26,9 +26,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+
 import { environment } from '../environments/environment';
-import { provideAuth, getAuth } from '@angular/fire/auth';
+
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HotToastModule } from '@ngneat/hot-toast';
@@ -36,7 +36,9 @@ import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component
 import { BackButtonDirective } from './directives/back-button.directive';
 import { RegUserFormComponent } from './components/reg-user-form/reg-user-form.component';
 import { RegClubFormComponent } from './components/reg-club-form/reg-club-form.component';
-
+import { AngularFireModule } from '@angular/fire/compat';
+import { ToastrModule } from 'ngx-toastr';
+import { HomeClubPageComponent } from './pages/home-club-page/home-club-page.component';
 registerLocaleData(th);
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ registerLocaleData(th);
     BackButtonDirective,
     RegUserFormComponent,
     RegClubFormComponent,
+    HomeClubPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,23 +59,23 @@ registerLocaleData(th);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    ReactiveFormsModule,
+    AngularFireModule,
     NzStatisticModule,
     NzButtonModule,
     NzAlertModule,
     NzIconModule,
     NzTypographyModule,
-    BrowserAnimationsModule,
     NzCarouselModule,
     NzFormModule,
-    ReactiveFormsModule,
     NzInputModule,
     NzButtonModule,
     NzModalModule,
     NzCheckboxModule,
     NzSelectModule,
     NzUploadModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
+    AngularFireModule.initializeApp(environment.firebase),
     HotToastModule.forRoot(),
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],

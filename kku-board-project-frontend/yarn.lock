@@ -3858,7 +3858,7 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-firebase@^9.8.0:
+firebase@^9.8.0, firebase@^9.8.3:
   version "9.8.3"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-9.8.3.tgz#63e5664ad4d5740c8db00702fb9b948665f65cbf"
   integrity sha512-PCThy5cFXnbiUtFPJ9vVdcG7wKibOKNR+iuNXf+54xMGJzYb+rM2P8GUqtr2fhVQkfs42uJ6gGKG4soNGkP64w==
@@ -5321,6 +5321,13 @@ ng-zorro-antd@13.2.2:
     "@angular/cdk" "^13.0.1"
     "@ant-design/icons-angular" "^13.0.1"
     date-fns "^2.16.1"
+    tslib "^2.3.0"
+
+ngx-toastr@^14.3.0:
+  version "14.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-14.3.0.tgz#3c366fc5ef8aa1ca8f97ae46c468cfcdf44e620d"
+  integrity sha512-d8j/sOr60w5U7rGlcKQ0Ff4u+m2NzhqU5ZdJXn7QW3aR3Zf/rY7/Fd14BmUindTOWVr2NeTYcQXCjLpir0ldpA==
+  dependencies:
     tslib "^2.3.0"
 
 nice-napi@^1.0.2:

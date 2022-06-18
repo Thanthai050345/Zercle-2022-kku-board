@@ -1,44 +1,62 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HotToastService } from '@ngneat/hot-toast';
-
+import { ToastrService } from 'ngx-toastr';
+import { FirebaseCodeErrorService } from 'src/app/services/firebase-code-error.service';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
 })
-export class LoginPageComponent implements OnInit, DoCheck {
-
-  loginForm = new FormGroup({
-    email: new FormControl('test@test.com', [Validators.required, Validators.email]),
-    password: new FormControl('123456', [Validators.required]),
-  });
-
+export class LoginPageComponent implements OnInit {
+  loginForm: FormGroup;
+  loading: boolean = false;
+  user: any;
   constructor(
-    private authService: AuthService,
+    private fb: FormBuilder,
+    private afAuth: AngularFireAuth,
+    private toastr: ToastrService,
     private router: Router,
-    private toast: HotToastService
-  ) {}
-
-  onSubmit() {
-    const { email, password } = this.loginForm.value;
-    this.authService
-      .login(email, password)
-      .pipe(this.toast.observe({
-        success: "ยินดีต้อนรับ",
-        loading: "กำลังเข้าสู่ระบบ",
-        error: "เกิดข้อผิดพลาด กรุณาลองอีกครั้ง"
-      }))
-      .subscribe(() => {
-        this.router.navigate(['/home']);
-      });
-  }
-  
-  ngDoCheck(): void {
-    // console.log(this.loginForm.controls['email'].hasError('required'));
+    private firebaseError: FirebaseCodeErrorService,
+    private userService: UserService
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['test@test.com', [Validators.required, Validators.email]],
+      password: ['123456', Validators.required],
+    });
   }
 
   ngOnInit(): void {}
+
+  onSubmit() {
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+
+    this.loading = true;
+    this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((res) => {
+        const id = res.user?.uid;
+        if (res.user?.emailVerified) {
+          this.router.navigate(['/sign-up']);
+        } else {
+          this.userService.getUserById(res.user?.uid).subscribe(
+            (res) => {
+              localStorage.setItem('user', JSON.stringify(res));
+              this.router.navigate(['/home']);
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err.message);
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        this.loading = false;
+        this.toastr.error(this.firebaseError.codeError(error.code), 'Error');
+      });
+  }
 }

@@ -1,1 +1,70 @@
-<p>reg-club-form works!</p>
+<form
+  [formGroup]="signUpClubForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col gap-1"
+>
+  <input
+    nz-input
+    nzSize="large"
+    class="rounded-[15px]"
+    placeholder="ชื่อชุมนุม/ชมรม"
+    type="text"
+    formControlName="clubName"
+  />
+  <input
+    nz-input
+    nzSize="large"
+    class="rounded-[15px]"
+    placeholder="อีเมล"
+    type="email"
+    formControlName="email"
+  />
+  <nz-select
+    [ngModel]=""
+    nzSize="large"
+    nzBorderless
+    nzPlaceHolder="คณะ"
+    formControlName="faculty"
+  >
+    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+  </nz-select>
+  <nz-select
+    [ngModel]=""
+    nzSize="large"
+    nzBorderless
+    nzPlaceHolder="สาขาวิชา"
+    formControlName="major"
+  >
+    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+  </nz-select>
+  <nz-upload
+    formControlName="urlImage"
+    nzListType="picture-card"
+    [(nzFileList)]="fileList"
+    [nzShowButton]="fileList.length < 1"
+    [nzPreview]="handlePreview"
+  >
+    <div>
+      <i nz-icon nzType="plus"></i>
+      <div style="margin-top: 8px">อัพโหลด</div>
+    </div>
+  </nz-upload>
+  <nz-modal
+    [nzVisible]="previewVisible"
+    [nzContent]="modalContent"
+    [nzFooter]="null"
+    (nzOnCancel)="previewVisible = false"
+  >
+    <ng-template #modalContent>
+      <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+    </ng-template>
+  </nz-modal>
+  <button
+    class="h-12 text-2xl"
+    nz-button
+    
+    nzType="primary"
+  >
+    สมัครชุมนุม/ชมรม
+  </button>
+</form>
