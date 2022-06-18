@@ -36,7 +36,7 @@ import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component
 import { BackButtonDirective } from './directives/back-button.directive';
 import { RegUserFormComponent } from './components/reg-user-form/reg-user-form.component';
 import { RegClubFormComponent } from './components/reg-club-form/reg-club-form.component';
-
+import { AngularFireModule } from '@angular/fire/compat';
 registerLocaleData(th);
 @NgModule({
   declarations: [
@@ -56,15 +56,16 @@ registerLocaleData(th);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AngularFireModule,
     NzStatisticModule,
     NzButtonModule,
     NzAlertModule,
     NzIconModule,
     NzTypographyModule,
-    BrowserAnimationsModule,
     NzCarouselModule,
     NzFormModule,
-    ReactiveFormsModule,
     NzInputModule,
     NzButtonModule,
     NzModalModule,

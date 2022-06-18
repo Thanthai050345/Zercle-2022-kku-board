@@ -27,24 +27,12 @@ export class LoginPageComponent implements OnInit, DoCheck {
 
   onSubmit() {
     const { email, password } = this.loginForm.value;
-    this.authService
-      .login(email, password)
-      .pipe(
-        this.toast.observe({
-          success: 'ยินดีต้อนรับ',
-          loading: 'กำลังเข้าสู่ระบบ',
-          error: 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง',
-        })
-      )
-      .subscribe(async () => {
-        // this.token = this.auth.idToke
-        
-        this.router.navigate(['/home']);
-      });
+    console.log(email, password);
+    
   }
 
   ngDoCheck(): void {
-    // console.log(this.loginForm.controls['email'].hasError('required'));
+
   }
 
   ngOnInit(): void {}
