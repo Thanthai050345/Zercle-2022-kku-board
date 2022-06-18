@@ -47,7 +47,10 @@ export const getAllEventsByClubId = async (clubId: string) => {
   const db = admin.firestore();
   const clubAdmin = await getClubAdminById(clubId);
   const clubName = clubAdmin.clubName;
-  const docs = await db.collection("events").where("clubName", "==", clubName).get();
+  const docs = await db
+    .collection("events")
+    .where("clubName", "==", clubName)
+    .get();
   let events: Event[] = [];
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
   return events;
@@ -68,19 +71,26 @@ export const updateUserJoinEvent = async (uid: string, eventId: string) => {
   const db = admin.firestore();
   const user = await db.collection("students").doc(uid).get();
   const event = await db.collection("events").doc(eventId).get();
-  const userData = await user.data();
-  const eventData = await event.data();
+  const userData = user.data();
+  const eventData = event.data();
   const firstName = userData?.firstName;
   const lastName = userData?.lastName;
   const attendees = eventData?.attendees;
   const join = eventData?.join;
-  return db
-    .collection("events")
-    .doc(eventId)
-    .update({
-      join: [...join, { firstName: firstName, lastName: lastName, uid: uid }],
-      attendees: attendees + 1,
-    });
+
+  const checkJoin = join.find((student: any) => student.uid === uid);
+  if (!checkJoin) {
+    await db
+      .collection("events")
+      .doc(eventId)
+      .update({
+        join: [...join, { firstName, lastName, uid }],
+        attendees: attendees + 1,
+      });
+    return "successfull joined event";
+  } else {
+    return "already joined event";
+  }
 };
 
 export const getEventByUid = async (uid: string) => {
@@ -120,8 +130,23 @@ export const getEventByUid = async (uid: string) => {
   return events;
 };
 
+export const deleteEventByUid = async (uid: string, eventId: string) => {
+  const db = admin.firestore();
+  const doc = await db.collection("events").doc(eventId).get();
+  const eventData = doc.data();
+  const join = eventData?.join;
+  if (join) {
+    join.forEach((joinData: any, index: number, data: any) => {
+      if (joinData.uid === uid) {
+        data.splice(index, 1);
+      }
+    });
+  }
+  await db.collection("events").doc(eventId).update({ join: join });
+  return join;
+};
+
 export const getEventForMyRole = async (uid: string) => {
-  // const db = admin.firestore();
   const student = await getStudentById(uid);
   const faculty = student.faculty;
   const major = student.major;
