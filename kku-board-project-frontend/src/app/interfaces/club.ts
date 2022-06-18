@@ -1,11 +1,11 @@
 export interface Club {
-  clubName: string;
-  email: string;
+  uid: string;
   password: string;
-  faculty: string;
-  major?: string;
-  clubId?: string;
-  urlImage: string;
-  authority: string;
   members: string[];
+  clubName: string;
+  authority: string;
+  email: string;
+  faculty: string;
+  urlImage: string;
+  id: string;
 }
