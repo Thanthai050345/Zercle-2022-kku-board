@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { facultys } from 'src/assets/datas/facultys';
 
 @Component({
   selector: 'app-reg-user-form',
@@ -7,6 +8,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./reg-user-form.component.css'],
 })
 export class RegUserFormComponent implements OnInit {
+  facultys = facultys;
+  majors: any = []
   regUserForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
@@ -19,14 +22,13 @@ export class RegUserFormComponent implements OnInit {
     image: new FormControl('', [Validators.required]),
     role: new FormControl('', [Validators.required]),
   });
-  onSubmit() {
-    
+  onSubmit() {}
+  onChange(event: any) {
+    console.log(event);
+    const faculty = facultys.find(faculty => faculty.value == event)
+    this.majors = faculty?.majors;
   }
   constructor() {}
 
-  ngOnInit(): void {
-   
-  }
-
- 
+  ngOnInit(): void {}
 }
