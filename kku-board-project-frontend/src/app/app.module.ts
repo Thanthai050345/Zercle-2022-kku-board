@@ -4,13 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 // import { TestComponent } from './components/test/test.component';
-import { PopularComponent } from './components/popular/popular.component';
-import { LoginPage } from './pages/login/login';
+// import { PopularComponent } from './components/popular/popular.component';
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountDownComponent } from './components/count-down/count-down.component';
+import {PopularEventComponent} from './components/popular-event/popular-event.component'
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -34,9 +34,8 @@ registerLocaleData(th);
   declarations: [
     AppComponent,
     // TestComponent,
-    PopularComponent,
-    LoginPage,
     CountDownComponent,
+    PopularEventComponent
   ],
   imports: [
     BrowserModule,
