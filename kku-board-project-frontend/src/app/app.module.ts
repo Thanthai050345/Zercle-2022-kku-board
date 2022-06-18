@@ -10,6 +10,7 @@ import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountDownComponent } from './components/count-down/count-down.component';
+import {PopularEventComponent} from './components/popular-event/popular-event.component'
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
