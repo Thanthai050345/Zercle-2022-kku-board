@@ -4,6 +4,7 @@ import 'dayjs/locale/th';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: 'modal-event',
   templateUrl: './ModalEventDescription.html',
@@ -15,6 +16,7 @@ export class ModalEventDescription implements OnInit {
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
+      this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events',this.validateForm.value)
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -42,15 +44,17 @@ export class ModalEventDescription implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      topic: [null, [Validators.required]],
-      details: [null, [Validators.required]],
-      attendance: [null, [Validators.pattern(/^[0-9]\d*$/)]],
-      pattern: [null, [Validators.required]],
+      header: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      attendees: [null, [Validators.pattern(/^[0-9]\d*$/)]],
+      eventType: [null, [Validators.required]],
       location: [null, [Validators.required]],
       eventDate: [null, [Validators.required]],
-      role: [null, [Validators.required]],
+      roleAccept: [null, [Validators.required]],
     });
   }
+
+  
 
   output: any[] = [];
   @Input() role = '';
@@ -87,6 +91,7 @@ export class ModalEventDescription implements OnInit {
       this.isVisible = false;
       this.output = output;
     }
+    // this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events',output)
   }
 
   ranges = {
@@ -132,4 +137,6 @@ export class ModalEventDescription implements OnInit {
       ],
     },
   ];
+
+  
 }
