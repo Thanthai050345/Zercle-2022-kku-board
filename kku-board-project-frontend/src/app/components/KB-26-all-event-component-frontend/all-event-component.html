@@ -1,0 +1,73 @@
+<div
+  class="flex sm:flex-row bg-white drop-shadow-2xl p-[5px] sm:p-0 sm:h-[190px] w-[330px] sm:w-[700px] rounded-2xl"
+  *ngFor="let item of datas"
+>
+  <div class="content-image">
+    <img
+      class="sm:h-full h-[80px] sm:w-[300px] w-[140px] rounded-2xl sm:rounded-l-2xl mt-[20px] sm:mt-0 hidden sm:flex"
+      src="{{item.image}}"
+      alt="content"
+    />
+  </div>
+  <div class="relative my-2 mr-8 sm:w-full w-full h-full">
+    <dt>
+      <p class="ml-8 text-base text-gray-500 sm:flex">{{item.startDate}}</p>
+    </dt>
+    <p
+      class="mt-4 ml-8 text-xl leading-6 font-bold text-gray-900 sm:align-middle"
+      nz-typography
+      nzEllipsis
+      [nzEllipsisRows]="2"
+    >
+      {{item.eventHeader}}
+    </p>
+
+    <p
+      class="mt-4 ml-8 text-base leading-6 font-light text-gray-600 sm:flex"
+      nz-typography
+      nzEllipsis
+      [nzEllipsisRows]="1"
+    >
+      {{item.location}}
+    </p>
+    <div class="flex flex-row mt-2">
+      <p 
+        class="mt-2 ml-8 text-base leading-6 font-light text-gray-600 hidden sm:flex"
+      >
+        ผู้เข้าร่วม {{item.attendees}} ท่าน
+      </p>
+      <button
+        (click)="showModal()"
+        class="bg-white ml-8 sm:ml-12 w-28 h-8 rounded-2xl border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white delay-100"
+      >
+        รายละเอียด
+      </button>
+      <button
+        class="bg-blue-900 ml-4 sm:ml-8 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
+      >
+        เข้าร่วม
+      </button>
+
+      <nz-modal
+        [(nzVisible)]="isVisible"
+        nzTitle="{{item.eventHeader}}"
+        (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk() "
+        [nzFooter]="null"
+      >
+        <ng-container *nzModalContent>
+          <p class="" nz-row nzJustify="end">{{item.startDate}}</p>
+          
+          <img
+            class="h-full w-full"
+            src="{{item.image}}"
+            
+          />
+          <p>{{item.description}}</p>
+          <p class="mt-[10px]" nz-row nzJustify="end">{{item.location}}</p>
+          
+        </ng-container>
+      </nz-modal>
+    </div>
+  </div>
+</div>

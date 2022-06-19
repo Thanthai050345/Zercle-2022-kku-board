@@ -1,0 +1,19 @@
+<div
+  class="flex w-[700px] h-[100px] border-2 border-gray-200 bg-white items-center p-5 "
+  *ngFor="let item of dataBase"
+>
+  <img
+    class="rounded-full sm:w-[50px] sm:h-[50px] w-[22px] h-[22px]"
+    src="{{item.image}}"
+  />
+  <div class="flex items-center">
+    <p class="ml-[23px] text-[#243A73] sm:text-base text-xs">{{item.name}}</p>
+    <div class="">
+      <button nz-button nzType="primary"
+      >
+        เพิ่มกิจกรรม
+      </button>
+      <button nz-button nzType="primary" nzDanger>ลบ</button>
+    </div>
+  </div>
+</div>

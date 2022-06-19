@@ -4,13 +4,16 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { PopularComponent } from './components/popular/popular.component';
+import { ModalEventDescription } from './components/KB-43-modal-event-description-component-frontend/ModalEventDescription';
+import { AllEventComponent } from './components/KB-26-all-event-component-frontend/all-event-component';
+import { ClubHomePage } from './components/KB-36-component-in-club-home-page-frontend/ClubHomePage';
+import { PopularEventComponent } from './components/popular-event/popular-event.component'
 
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountDownComponent } from './components/count-down/count-down.component';
-import {PopularEventComponent} from './components/popular-event/popular-event.component'
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +30,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-
 import { environment } from '../environments/environment';
 
 import { LoginPageComponent } from './pages/login-page/login-page.component';
@@ -40,6 +42,13 @@ import { RegClubFormComponent } from './components/reg-club-form/reg-club-form.c
 import { AngularFireModule } from '@angular/fire/compat';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeClubPageComponent } from './pages/home-club-page/home-club-page.component';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+
+
 registerLocaleData(th);
 @NgModule({
   declarations: [
@@ -53,6 +62,12 @@ registerLocaleData(th);
     RegUserFormComponent,
     RegClubFormComponent,
     HomeClubPageComponent,
+    ModalEventDescription,
+    AllEventComponent,
+    ClubHomePage,
+    PopularEventComponent
+
+    
   ],
   imports: [
     BrowserModule,
@@ -78,6 +93,14 @@ registerLocaleData(th);
     NzUploadModule,
     AngularFireModule.initializeApp(environment.firebase),
     HotToastModule.forRoot(),
+    NzPaginationModule,
+    NzDatePickerModule,
+    NzTreeSelectModule,
+    NzImageModule,
+    NzPopconfirmModule
+    
+    
+
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],
