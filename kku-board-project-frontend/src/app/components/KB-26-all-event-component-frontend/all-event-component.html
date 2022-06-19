@@ -43,6 +43,11 @@
         รายละเอียด
       </button>
       <button
+      nz-popconfirm
+      nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?"
+      nzPopconfirmPlacement="bottom"
+      (nzOnConfirm)="confirm()"
+      (nzOnCancel)="cancel()"
         class="bg-blue-900 ml-4 sm:ml-8 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
       >
         เข้าร่วม

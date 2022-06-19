@@ -3,21 +3,20 @@ import { endOfMonth } from 'date-fns';
 import 'dayjs/locale/th';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'modal-event',
   templateUrl: './ModalEventDescription.html',
   styleUrls: ['./ModalEventDescription.css'],
 })
 export class ModalEventDescription implements OnInit {
-  
-
   validateForm!: FormGroup;
 
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);
     } else {
-      Object.values(this.validateForm.controls).forEach(control => {
+      Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
@@ -27,27 +26,23 @@ export class ModalEventDescription implements OnInit {
   }
 
   // uploadedImage: any;
-  public onImageUpload(event:any) {
+  public onImageUpload(event: any) {
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
     if (fileList) {
       console.log(fileList);
     }
-    
   }
 
-  
   handleChange(info: NzUploadChangeParam): void {
-      console.log(info.file, info.fileList);
+    console.log(info.file, info.fileList);
   }
 
-  
-
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      topic: [null, [Validators.required ]],
+      topic: [null, [Validators.required]],
       details: [null, [Validators.required]],
       attendance: [null, [Validators.pattern(/^[0-9]\d*$/)]],
       pattern: [null, [Validators.required]],
