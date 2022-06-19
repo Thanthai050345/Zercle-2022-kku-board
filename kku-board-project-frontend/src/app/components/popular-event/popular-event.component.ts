@@ -4,11 +4,12 @@ import * as dayjs from 'dayjs'
 import {dataEvent} from 'src/app/interfaces/dataEvent'
 
 @Component({
-  selector: 'app-popular-event',
+  selector: 'popular-event',
   templateUrl: './popular-event.component.html',
   styleUrls: ['./popular-event.component.css']
 })
 export class PopularEventComponent implements OnInit {
+  baseEventURL = 'http://localhost:4200/zercle-2022-kku-board/';
   dataBase = [
     {
       eventHeader: "รับน้องใหม่2565",

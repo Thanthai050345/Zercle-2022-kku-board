@@ -65,9 +65,10 @@ registerLocaleData(th);
     ModalEventDescription,
     AllEventComponent,
     ClubHomePage,
-    PopularEventComponent
 
-    
+
+
+    PopularEventComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,8 +99,8 @@ registerLocaleData(th);
     NzTreeSelectModule,
     NzImageModule,
     NzPopconfirmModule
-    
-    
+
+
 
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
