@@ -3,6 +3,7 @@ import * as dayjs from 'dayjs'
 import{ Even } from 'src/app/interfaces/even'
 import "dayjs/locale/th";
 
+
 @Component({
   selector: 'all-event',
   templateUrl: './all-event-component.html',
@@ -53,7 +54,7 @@ export class AllEventComponent implements OnInit {
   
   isVisible = false;
 
-  constructor() {}
+  
 
   showModal(): void {
     this.isVisible = true;
@@ -68,9 +69,17 @@ export class AllEventComponent implements OnInit {
     console.log('Button cancel clicked!');
     this.isVisible = false;
   }
+  cancel(): void {
+  }
+
+  confirm(): void {
+  }
+  
+  
 
   
-  
+  constructor() {}
+
   ngOnInit(): void {
 
   }

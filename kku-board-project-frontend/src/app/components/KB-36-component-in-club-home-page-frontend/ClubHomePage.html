@@ -1,19 +1,84 @@
 <div
-  class="flex w-[700px] h-[100px] border-2 border-gray-200 bg-white items-center p-5 "
-  *ngFor="let item of dataBase"
+  class="w-[750px] bg-[#F2EBE9] flex flex-col items-center justify-items-center"
 >
-  <img
-    class="rounded-full sm:w-[50px] sm:h-[50px] w-[22px] h-[22px]"
-    src="{{item.image}}"
-  />
-  <div class="flex items-center">
-    <p class="ml-[23px] text-[#243A73] sm:text-base text-xs">{{item.name}}</p>
-    <div class="">
-      <button nz-button nzType="primary"
-      >
-        เพิ่มกิจกรรม
-      </button>
-      <button nz-button nzType="primary" nzDanger>ลบ</button>
+  <!-- header  -->
+  <div class="flex items-center w-[700px] h-[50px] justify-between">
+    <div class="flex">
+      <p class="font-extrabold text-3xl">สมาชิก</p>
+      <p class="text-3xl">ในชมรม</p>
     </div>
+
+    <button
+      class="w-28 h-8 rounded-2xl border-2 border-blue-900 bg-white text-blue-900 items-center flex justify-center"
+    >
+      <i nz-icon nzType="user-add" nzTheme="outline"></i>
+      เพิ่มสมาชิก
+    </button>
+  </div>
+  <!-- content  -->
+  <div>
+    <div
+      class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-200 items-center p-5 justify-between"
+      *ngFor="let item of dataBase"
+    >
+      <div class="flex flex-row items-center gap-5">
+        <img class="rounded-full w-[50px] h-[50px]" src="{{item.image}}" />
+        <p class="text-[#243A73] text-base">{{item.name}}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button nz-button nzType="primary">รายละเอียด</button>
+        <button nz-button nzType="primary" nzDanger>ลบ</button>
+      </div>
+    </div>
+
+    <div
+      class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-100 items-center p-5 justify-between"
+      *ngFor="let item of dataBase"
+    >
+      <div class="flex flex-row items-center gap-5">
+        <img class="rounded-full w-[50px] h-[50px]" src="{{item.image}}" />
+        <p class="text-[#243A73] text-base">{{item.name}}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button nz-button nzType="primary">รายละเอียด</button>
+        <button nz-button nzType="primary" nzDanger>ลบ</button>
+      </div>
+    </div>
+
+    <div
+      class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-200 items-center p-5 justify-between"
+      *ngFor="let item of dataBase"
+    >
+      <div class="flex flex-row items-center gap-5">
+        <img class="rounded-full w-[50px] h-[50px]" src="{{item.image}}" />
+        <p class="text-[#243A73] text-base">{{item.name}}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button nz-button nzType="primary">รายละเอียด</button>
+        <button nz-button nzType="primary" nzDanger>ลบ</button>
+      </div>
+    </div>
+
+    <div
+      class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-100 items-center p-5 justify-between"
+      *ngFor="let item of dataBase"
+    >
+      <div class="flex flex-row items-center gap-5">
+        <img class="rounded-full w-[50px] h-[50px]" src="{{item.image}}" />
+        <p class="text-[#243A73] text-base">{{item.name}}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button nz-button nzType="primary">รายละเอียด</button>
+        <button nz-button nzType="primary" nzDanger>ลบ</button>
+      </div>
+    </div>
+  </div>
+  <!-- Pagination  -->
+  <div class="flex flex-row-reverse w-[700px] h-[50px] items-center">
+    <nz-pagination
+      [(nzPageIndex)]="current"
+      [nzTotal]="50"
+      [nzSize]="'small'"
+    ></nz-pagination>
   </div>
 </div>
