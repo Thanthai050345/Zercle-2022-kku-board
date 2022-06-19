@@ -139,11 +139,14 @@
         </nz-form-item>
 
         <p>อัปโหลดรูปภาพ</p>
+        <!-- <input type="file" (change)="onImageUpload($event)" > -->
 
         <nz-upload
           nzListType="picture-card"
-          [(nzFileList)]="fileList"
-          [nzShowButton]="fileList.length < 4"
+          [nzLimit]="1"
+          (nzChange)="handleChange($event)"
+          nzAction="https://www.localhost:4000/events/:12sdsafd"
+          
         >
           <div>
             <i nz-icon nzType="plus"></i>

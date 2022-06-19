@@ -1,14 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { endOfMonth } from 'date-fns';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
 import 'dayjs/locale/th';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 @Component({
   selector: 'modal-event',
   templateUrl: './ModalEventDescription.html',
   styleUrls: ['./ModalEventDescription.css'],
 })
 export class ModalEventDescription implements OnInit {
+  
 
   validateForm!: FormGroup;
 
@@ -25,6 +26,23 @@ export class ModalEventDescription implements OnInit {
     }
   }
 
+  // uploadedImage: any;
+  public onImageUpload(event:any) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList) {
+      console.log(fileList);
+    }
+    
+  }
+
+  
+  handleChange(info: NzUploadChangeParam): void {
+      console.log(info.file, info.fileList);
+  }
+
+  
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -40,7 +58,6 @@ export class ModalEventDescription implements OnInit {
   }
 
   output: any[] = [];
-  fileList: NzUploadFile[] = [];
   @Input() role = '';
   dataBase = [
     {
