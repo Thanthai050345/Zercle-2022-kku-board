@@ -1,7 +1,7 @@
 <form
   [formGroup]="signUpClubForm"
   (ngSubmit)="onSubmit()"
-  class="flex flex-col gap-1"
+  class="flex flex-col gap-1 my-1"
 >
   <input
     nz-input
@@ -11,6 +11,61 @@
     type="text"
     formControlName="clubName"
   />
+  <small
+    *ngIf="
+      signUpClubForm.controls['clubName'].hasError('required') &&
+      signUpClubForm.controls['clubName'].invalid &&
+      signUpClubForm.controls['clubName'].touched
+    "
+    >*กรุณากรองชื่อชุมนุม/ชมรม
+  </small>
+
+  <nz-select
+    nzBorderless
+    nzSize="large"
+    ngModel="faculty"
+    nzPlaceHolder="คณะ"
+    (ngModelChange)="onChange($event)"
+    formControlName="faculty"
+  >
+    <nz-option
+      *ngFor="let faculty of facultys"
+      nzValue="{{ faculty.value }}"
+      nzLabel="{{ faculty.name }}"
+    ></nz-option>
+  </nz-select>
+  <small
+    *ngIf="
+      signUpClubForm.controls['faculty'].hasError('required') &&
+      signUpClubForm.controls['faculty'].invalid &&
+      signUpClubForm.controls['faculty'].touched
+    "
+    >*กรุณาเลือกคณะ
+  </small>
+
+  <nz-select
+    nzBorderless
+    nzSize="large"
+    *ngIf="majors"
+    nzPlaceHolder="สาขาวิชา"
+    ngModel="major"
+    formControlName="major"
+  >
+    <nz-option
+      *ngFor="let major of majors"
+      nzValue="{{ major.value }} "
+      nzLabel="{{ major.name }} "
+    ></nz-option>
+  </nz-select>
+  <small
+    *ngIf="
+      signUpClubForm.controls['major'].hasError('required') &&
+      signUpClubForm.controls['major'].invalid &&
+      signUpClubForm.controls['major'].touched
+    "
+    >*กรุณาเลือกสาขาวิชา
+  </small>
+
   <input
     nz-input
     nzSize="large"
@@ -19,51 +74,84 @@
     type="email"
     formControlName="email"
   />
-  <nz-select
-    [ngModel]=""
-    nzSize="large"
-    nzBorderless
-    nzPlaceHolder="คณะ"
-    formControlName="faculty"
-  >
-    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-  </nz-select>
-  <nz-select
-    [ngModel]=""
-    nzSize="large"
-    nzBorderless
-    nzPlaceHolder="สาขาวิชา"
-    formControlName="major"
-  >
-    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-  </nz-select>
-  <nz-upload
-    formControlName="urlImage"
-    nzListType="picture-card"
-    [(nzFileList)]="fileList"
-    [nzShowButton]="fileList.length < 1"
-    [nzPreview]="handlePreview"
-  >
-    <div>
-      <i nz-icon nzType="plus"></i>
-      <div style="margin-top: 8px">อัพโหลด</div>
+  <small
+    *ngIf="
+      signUpClubForm.controls['email'].hasError('required') &&
+      signUpClubForm.controls['email'].invalid &&
+      signUpClubForm.controls['email'].touched
+    "
+    >*กรุณากรองอีเมล
+  </small>
+  <small
+    *ngIf="
+      signUpClubForm.controls['email'].hasError('email') &&
+      signUpClubForm.controls['email'].invalid &&
+      signUpClubForm.controls['email'].touched
+    "
+    >*กรุณากรองอีเมลให้ถูกต้อง
+  </small>
+
+  <div class="flex w-full gap-1">
+    <div class="w-1/2 flex flex-col">
+      <input
+        nz-input
+        nzSize="large"
+        class="rounded-[15px]"
+        placeholder="รหัสผ่าน"
+        type="password"
+        formControlName="password"
+      />
+      <small
+        *ngIf="
+          signUpClubForm.controls['password'].hasError('required') &&
+          signUpClubForm.controls['password'].invalid &&
+          signUpClubForm.controls['password'].touched
+        "
+        >*กรุณากรองรหัสผ่าน
+      </small>
+      <small
+        *ngIf="
+          signUpClubForm.controls['password'].hasError('minLength') &&
+          signUpClubForm.controls['password'].invalid &&
+          signUpClubForm.controls['password'].touched
+        "
+        >*ความยาวรหัสผ่านไม่เพียงพอ
+      </small>
     </div>
-  </nz-upload>
-  <nz-modal
-    [nzVisible]="previewVisible"
-    [nzContent]="modalContent"
-    [nzFooter]="null"
-    (nzOnCancel)="previewVisible = false"
-  >
-    <ng-template #modalContent>
-      <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
-    </ng-template>
-  </nz-modal>
+    <div class="w-1/2 flex flex-col">
+      <input
+        nz-input
+        nzSize="large"
+        class="rounded-[15px]"
+        placeholder="ยืนยันรหัสผ่าน"
+        type="password"
+        formControlName="confirmPassword"
+      />
+
+      <small
+        *ngIf="
+          signUpClubForm.controls['confirmPassword'].hasError('required') &&
+          signUpClubForm.controls['confirmPassword'].invalid &&
+          signUpClubForm.controls['confirmPassword'].touched
+        "
+        >*กรุณากรองยืนยันรหัสผ่าน
+      </small>
+      <small
+        *ngIf="
+          signUpClubForm.controls['confirmPassword'].hasError('minlength') &&
+          signUpClubForm.controls['confirmPassword'].invalid &&
+          signUpClubForm.controls['confirmPassword'].touched
+        "
+        >*ความยาวรหัสผ่านไม่เพียงพอ
+      </small>
+    </div>
+  </div>
+  <small *ngIf="isMatch">*รหัสผ่านไม่ตรงกันโปรดอักครั้ง</small>
   <button
-    class="h-12 text-2xl"
+    class="my-2 h-12 text-2xl"
     nz-button
-    
     nzType="primary"
+    [disabled]="signUpClubForm.invalid"
   >
     สมัครชุมนุม/ชมรม
   </button>
