@@ -1,0 +1,18 @@
+nz-date-picker,
+nz-range-picker {
+  margin: 0 8px 12px 0;
+  width: 100%;
+}
+
+nz-select {
+    width: 100%;
+  }
+
+::ng-deep .ant-upload-list-picture-card .ant-upload-list-item-actions  a {
+  display: none;
+}
+
+::ng-deep .ant-modal {
+  top: 0px;
+  
+}

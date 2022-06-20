@@ -1,0 +1,9 @@
+[nz-carousel-content] {
+
+  /* background: #364d79; */
+
+  overflow: hidden;
+}
+.ant-row-end {
+  justify-content: flex-start;
+}

@@ -9,18 +9,21 @@ export class SignUpPageComponent implements OnInit {
   isSignUp = true;
   isSignUpUser = false;
   isSignUpClub = false;
-
-  handleSignUpUser():void {
+  //test Sign-up club
+  // isSignUp = false;
+  // isSignUpUser = false;
+  // isSignUpClub = true;
+  handleSignUpUser(): void {
     this.isSignUp = false;
     this.isSignUpUser = true;
     this.isSignUpClub = false;
   }
-  handleSignUpClub():void {
+  handleSignUpClub(): void {
     this.isSignUp = false;
     this.isSignUpUser = false;
     this.isSignUpClub = true;
   }
-  handleSignUp():void {
+  handleSignUp(): void {
     this.isSignUp = true;
     this.isSignUpUser = false;
     this.isSignUpClub = false;
