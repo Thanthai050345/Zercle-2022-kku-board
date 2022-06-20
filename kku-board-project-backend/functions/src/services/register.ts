@@ -9,7 +9,7 @@ export const createStudent = async (body: Student) => {
     email: body.email,
     password: body.password,
     uid: body.uid,
-    photoURL: body.urlImage,
+    // photoURL: body.urlImage,
     disabled: false,
   });
   await admin.auth().setCustomUserClaims(user.uid, {
