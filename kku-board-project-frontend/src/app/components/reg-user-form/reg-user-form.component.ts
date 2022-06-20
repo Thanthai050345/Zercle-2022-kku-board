@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -73,6 +73,7 @@ export class RegUserFormComponent implements OnInit {
             });
             localStorage.setItem('authority', this.user.authority);
             localStorage.setItem('userUid', this.user.uid);
+            this.router.navigate(['/home'])
           });
         },
         (err: HttpErrorResponse) => {

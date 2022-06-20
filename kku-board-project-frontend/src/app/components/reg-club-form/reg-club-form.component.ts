@@ -51,6 +51,7 @@ export class RegClubFormComponent implements OnInit {
             });
             localStorage.setItem('authority', this.user.authority);
             localStorage.setItem('userUid', this.user.uid);
+            this.router.navigate(['/club-home'])
           });
         },
         (err: HttpErrorResponse) => {
