@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import "dayjs/locale/th";
 import * as dayjs from 'dayjs'
 import {dataEvent} from 'src/app/interfaces/dataEvent'
+import { log } from 'console';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-popular-event',
+  selector: 'popular-event',
   templateUrl: './popular-event.component.html',
   styleUrls: ['./popular-event.component.css']
 })
 export class PopularEventComponent implements OnInit {
+  index = 0;
   dataBase = [
     {
       eventHeader: "รับน้องใหม่2565",
@@ -82,25 +85,48 @@ export class PopularEventComponent implements OnInit {
 
   ngOnInit() {}
 
-  constructor() {}
+  constructor(private modal: NzModalService) {
+
+  }
 
   showModal(): void {
     this.isVisible = true;
+
+    this.modal.create({
+      nzTitle: `${this.datas[this.index].eventHeader}`,
+      nzFooter: null,
+      nzContent:`<b>วันที่จัดกิจกรรม</b><br>
+      ${this.datas[this.index].startDate} เวลา ${this.datas[this.index].startTime} <b> ถึง </b> ${this.datas[this.index].endDate} เวลา ${this.datas[this.index].endTime}<br>
+      <b>รายละเอียดกิจกรรม</b><br>
+      ${this.datas[this.index].description}<br>
+      <b>รูปแบบกิจกรรม</b><br>
+      ${this.datas[this.index].eventType}<br>
+      <b>สถานที่จัดกิจกรรม</b><br>
+      ${this.datas[this.index].location}<br>
+      <b>จำนวนผู้เข้าร่วมแล้ว</b><br>
+      ${this.datas[this.index].attendees} ท่าน
+      `
+    })
+
   }
 
-  joined(name:string):void{
-    let Message = "คุณเข้าร่วมกิจกรรม"+name+" แล้ว"
-    if (confirm(Message) == true) {
-      console.log("user joined " + name)
-    } else {
-      console.log("user cancel to joined " + name)
-    }
-  }
 
   handleCancel(): void {
     console.log('closed detail modal!');
     this.isVisible = false;
   }
+  checkIndex(e:any): void {
+    this.index = e;
+    console.log(this.index);
+  }
+  cancel(): void {
+    console.log('user do not join');
 
+  }
+
+  confirm(eventId:string): void {
+    console.log(`user join ${eventId}`);
+
+  }
 
 }
