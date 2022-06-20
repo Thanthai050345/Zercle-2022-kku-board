@@ -47,6 +47,9 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+
 
 
 registerLocaleData(th);
@@ -69,6 +72,7 @@ registerLocaleData(th);
 
 
     PopularEventComponent,
+          TopBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,7 +102,8 @@ registerLocaleData(th);
     NzDatePickerModule,
     NzTreeSelectModule,
     NzImageModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzDropDownModule,
 
 
 

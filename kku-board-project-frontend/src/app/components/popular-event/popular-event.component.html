@@ -1,33 +1,22 @@
-<nz-carousel nzAutoPlay class="w-11/12 h-full">
+<nz-carousel nzAutoPlay class="w-full h-full drop-shadow-2xl" (nzAfterChange)="checkIndex($event)">
   <div nz-carousel-content *ngFor="let item of datas">
-    <div class="flex flex-col  w-full h-[93%] drop-shadow-lg bg-white  rounded-3xl">
-      <img class="object-cover rounded-t-3xl h-2/3" src="{{item.image}}" />
-      <div class="h-1/3 flex flex-col justify-around px-10 py-5 sm:px-20 ">
-        <p class="uppercase text-gray-500 text-base sm:text-2xl"> {{item.startDate}}</p>
-        <p class=" uppercase truncate font-bold text-4xl sm:text-6xl">{{item.eventHeader}}</p>
-        <p class="text-base sm:text-2xl  text-gray-500 truncate">{{item.location}}</p>
-        <div class="flex flex-row text-base sm:text-2xl justify-between">
+    <div class="flex flex-col  w-full h-[93%]  bg-white  rounded-3xl" >
+      <img class="object-cover rounded-t-3xl h-4/6" src="{{item.image}}" />
+      <div class="h-2/5 flex flex-col justify-around px-5 py-5 sm:px-20 ">
+        <p class="uppercase text-gray-500 text-base sm:text-xl"> {{item.startDate}}</p>
+        <p class=" uppercase truncate font-bold text-xl sm:text-4xl">{{item.eventHeader}}</p>
+        <p class="text-base sm:text-xl  text-gray-500 truncate">{{item.location}}</p>
+        <div class="flex flex-row text-base sm:text-xl justify-between">
           <p class=" text-center text-gray-500 mr-2">{{item.attendees}}   ท่าน </p>
           <div>
             <button class=" border-2 border-blue-900 rounded-2xl text-blue-900 px-2 mr-2  " (click)="showModal()"> รายละเอียด</button>
-            <button class="px-5 rounded-2xl  text-white bg-blue-900" (click)="joined(item.eventHeader)">เข้าร่วม</button>
-
-            <nz-modal
-              [(nzVisible)]="isVisible"
-              nzTitle="{{item.eventHeader}}"
-              [nzFooter]="null"
-              (nzOnCancel)="handleCancel()"
-            >
-            <ng-container *nzModalContent>
-              <h1 class="font-bold">กำหนดการ</h1>
-              <p class="self-start mb-3 flex-wrap" nz-row nzJustify="end">วัน {{item.startDate}}  เวลา: {{item.startTime}}น.  ถึง  วัน {{item.endDate}} เวลา: {{item.endTime}}น.</p>
-              <img class="h-full w-full" src="{{item.image}}"/>
-              <h1 class="mt-3 font-bold">รายละเอียดกิจกรรม</h1>
-              <p class="">{{item.description}}</p>
-              <h1 class="font-bold mt-[10px]">สถานที่จัดกิจกรรม</h1>
-              <p class="" nz-row nzJustify="end">{{item.location}}</p>
-            </ng-container>
-          </nz-modal>
+            <button class="px-5 rounded-2xl  text-white bg-blue-900"
+              nz-popconfirm
+              nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="confirm(item.eventId)"
+              (nzOnCancel)="cancel()"
+            >เข้าร่วม</button>
           </div>
 
         </div>
