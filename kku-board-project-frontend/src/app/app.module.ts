@@ -7,7 +7,7 @@ import { PopularComponent } from './components/popular/popular.component';
 import { ModalEventDescription } from './components/KB-43-modal-event-description-component-frontend/ModalEventDescription';
 import { AllEventComponent } from './components/KB-26-all-event-component-frontend/all-event-component';
 import { ClubHomePage } from './components/KB-36-component-in-club-home-page-frontend/ClubHomePage';
-import { PopularEventComponent } from './components/popular-event/popular-event.component'
+import { PopularEventComponent } from './components/popular-event/popular-event.component';
 
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -41,7 +41,6 @@ import { RegUserFormComponent } from './components/reg-user-form/reg-user-form.c
 import { RegClubFormComponent } from './components/reg-club-form/reg-club-form.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { ToastrModule } from 'ngx-toastr';
-import { HomeClubPageComponent } from './pages/home-club-page/home-club-page.component';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
@@ -49,8 +48,7 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-
-
+import { ClubHomePageComponent } from './pages/club-home-page/club-home-page.component';
 
 registerLocaleData(th);
 @NgModule({
@@ -64,15 +62,12 @@ registerLocaleData(th);
     BackButtonDirective,
     RegUserFormComponent,
     RegClubFormComponent,
-    HomeClubPageComponent,
     ModalEventDescription,
     AllEventComponent,
     ClubHomePage,
-
-
-
     PopularEventComponent,
-          TopBarComponent,
+    TopBarComponent,
+    ClubHomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,9 +99,6 @@ registerLocaleData(th);
     NzImageModule,
     NzPopconfirmModule,
     NzDropDownModule,
-
-
-
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],

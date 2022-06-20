@@ -2,7 +2,7 @@ export interface User {
   studentId: string;
   firstName: string;
   lastName: string;
-  uid: string;
+  // uid: string;
   password: string;
   phoneNumber: string;
   major: string;
@@ -11,5 +11,5 @@ export interface User {
   email: string;
   faculty: string;
   urlImage: string;
-  id: string;
+  // id: string;
 }

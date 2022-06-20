@@ -4,11 +4,5 @@
 @tailwind utilities;
 
 * {
-    font-family: 'Kanit', sans-serif;
-}
-
-body {
-
-    background-color: #fdd4d4 !important;
-
+  font-family: "Kanit", sans-serif;
 }
