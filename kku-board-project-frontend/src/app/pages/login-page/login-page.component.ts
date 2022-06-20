@@ -14,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
   loading: boolean = false;
-  public user: any;
+  user: any;
   constructor(
     private fb: FormBuilder,
     private afAuth: AngularFireAuth,
@@ -40,19 +40,14 @@ export class LoginPageComponent implements OnInit {
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
         const uid = res.user?.uid;
-        localStorage.setItem('userUid', JSON.stringify(res.user?.uid));
         this.userService.getAllUser().subscribe(
           (res) => {
             this.user = res.find((user) => {
               return user.uid === uid;
             });
-            localStorage.setItem(
-              'authority',
-              JSON.stringify(this.user.authority)
-            );
-            // console.log(localStorage.getItem('authority'));
-            
-            if (localStorage.getItem('authority') == '"student"') {
+            localStorage.setItem('authority', this.user.authority);
+            localStorage.setItem('userUid', this.user.uid);
+            if (localStorage.getItem('authority') === 'student') {
               this.router.navigate(['/home']);
             } else {
               this.router.navigate(['/club-home']);

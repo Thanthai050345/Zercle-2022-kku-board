@@ -174,11 +174,11 @@
       </small>
     </div>
   </div>
-  <small *ngIf="isMatch">*รหัสผ่านไม่ตรงกันโปรดอักครั้ง</small>
   <button
     nz-button
     class="my-2 h-12 text-2xl"
     [disabled]="regUserForm.invalid"
+    nzType="primary"
   >
     สมัครสมาชิก
   </button>

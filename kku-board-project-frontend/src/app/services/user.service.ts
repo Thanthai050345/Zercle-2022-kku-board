@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Club } from '../interfaces/club';
 import { User } from '../interfaces/user'
 
 @Injectable({
@@ -15,5 +16,8 @@ export class UserService {
   }
   postUser(data: User) {
     return this.http.post(this.baseUrl + 'register/student', data)
+  }
+  postClub(data: Club) {
+    return this.http.post(this.baseUrl + 'register/clubAdmin', data)
   }
 }
