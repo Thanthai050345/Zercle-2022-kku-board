@@ -29,7 +29,7 @@ export const createClubAdmin = async (body: ClubAdmin) => {
     email: body.email,
     password: body.password,
     uid: body.uid,
-    photoURL: body.urlImage,
+    // photoURL: body.urlImage,
     disabled: false,
   });
 
