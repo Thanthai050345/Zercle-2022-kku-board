@@ -47,9 +47,5 @@ export class CountDownComponent implements OnInit {
   aHour = 3600 * 1000;
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.toDay);
-    console.log(this.datas[1].deadline);
-    console.log((this.datas[1].deadline - this.toDay) < this.aDay);
-  }
+  ngOnInit(): void {}
 }

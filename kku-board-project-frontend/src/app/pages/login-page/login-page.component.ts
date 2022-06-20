@@ -14,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
   loading: boolean = false;
-  user: any;
+  public user: any;
   constructor(
     private fb: FormBuilder,
     private afAuth: AngularFireAuth,
@@ -39,20 +39,29 @@ export class LoginPageComponent implements OnInit {
     this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
-        const id = res.user?.uid;
-        if (res.user?.emailVerified) {
-          this.router.navigate(['/sign-up']);
-        } else {
-          this.userService.getUserById(res.user?.uid).subscribe(
-            (res) => {
-              localStorage.setItem('user', JSON.stringify(res));
+        const uid = res.user?.uid;
+        localStorage.setItem('userUid', JSON.stringify(res.user?.uid));
+        this.userService.getAllUser().subscribe(
+          (res) => {
+            this.user = res.find((user) => {
+              return user.uid === uid;
+            });
+            localStorage.setItem(
+              'authority',
+              JSON.stringify(this.user.authority)
+            );
+            // console.log(localStorage.getItem('authority'));
+            
+            if (localStorage.getItem('authority') == '"student"') {
               this.router.navigate(['/home']);
-            },
-            (err: HttpErrorResponse) => {
-              console.log(err.message);
+            } else {
+              this.router.navigate(['/club-home']);
             }
-          );
-        }
+          },
+          (err: HttpErrorResponse) => {
+            console.log(err.message);
+          }
+        );
       })
       .catch((error) => {
         this.loading = false;
