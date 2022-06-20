@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 import { facultys } from 'src/assets/datas/facultys';
@@ -11,9 +13,18 @@ import { facultys } from 'src/assets/datas/facultys';
   styleUrls: ['./reg-user-form.component.css'],
 })
 export class RegUserFormComponent implements OnInit {
+  constructor(
+    private userService: UserService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {}
+
+  user: any;
+
   facultys = facultys;
   majors: any = [];
-  isMatch: boolean = false;
   regUserForm = new FormGroup({
     firstName: new FormControl('บักเขียบ', [Validators.required]),
     lastName: new FormControl('หำเหม็น', [Validators.required]),
@@ -39,23 +50,37 @@ export class RegUserFormComponent implements OnInit {
   onSubmit(): void {
     const password = this.regUserForm.value.password;
     const confirmPassword = this.regUserForm.value.confirmPassword;
+    const email = this.regUserForm.value.email;
     if (password === confirmPassword) {
-      // console.log(this.regUserForm.value);
       const data: User = {
-        ...this.regUserForm.value,
+        firstName: this.regUserForm.value.firstName,
+        lastName: this.regUserForm.value.lastName,
+        faculty: this.regUserForm.value.faculty,
+        major: this.regUserForm.value.major,
+        email: this.regUserForm.value.email,
+        studentId: this.regUserForm.value.studentId,
+        phoneNumber: this.regUserForm.value.phoneNumber,
+        password: this.regUserForm.value.password,
         clubed: [],
         urlImage: '',
         authority: 'student',
       };
-      console.log(data);
-      this.http.post(
-        'http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/register/student',
-        data
-      ).subscribe(res => {
-        console.log(res);
-      });
+      this.userService.postUser(data).subscribe(
+        (_res) => {
+          this.userService.getAllUser().subscribe((res) => {
+            this.user = res.find((user) => {
+              return user.email === email;
+            });
+            localStorage.setItem('authority', this.user.authority);
+            localStorage.setItem('userUid', this.user.uid);
+          });
+        },
+        (err: HttpErrorResponse) => {
+          this.toastr.error(err.error.message, 'Error');
+        }
+      );
     } else {
-      this.isMatch = true;
+      this.toastr.error('รหัสผ่านไม่ตรงกันโปรดอักครั้ง', 'Error');
     }
   }
   onChange(event: any) {
@@ -63,7 +88,4 @@ export class RegUserFormComponent implements OnInit {
     const faculty = facultys.find((faculty) => faculty.value == event);
     this.majors = faculty?.majors;
   }
-  constructor(private userService: UserService, private http: HttpClient) {}
-
-  ngOnInit(): void {}
 }

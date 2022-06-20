@@ -25,7 +25,6 @@
     nzSize="large"
     ngModel="faculty"
     nzPlaceHolder="คณะ"
-    (ngModelChange)="onChange($event)"
     formControlName="faculty"
   >
     <nz-option
@@ -41,29 +40,6 @@
       signUpClubForm.controls['faculty'].touched
     "
     >*กรุณาเลือกคณะ
-  </small>
-
-  <nz-select
-    nzBorderless
-    nzSize="large"
-    *ngIf="majors"
-    nzPlaceHolder="สาขาวิชา"
-    ngModel="major"
-    formControlName="major"
-  >
-    <nz-option
-      *ngFor="let major of majors"
-      nzValue="{{ major.value }} "
-      nzLabel="{{ major.name }} "
-    ></nz-option>
-  </nz-select>
-  <small
-    *ngIf="
-      signUpClubForm.controls['major'].hasError('required') &&
-      signUpClubForm.controls['major'].invalid &&
-      signUpClubForm.controls['major'].touched
-    "
-    >*กรุณาเลือกสาขาวิชา
   </small>
 
   <input
@@ -146,7 +122,7 @@
       </small>
     </div>
   </div>
-  <small *ngIf="isMatch">*รหัสผ่านไม่ตรงกันโปรดอักครั้ง</small>
+
   <button
     class="my-2 h-12 text-2xl"
     nz-button
