@@ -6,7 +6,7 @@ export const getEventStudentsCountDown = async (uid: string) => {
   let sortedEventByStartDate = event.sort((a: any, b: any) => {
     return a.startDate - b.startDate;
   });
-  let slicedEvent = sortedEventByStartDate.slice(0, 5);
+  let slicedEvent = sortedEventByStartDate.slice(0, 3);
   const countdown = (data: Countdown[]) =>
     data.map((item) => {
       return {
@@ -23,7 +23,7 @@ export const getEventClubsCountDown = async (uid: string) => {
     let sortedEventByStartDate = event.sort((a: any, b: any) => {
       return a.startDate - b.startDate;
     });
-    let slicedEvent = sortedEventByStartDate.slice(0, 5);
+    let slicedEvent = sortedEventByStartDate.slice(0, 3);
     const countdown = (data: Countdown[]) =>
       data.map((item) => {
         return {
