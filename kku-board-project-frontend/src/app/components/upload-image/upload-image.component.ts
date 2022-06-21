@@ -11,10 +11,17 @@ export class UploadImageComponent implements OnInit {
   loading: boolean = false; // Flag variable
   file: File[] = []; // Variable to store file
   fileBlob: Blob[] = [];
+  userId: string | null | undefined = "";
+  authority: string | null | undefined = "";
 
   constructor(private uploadService: UploadImageService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userId = localStorage.getItem('userUid');
+    this.authority = localStorage.getItem('authority');
+    console.log(this.userId);
+    
+  }
 
   onChange(event: any) {
     this.file.push(event.target.files[0]);
@@ -25,7 +32,7 @@ export class UploadImageComponent implements OnInit {
     this.uploadService.FileToBlob(this.file[0]).then((blob) => {
       this.fileBlob.push(blob);
       this.uploadService
-        .UploadImageReturnUrl('/images', [this.fileBlob[0]], '1')
+        .UploadImageReturnUrl( this.authority === '"clubAdmin"'? '/images/clubAdmins' : '/images/students', [this.fileBlob[0]], `${this.userId}`)
         .then((url: any) => {
           this.imageUrl = url
         });
