@@ -23,20 +23,21 @@
         102.8,85,39.18,39.18,0,0,1,97.5,67.4c-.22-2.88-.21-6-.2-9V48.23h0c0-1.1,0-2.17-.13-3.22s-.21-2-.36-2.85l-.06-.27a35.62,35.62,0,0,0-9-17.9Z"
         />
       </svg>
-      <!-- <i nz-icon nzType="notification" nzTheme="fill"></i>
-      <div class="dropdown-content">
-        <a href="https://blog.hubspot.com/">Blog</a>
-        <a href="https://academy.hubspot.com/">Academy</a>
-        <a href="https://www.youtube.com/user/hubspot">YouTube</a>
-      </div> -->
+      <nz-dropdown-menu #menu="nzDropdownMenu" *ngFor="let noti of dataNoti">
+        <ul nz-menu>
+          <li nz-menu-item></li>
+          <li nz-menu-item>2nd menu item length</li>
+          <li nz-menu-item>3rd menu item length</li>
+        </ul>
+      </nz-dropdown-menu>
     </div>
-    <div class="flex flex-row items-center">
+    <button class="flex flex-row items-center" (click)="essl()">
       <img
         class="w-10 h-10 object-cover rounded-full"
         src="https://www.allkpop.com/upload/2021/06/content/150107/web_data/allkpop_1623733878_hoshi-1.jpg"
       />
       <p class="font-medium text-lg text-white ml-5">ศศิธร ก้อนทอง</p>
-    </div>
+    </button>
     <a
       class="w-28 flex flex-row font-medium border-8 border-white rounded-xl bg-white items-center"
       [routerLink]="'/login'"
