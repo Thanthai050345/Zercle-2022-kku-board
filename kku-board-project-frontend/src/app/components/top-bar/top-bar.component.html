@@ -1,10 +1,7 @@
-<nav class="h-20 bg-[#243A73] flex flex-row">
-  <div
-    *ngIf="authority === 'student'"
-    class="h-full flex items-center basis-7/12 justify-between px-10"
-  >
+<nav class="h-20 bg-[#243A73] flex flex-row items-center">
+  <div *ngIf="authority === 'student'" class="nav-l">
     <a class="logo" [routerLink]="'/home'">KKU BOARDS </a>
-    <div>
+    <div class="ulists">
       <ul class="flex h-20">
         <li class="h-full">
           <a class="linkLists" [routerLink]="'/home'">หน้าหลัก</a>
@@ -16,18 +13,28 @@
     </div>
   </div>
 
-  <div *ngIf="authority === 'clubAdmin'" class="h-full flex items-center">
+  <div *ngIf="authority === 'clubAdmin'" class="nav-l">
     <a class="logo" [routerLink]="'/club-home'">KKU BOARDS </a>
+    <div class="ulists">
+      <ul class="flex h-20">
+        <li class="h-full">
+          <a class="linkLists" [routerLink]="'/club-home'">หน้าหลัก</a>
+        </li>
+        <li class="h-full">
+          <a class="linkLists" [routerLink]="'/club-home'">ตารางกิจกรรม</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <div class="flex justify-end gap-6 basis-5/12 h-full items-center px-10">
+  <div class="nav-r">
     <button
       nz-button
       nz-dropdown
       [nzDropdownMenu]="menu"
       class="h-16 rounded-full w-16"
     >
-      <nz-badge [nzCount]="3">
+      <nz-badge [nzCount]="datas.length">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-8 w-8 text-white"
@@ -46,14 +53,11 @@
     </button>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item>
-          <a>1st item</a>
-        </li>
-        <li nz-menu-item>
-          <a>2nd item</a>
-        </li>
-        <li nz-menu-item>
-          <a>3rd item</a>
+        <li *ngFor="let item of datas" nz-menu-item>
+          <a
+            >{{ item.eventHeader }}<br />เริ่ม {{ item.startDate }}
+            {{ item.startTime }}น.</a
+          >
         </li>
       </ul>
     </nz-dropdown-menu>
@@ -63,11 +67,26 @@
         [nzSrc]="user.urlImage"
         [nzSize]="'large'"
       ></nz-avatar>
-      <p class="text-white font-semibold text-lg">
+      <p
+        *ngIf="authority === 'student'"
+        class="text-white font-semibold text-sm text-ellipsis w-[120px]"
+      >
         {{ user.firstName }} {{ user.lastName }}
       </p>
+      <p
+        *ngIf="authority === 'clubAdmin'"
+        class="text-white font-semibold text-sm text-ellipsis w-[120px]"
+      >
+        {{ club.clubName }}
+      </p>
     </div>
-    <button nz-button nzDanger nzType="primary" class="flex gap-1">
+    <button
+      nz-button
+      nzDanger
+      nzType="primary"
+      (click)="logout()"
+      class="flex gap-1"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-6 w-6"
@@ -84,6 +103,49 @@
       >ออกจากระบบ
     </button>
   </div>
+  <button
+    nz-button
+    nz-dropdown
+    [nzDropdownMenu]="lmenu"
+    class="h-16 rounded-full w-16 lmenu mx-8"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-8 w-8 text-white"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    </svg>
+  </button>
+  <nz-dropdown-menu #lmenu="nzDropdownMenu">
+    <ul nz-menu *ngIf="authority === 'student'">
+      <li nz-menu-item>
+        <a [routerLink]="'/home'">หน้าหลัก</a>
+      </li>
+      <li nz-menu-item>
+        <a [routerLink]="'/home'">ตารางกิจกรรม</a>
+      </li>
+      <li nz-menu-item>
+        <a (click)="logout()">ออกจากระบบ</a>
+      </li>
+    </ul>
+    <ul nz-menu *ngIf="authority === 'clubAdmin'">
+      <li nz-menu-item>
+        <a [routerLink]="'/club-home'">หน้าหลัก</a>
+      </li>
+      <li nz-menu-item>
+        <a [routerLink]="'/club-home'">ตารางกิจกรรม</a>
+      </li>
+      <li nz-menu-item>
+        <a (click)="logout()">ออกจากระบบ</a>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
 </nav>
-
-<button nz-button nzType="primary" (click)="onCilck()">button</button>

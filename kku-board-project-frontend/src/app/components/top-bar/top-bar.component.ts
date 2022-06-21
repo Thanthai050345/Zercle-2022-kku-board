@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import * as dayjs from 'dayjs';
 import { Club } from 'src/app/interfaces/club';
+import { Countdown } from 'src/app/interfaces/countdown';
 import { User } from 'src/app/interfaces/user';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { EventService } from 'src/app/services/event.service';
 import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-top-bar',
@@ -8,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent implements OnInit {
+  aDay = 86400 * 1000;
   authority: string | null | undefined;
   userUid: string | null | undefined;
   user: User = {
@@ -21,7 +26,7 @@ export class TopBarComponent implements OnInit {
     clubed: [],
     email: '',
     faculty: '',
-    urlImage: ''
+    urlImage: '',
   };
   club: Club = {
     password: '',
@@ -30,10 +35,16 @@ export class TopBarComponent implements OnInit {
     authority: '',
     email: '',
     faculty: '',
-    urlImage: ''
+    urlImage: '',
   };
   // urlImage: string;
-  constructor(private userService: UserService) {}
+  countdown: Countdown[] = [];
+  datas: any;
+  constructor(
+    private userService: UserService,
+    private eventServiec: EventService,
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
     this.authority = localStorage.getItem('authority');
@@ -43,15 +54,39 @@ export class TopBarComponent implements OnInit {
         this.user = res;
         console.log(this.user);
       });
+      this.eventServiec.getCountdownUserById(this.userUid).subscribe((res) => {
+        this.countdown = res.filter(
+          (element) => this.aDay > element.startDate * 1000 - Date.now()
+        );
+        this.datas = this.convertDatas(this.countdown);
+      });
     } else if (this.authority === 'clubAdmin') {
       this.userService.getClubById(this.userUid).subscribe((res) => {
         this.club = res;
         console.log(this.club);
       });
+      this.eventServiec.getCountdownClubById(this.userUid).subscribe((res) => {
+        this.countdown = res.filter(
+          (element) => this.aDay > element.startDate * 1000 - Date.now()
+        );
+        this.datas = this.convertDatas(this.countdown);
+      });
     }
   }
+  convertDatas = (data: Countdown[]) => {
+    return data.map((item) => {
+      const dateS = item.startDate * 1000;
+      return {
+        id: item.eventId,
+        eventHeader: item.eventHeader,
+        startDate: dayjs(dateS).locale('th').format('dd D MMM'),
+        startTime: dayjs(dateS).locale('th').format('H:mm'),
+        deadline: dateS,
+      };
+    });
+  };
 
-  onCilck() {
-    console.log(this.authority, this.userUid);
+  logout() {
+    this.authService.SignOut();
   }
 }
