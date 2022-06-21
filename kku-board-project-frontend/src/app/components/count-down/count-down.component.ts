@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Countdown } from 'src/app/interfaces/countdown';
 import 'dayjs/locale/th';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-count-down',
@@ -9,9 +10,7 @@ import 'dayjs/locale/th';
   styleUrls: ['./count-down.component.css'],
 })
 export class CountDownComponent implements OnInit {
-  @Input() role = '';
-  @Input() id = '';
-  dataBase = [
+  dataBase: Countdown[] = [
     {
       eventId: '1',
       eventHeader: 'เส้นทางสู่นักทดสอบเจาะระบบและสายงานไซเบอร์ซีคิวริตี้',
@@ -28,6 +27,7 @@ export class CountDownComponent implements OnInit {
       startDate: 1656905400,
     },
   ];
+
   convertDatas = (data: Countdown[]): any => {
     return data.map((item) => {
       const dateS = item.startDate * 1000;
@@ -45,7 +45,17 @@ export class CountDownComponent implements OnInit {
   toDay = Date.now();
   aDay = 86400 * 1000;
   aHour = 3600 * 1000;
-  constructor() {}
+  constructor(private eventService: EventService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // if (localStorage.getItem('authority') === 'student') {
+    //   this.eventService
+    //     .getCountdownUserById(localStorage.getItem('userUid'))
+    //     .subscribe((res) => {
+    //       console.log(res);
+          
+    //     });
+    // }
+    // console.log(localStorage.getItem('userUid'));
+  }
 }

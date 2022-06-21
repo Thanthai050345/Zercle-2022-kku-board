@@ -4,12 +4,12 @@
 >
   <div class="content-image">
     <img
-      class="md:h-full h-[80px] md:w-[300px] w-[140px] rounded-2xl md:rounded-l-2xl mt-[20px] md:mt-0 hidden md:flex object-cover "
+      class="md:h-full h-[80px] md:w-[300px] w-[140px] rounded-2xl md:rounded-l-2xl mt-[20px] md:mt-0 hidden md:flex object-cover"
       src="{{item.image}}"
       alt="content"
     />
   </div>
-  <div class="relative my-2  md:w-full w-full h-full">
+  <div class="relative my-2 md:w-full w-full h-full">
     <p class="mt-8 ml-8 text-base text-gray-500 md:flex">{{item.startDate}}</p>
     <p
       class="ml-8 text-xl leading-6 font-bold text-gray-900 md:align-middle"
@@ -20,22 +20,22 @@
       {{item.eventHeader}}
     </p>
     <p
-      class=" ml-8 text-base leading-6 font-light text-gray-600 md:flex"
+      class="ml-8 text-base leading-6 font-light text-gray-600 md:flex"
       nz-typography
       nzEllipsis
       [nzEllipsisRows]="1"
     >
       {{item.location}}
     </p>
-    <div class="flex flex-row  justify-between">
+    <div class="flex flex-row justify-between">
       <p
-        class=" ml-8 text-base leading-6 font-light text-gray-600 hidden md:flex"
+        class="ml-8 text-base leading-6 font-light text-gray-600 hidden md:flex"
       >
         ผู้เข้าร่วม {{item.attendees}} ท่าน
       </p>
       <div class="flex flex-row justify-end">
         <button
-          (click)="showModal()"
+          (click)="showModal(item)"
           class="bg-white ml-8 md:ml-12 w-28 h-8 rounded-2xl border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white delay-100"
         >
           รายละเอียด
@@ -50,22 +50,23 @@
         >
           เข้าร่วม
         </button>
-        <nz-modal
-          [(nzVisible)]="isVisible"
-          nzTitle="{{item.eventHeader}}"
-          (nzOnCancel)="handleCancel()"
-          (nzOnOk)="handleOk() "
-          [nzFooter]="null"
-        >
-          <ng-container *nzModalContent>
-            <p class="" nz-row nzJustify="end">{{item.startDate}}</p>
-
-            <img class="h-full w-full" src="{{item.image}}" />
-            <p>{{item.description}}</p>
-            <p class="mt-[10px]" nz-row nzJustify="end">{{item.location}}</p>
-          </ng-container>
-        </nz-modal>
       </div>
     </div>
   </div>
 </div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="{{datamodal.eventHeader}}"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk() "
+  [nzFooter]="null"
+>
+  <ng-container *nzModalContent>
+    <p class="" nz-row nzJustify="end">item.startDate</p>
+
+    <!-- <img class="h-full w-full" src="item.image" /> -->
+    <p>item.description</p>
+    <p class="mt-[10px]" nz-row nzJustify="end">item.location</p>
+  </ng-container>
+</nz-modal>
