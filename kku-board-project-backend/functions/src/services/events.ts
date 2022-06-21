@@ -87,9 +87,9 @@ export const updateUserJoinEvent = async (uid: string, eventId: string) => {
         join: [...join, { firstName, lastName, uid }],
         attendees: attendees + 1,
       });
-    return "successfull joined event";
+    return {"message":"successfull joined event"};
   } else {
-    return "already joined event";
+    return {"message":"already joined event"};
   }
 };
 

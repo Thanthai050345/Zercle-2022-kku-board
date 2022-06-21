@@ -49,6 +49,7 @@ import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ClubHomePageComponent } from './pages/club-home-page/club-home-page.component';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
 registerLocaleData(th);
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ registerLocaleData(th);
     PopularEventComponent,
     TopBarComponent,
     ClubHomePageComponent,
+    UploadImageComponent,
   ],
   imports: [
     BrowserModule,
