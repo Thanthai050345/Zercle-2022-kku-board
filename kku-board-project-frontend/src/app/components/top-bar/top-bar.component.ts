@@ -39,14 +39,10 @@ export class TopBarComponent implements OnInit {
   };
   // urlImage: string;
   countdown: Countdown[] = [];
-  datas: any;
+  datas: any[] = [];
   constructor(
     private userService: UserService,
-<<<<<<< Updated upstream
     private eventService: EventService,
-=======
-    private eventServiec: EventService,
->>>>>>> Stashed changes
     private authService: AuthenticationService
   ) {}
 
@@ -56,13 +52,9 @@ export class TopBarComponent implements OnInit {
     if (this.authority === 'student') {
       this.userService.getUserById(this.userUid).subscribe((res) => {
         this.user = res;
-        console.log(this.user);
+        // console.log(this.user);
       });
-<<<<<<< Updated upstream
       this.eventService.getCountdownUserById(this.userUid).subscribe((res) => {
-=======
-      this.eventServiec.getCountdownUserById(this.userUid).subscribe((res) => {
->>>>>>> Stashed changes
         this.countdown = res.filter(
           (element) => this.aDay > element.startDate * 1000 - Date.now()
         );
@@ -73,11 +65,7 @@ export class TopBarComponent implements OnInit {
         this.club = res;
         console.log(this.club);
       });
-<<<<<<< Updated upstream
       this.eventService.getCountdownClubById(this.userUid).subscribe((res) => {
-=======
-      this.eventServiec.getCountdownClubById(this.userUid).subscribe((res) => {
->>>>>>> Stashed changes
         this.countdown = res.filter(
           (element) => this.aDay > element.startDate * 1000 - Date.now()
         );

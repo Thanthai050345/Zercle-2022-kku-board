@@ -8,15 +8,15 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  uid:string | null | undefined;
-  data:any[] =[];
-  constructor(private eventService: EventService) { }
+  // uid:string | null | undefined;
+  // data:any[] =[];
+  // constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
-    this.uid = localStorage.getItem('userUid');
-    this.eventService.getEvenById(this.uid).subscribe(res => {
-      this.data = res;
-      console.log(res);
-    });
+    // this.uid = localStorage.getItem('userUid');
+    // this.eventService.getEvenById(this.uid).subscribe(res => {
+    //   this.data = res;
+    //   console.log(this.data);
+    // });
   }
 }
