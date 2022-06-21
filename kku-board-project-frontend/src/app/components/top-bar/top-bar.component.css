@@ -1,0 +1,32 @@
+.logo {
+  @apply text-4xl text-white font-bold;
+}
+
+.logo:hover {
+  @apply text-white;
+}
+
+.linkLists {
+  @apply h-full text-white flex items-center transition-all p-4 text-lg;
+}
+
+.linkLists:hover {
+  color: white;
+  border-bottom: 5px solid white;
+}
+
+[nz-icon] {
+  color: white;
+  font-weight: 600;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 32px;
+}
+nz-badge {
+  border: none;
+}
+[nz-dropdown] {
+  border: none;
+  background:none ;
+}

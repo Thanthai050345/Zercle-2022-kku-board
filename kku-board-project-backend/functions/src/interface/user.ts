@@ -23,4 +23,5 @@ export interface ClubAdmin {
   clubId?: string;
   urlImage: string;
   authority: string;
+  members: string[];
 }

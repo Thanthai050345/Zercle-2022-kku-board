@@ -4,12 +4,22 @@ import {
   deleteStudentById,
   getAllClubAdmins,
   getAllStudents,
+  getAllUsers,
   getClubAdminById,
   getStudentById,
 } from "../services/users";
 import { catchingError } from "../templates/errorsTemplate";
 
 const router = express.Router();
+
+router.get("/allUsers", async(req, res) => {
+  try {
+    const users = await getAllUsers()
+    return res.json(users)
+  } catch (error) {
+    return error
+  }
+})
 
 router.get("/clubAdmins", async (_: express.Request, res: express.Response) => {
   try {

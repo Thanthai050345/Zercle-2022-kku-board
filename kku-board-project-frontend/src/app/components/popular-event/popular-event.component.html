@@ -1,0 +1,32 @@
+<nz-carousel nzAutoPlay class="w-full h-full drop-shadow-2xl" (nzAfterChange)="checkIndex($event)">
+  <div nz-carousel-content *ngFor="let item of datas">
+    <div class="flex flex-col  w-full h-[93%]  bg-white  rounded-3xl" >
+      <img class="object-cover rounded-t-3xl h-4/6" src="{{item.image}}" />
+      <div class="h-2/5 flex flex-col justify-around px-5 py-5 sm:px-20 ">
+        <p class="uppercase text-gray-500 text-base sm:text-xl"> {{item.startDate}}</p>
+        <p class=" uppercase truncate font-bold text-xl sm:text-4xl">{{item.eventHeader}}</p>
+        <p class="text-base sm:text-xl  text-gray-500 truncate">{{item.location}}</p>
+        <div class="flex flex-row text-base sm:text-xl justify-between">
+          <p class=" text-center text-gray-500 mr-2">{{item.attendees}}   ท่าน </p>
+          <div>
+            <button class=" border-2 border-blue-900 rounded-2xl text-blue-900 px-2 mr-2  " (click)="showModal()"> รายละเอียด</button>
+            <button class="px-5 rounded-2xl  text-white bg-blue-900"
+              nz-popconfirm
+              nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="confirm(item.eventId)"
+              (nzOnCancel)="cancel()"
+            >เข้าร่วม</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nz-carousel>
+
+
+
+
+

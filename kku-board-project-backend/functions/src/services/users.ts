@@ -14,6 +14,23 @@ export const getAllClubAdmins = async () => {
   return clubAdmins;
 };
 
+export const getAllUsers = async () => {
+  const db = admin.firestore();
+  const studentsDocs = await db.collection("students").get();
+  const clubAdminsDocs = await db.collection("clubAdmins").get();
+  let users: Student[] = [];
+  let clubAdmins: ClubAdmin[] = [];
+  studentsDocs.forEach((doc) =>
+    users.push({ ...(doc.data() as Student), id: doc.id })
+  );
+  clubAdminsDocs.forEach((doc) =>
+    clubAdmins.push({ ...(doc.data() as ClubAdmin), id: doc.id })
+  );
+  let allUsers: any[] = [];
+  allUsers = [...users, ...clubAdmins];
+  return allUsers;
+}
+
 export const getAllStudents = async () => {
   const db = admin.firestore();
   const docs = await db
