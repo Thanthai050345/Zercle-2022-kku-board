@@ -1,6 +1,6 @@
 <div
   class="flex md:flex-row bg-white drop-shadow-2xl p-[5px] md:p-0 md:h-[190px] w-[330px] md:w-full rounded-2xl mb-5"
-  *ngFor="let item of dataBase"
+  *ngFor="let item of datas"
 >
   <div class="content-image">
     <img
@@ -35,14 +35,9 @@
       </p>
       <div class="flex flex-row justify-end">
         <button
-<<<<<<< HEAD
-          (click)="showModal()"
+          (click)="showModal(item)"
           class=" ml-8 md:ml-12 w-28 h-8 "
           nz-button
-=======
-          (click)="showModal(item)"
-          class="bg-white ml-8 md:ml-12 w-28 h-8 rounded-2xl border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white delay-100"
->>>>>>> a3150d0edf45ec47b2f1198fa2d6dadfec8fec28
         >
           รายละเอียด
         </button>
