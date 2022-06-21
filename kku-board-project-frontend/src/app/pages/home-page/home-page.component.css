@@ -58,11 +58,20 @@ body {
 }
 
 @media (max-width: 1420px) {
+    .divTop {
+        @apply flex flex-col justify-center;
+    }
     .eventSoon {
-        @apply h-[700px] w-[600px];
+        @apply h-[700px] w-[950px];
     }
     .allEvents {
-        @apply mt-24 w-[600px];
+        @apply mt-8 w-[950px];
+    }
+    .eventCountdown {
+        @apply mt-24;
+    }
+    .ele_eventCountdown {
+        @apply drop-shadow-2xl grid grid-cols-2;
     }
 }
 
@@ -107,7 +116,7 @@ body {
 
 @media (max-width: 890px) {
     .allComponentPageEvent {
-        @apply px-[50px];
+        @apply px-[20px];
     }
     .divTop {
         @apply flex flex-col justify-center;
@@ -116,7 +125,7 @@ body {
         @apply h-[700px] w-[500px];
     }
     .allEvents {
-        @apply mt-8 w-[500px];
+        @apply mt-8 w-[640px];
     }
     .eventCountdown {
         @apply mt-24 flex flex-col;
@@ -135,6 +144,21 @@ body {
     }
     .all_event_header {
         @apply text-4xl;
+    }
+    .all_event_element {
+        @apply drop-shadow-2xl grid grid-cols-1 justify-items-center;
+    }
+}
+
+@media (max-width: 767px) {
+    .eventSoon {
+        @apply h-[700px] w-[500px];
+    }
+    .allEvents {
+        @apply mt-8 w-[500px];
+    }
+    .all_event_element {
+        @apply drop-shadow-2xl grid grid-cols-1 justify-items-center;
     }
 }
 
@@ -169,6 +193,9 @@ body {
     .all_event_header {
         @apply text-3xl;
     }
+    .all_event_element {
+        @apply drop-shadow-2xl grid grid-cols-1 justify-items-center;
+    }
 }
 
 @media (max-width: 500px) {
@@ -185,7 +212,7 @@ body {
         @apply h-[500px] w-[350px]
     }
     .allEvents {
-        @apply mt-8 w-[300px];
+        @apply mt-8 w-[350px];
     }
     .eventCountdown {
         @apply mt-24 flex flex-col;
@@ -195,5 +222,8 @@ body {
     }
     .div_all {
         @apply items-center;
+    }
+    .all_event_element {
+        @apply drop-shadow-2xl grid grid-cols-1 justify-items-center;
     }
 }
