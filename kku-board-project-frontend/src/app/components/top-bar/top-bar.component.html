@@ -1,7 +1,7 @@
-<nav class="h-20 bg-[#243A73] flex flex-row">
-    <div *ngIf="authority === 'student'" class="h-full flex items-center basis-7/12 justify-between px-10">
+<nav class="h-20 bg-[#243A73] flex flex-row items-center">
+    <div *ngIf="authority === 'student'" class="nav-l">
         <a class="logo" [routerLink]="'/home'">KKU BOARDS </a>
-        <div>
+        <div class="ulists">
             <ul class="flex h-20">
                 <li class="h-full">
                     <a class="linkLists" [routerLink]="'/home'">หน้าหลัก</a>
@@ -13,47 +13,133 @@
         </div>
     </div>
 
-    <div *ngIf="authority === 'clubAdmin'" class="h-full flex items-center">
+    <div *ngIf="authority === 'clubAdmin'" class="nav-l">
         <a class="logo" [routerLink]="'/club-home'">KKU BOARDS </a>
+        <div class="ulists">
+            <ul class="flex h-20">
+                <li class="h-full">
+                    <a class="linkLists" [routerLink]="'/club-home'">หน้าหลัก</a>
+                </li>
+                <li class="h-full">
+                    <a class="linkLists" [routerLink]="'/club-home'">ตารางกิจกรรม</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <div class="flex justify-end gap-6 basis-5/12 h-full items-center px-10">
+    <div class="nav-r">
         <button nz-button nz-dropdown [nzDropdownMenu]="menu" class="h-16 rounded-full w-16">
-      <nz-badge [nzCount]="3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+      <nz-badge [nzCount]="datas.length">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+          />
         </svg>
       </nz-badge>
     </button>
         <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu>
-                <li nz-menu-item>
-                    <a>1st item</a>
+                <li *ngFor="let item of datas" nz-menu-item>
+                    <a>{{ item.eventHeader }}<br />เริ่ม {{ item.startDate }}
+            {{ item.startTime }}น.</a
+          >
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+    <div class="flex items-center gap-3">
+      <nz-avatar
+        nzIcon="user"
+        [nzSrc]="user.urlImage"
+        [nzSize]="'large'"
+      ></nz-avatar>
+      <p
+        *ngIf="authority === 'student'"
+        class="text-white font-semibold text-sm text-ellipsis w-[120px]"
+      >
+        {{ user.firstName }} {{ user.lastName }}
+      </p>
+      <p
+        *ngIf="authority === 'clubAdmin'"
+        class="text-white font-semibold text-sm text-ellipsis w-[120px]"
+      >
+        {{ club.clubName }}
+      </p>
+    </div>
+    <button
+      nz-button
+      nzDanger
+      nzType="primary"
+      (click)="logout()"
+      class="flex gap-1"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+        /></svg>
+        ออกจากระบบ
+    </button>
+  </div>
+  <button
+    nz-button
+    nz-dropdown
+    [nzDropdownMenu]="lmenu"
+    class="h-16 rounded-full w-16 lmenu mx-8"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-8 w-8 text-white"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    </svg>
+  </button>
+  <nz-dropdown-menu #lmenu="nzDropdownMenu">
+    <ul nz-menu *ngIf="authority === 'student'">
+      <li nz-menu-item>
+        <a [routerLink]="'/home'">หน้าหลัก</a>
                 </li>
                 <li nz-menu-item>
-                    <a>2nd item</a>
+                    <a [routerLink]="'/home'">ตารางกิจกรรม</a>
                 </li>
                 <li nz-menu-item>
-                    <a>3rd item</a>
+                    <a (click)="logout()">ออกจากระบบ</a>
+                </li>
+            </ul>
+            <ul nz-menu *ngIf="authority === 'clubAdmin'">
+                <li nz-menu-item>
+                    <a [routerLink]="'/club-home'">หน้าหลัก</a>
+                </li>
+                <li nz-menu-item>
+                    <a [routerLink]="'/club-home'">ตารางกิจกรรม</a>
+                </li>
+                <li nz-menu-item>
+                    <a (click)="logout()">ออกจากระบบ</a>
                 </li>
             </ul>
         </nz-dropdown-menu>
-        <div class="flex items-center gap-3">
-            <nz-avatar nzIcon="user" [nzSrc]="user.urlImage" [nzSize]="'large'"></nz-avatar>
-            <p class="text-white font-semibold text-lg">
-                {{ user.firstName }} {{ user.lastName }}
-            </p>
-        </div>
-        <button nz-button nzDanger nzType="primary" class="flex gap-1">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-        stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-      </svg>ออกจากระบบ
-    </button>
-    </div>
 </nav>
-
-<button nz-button nzType="primary" (click)="onCilck()">button</button>
