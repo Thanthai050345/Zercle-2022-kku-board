@@ -19,55 +19,13 @@
   <div>
     <div
       class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-200 items-center p-5 justify-between"
-      *ngFor="let item of dataBase"
+      *ngFor="let item of data"
     >
       <div class="flex flex-row items-center gap-5">
-        <img class="rounded-full w-[50px] h-[50px]" src="{{item.image}}" />
-        <p class="text-[#243A73] text-base">{{item.name}}</p>
+        <img class="rounded-full w-[50px] h-[50px]" src="{{item.urlImage}}" />
+        <p class="text-[#243A73] text-base">{{item.firstName}}</p>
       </div>
-      <div class="flex items-center gap-3">
-        <button nz-button nzType="primary">รายละเอียด</button>
-        <button nz-button nzType="primary" nzDanger>ลบ</button>
-      </div>
-    </div>
-
-    <div
-      class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-100 items-center p-5 justify-between"
-      *ngFor="let item of dataBase"
-    >
-      <div class="flex flex-row items-center gap-5">
-        <img class="rounded-full w-[50px] h-[50px]" src="{{item.image}}" />
-        <p class="text-[#243A73] text-base">{{item.name}}</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <button nz-button nzType="primary">รายละเอียด</button>
-        <button nz-button nzType="primary" nzDanger>ลบ</button>
-      </div>
-    </div>
-
-    <div
-      class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-200 items-center p-5 justify-between"
-      *ngFor="let item of dataBase"
-    >
-      <div class="flex flex-row items-center gap-5">
-        <img class="rounded-full w-[50px] h-[50px]" src="{{item.image}}" />
-        <p class="text-[#243A73] text-base">{{item.name}}</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <button nz-button nzType="primary">รายละเอียด</button>
-        <button nz-button nzType="primary" nzDanger>ลบ</button>
-      </div>
-    </div>
-
-    <div
-      class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-100 items-center p-5 justify-between"
-      *ngFor="let item of dataBase"
-    >
-      <div class="flex flex-row items-center gap-5">
-        <img class="rounded-full w-[50px] h-[50px]" src="{{item.image}}" />
-        <p class="text-[#243A73] text-base">{{item.name}}</p>
-      </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3" (click)="showModal()">
         <button nz-button nzType="primary">รายละเอียด</button>
         <button nz-button nzType="primary" nzDanger>ลบ</button>
       </div>

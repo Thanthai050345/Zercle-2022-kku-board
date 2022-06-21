@@ -1,46 +1,43 @@
 <div
-  class="flex sm:flex-row bg-white drop-shadow-2xl p-[5px] sm:p-0 sm:h-[190px] w-[330px] sm:w-full rounded-2xl mb-5"
+  class="flex md:flex-row bg-white drop-shadow-2xl p-[5px] md:p-0 md:h-[190px] w-[330px] md:w-full rounded-2xl mb-5"
   *ngFor="let item of datas"
 >
   <div class="content-image">
     <img
-      class="sm:h-full h-[80px] sm:w-[300px] w-[140px] rounded-2xl sm:rounded-l-2xl mt-[20px] sm:mt-0 hidden sm:flex object-cover"
+      class="md:h-full h-[80px] md:w-[300px] w-[140px] rounded-2xl md:rounded-l-2xl mt-[20px] md:mt-0 hidden md:flex object-cover "
       src="{{item.image}}"
       alt="content"
     />
   </div>
-  <div class="relative my-2 mr-8 sm:w-full w-full h-full">
-    <dt>
-      <p class="ml-8 text-base text-gray-500 sm:flex">{{item.startDate}}</p>
-    </dt>
+  <div class="relative my-2  md:w-full w-full h-full">
+    <p class="mt-8 ml-8 text-base text-gray-500 md:flex">{{item.startDate}}</p>
     <p
-      class="mt-4 ml-8 text-xl leading-6 font-bold text-gray-900 sm:align-middle"
+      class="ml-8 text-xl leading-6 font-bold text-gray-900 md:align-middle"
       nz-typography
       nzEllipsis
       [nzEllipsisRows]="2"
     >
       {{item.eventHeader}}
     </p>
-
     <p
-      class="mt-4 ml-8 text-base leading-6 font-light text-gray-600 sm:flex"
+      class=" ml-8 text-base leading-6 font-light text-gray-600 md:flex"
       nz-typography
       nzEllipsis
       [nzEllipsisRows]="1"
     >
       {{item.location}}
     </p>
-    <div class="flex flex-row mt-2 justify-between">
+    <div class="flex flex-row  justify-between">
       <p
-        class="mt-2 ml-8 text-base leading-6 font-light text-gray-600 hidden sm:flex"
+        class=" ml-8 text-base leading-6 font-light text-gray-600 hidden md:flex"
       >
         ผู้เข้าร่วม {{item.attendees}} ท่าน
       </p>
       <div class="flex flex-row justify-end">
         <button
           (click)="showModal()"
-          class="bg-white ml-8 sm:ml-12 w-28 h-8 rounded-2xl border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white delay-100"
-      >
+          class="bg-white ml-8 md:ml-12 w-28 h-8 rounded-2xl border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white delay-100"
+        >
           รายละเอียด
         </button>
         <button
@@ -49,35 +46,26 @@
           nzPopconfirmPlacement="bottom"
           (nzOnConfirm)="confirm()"
           (nzOnCancel)="cancel()"
-          class="bg-blue-900 ml-4 sm:ml-8 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
-      >
+          class="bg-blue-900 ml-4 md:ml-8 mr-5 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
+        >
           เข้าร่วม
         </button>
         <nz-modal
-        [(nzVisible)]="isVisible"
-        nzTitle="{{item.eventHeader}}"
-        (nzOnCancel)="handleCancel()"
-        (nzOnOk)="handleOk() "
-        [nzFooter]="null"
-      >
-        <ng-container *nzModalContent>
-          <p class="" nz-row nzJustify="end">{{item.startDate}}</p>
+          [(nzVisible)]="isVisible"
+          nzTitle="{{item.eventHeader}}"
+          (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk() "
+          [nzFooter]="null"
+        >
+          <ng-container *nzModalContent>
+            <p class="" nz-row nzJustify="end">{{item.startDate}}</p>
 
-          <img
-            class="h-full w-full"
-            src="{{item.image}}"
-
-          />
-          <p>{{item.description}}</p>
-          <p class="mt-[10px]" nz-row nzJustify="end">{{item.location}}</p>
-
-        </ng-container>
-      </nz-modal>
+            <img class="h-full w-full" src="{{item.image}}" />
+            <p>{{item.description}}</p>
+            <p class="mt-[10px]" nz-row nzJustify="end">{{item.location}}</p>
+          </ng-container>
+        </nz-modal>
       </div>
-
-
-
     </div>
   </div>
-
 </div>

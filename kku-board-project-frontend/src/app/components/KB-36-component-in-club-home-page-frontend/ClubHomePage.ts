@@ -1,4 +1,6 @@
 import { Component,Input ,OnInit } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'club-component',
   templateUrl: './ClubHomePage.html',
@@ -6,6 +8,9 @@ import { Component,Input ,OnInit } from '@angular/core';
 })
 export class ClubHomePage implements OnInit {
   @Input() role = "" 
+  isVisible = false;
+  data:any[] =[];
+  index = 0;
 
   dataBase = [
     {
@@ -16,8 +21,42 @@ export class ClubHomePage implements OnInit {
   current = 1;
 
   ngOnInit(): void {
-
+    this.userService.getAllUser().subscribe(res => {
+      this.data = res;
+      console.log(res);
+      console.log(this.data[0]);
+      
+    });
   }
-  
+
+  constructor(private modal: NzModalService,
+              private userService: UserService) {}
+
+  showModal() {
+    this.isVisible = true;
+    this.modal.create({
+      nzTitle: `${this.data[this.index].urlImage}`,
+      nzFooter: null,
+      nzContent:`ชื่อสมาชิก:<br>
+      ${this.data[this.index].firstName}  ${this.data[this.index].lastName}<br>
+      อีเมล์:<br>
+      ${this.data[this.index].email}<br>
+      รหัสนักศึกษา:<br>
+      ${this.data[this.index].studentId}<br>
+      คณะ:<br>
+      ${this.data[this.index].faculty}<br>
+      สาขา:<br>
+      ${this.data[this.index].major}<br>
+      เบอร์โทรศัพท์:<br>
+      ${this.data[this.index].phoneNumber}<br>
+      `
+    })
+  }
+
+  handleCancel(): void {
+    console.log('closed detail modal!');
+    this.isVisible = false;
+  }
+
   
 }

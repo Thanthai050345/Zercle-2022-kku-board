@@ -2,6 +2,7 @@ import { Component,Input ,OnInit } from '@angular/core';
 import * as dayjs from 'dayjs'
 import{ Even } from 'src/app/interfaces/even'
 import "dayjs/locale/th";
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -81,11 +82,11 @@ export class AllEventComponent implements OnInit {
   };
   datas = this.convertDatas(this.dataBase);
 
-
-
   isVisible = false;
 
-
+  constructor(private userService: UserService) {}
+  ngOnInit(): void {
+  }
 
   showModal(): void {
     this.isVisible = true;
@@ -104,14 +105,10 @@ export class AllEventComponent implements OnInit {
   }
 
   confirm(): void {
+
   }
 
-
-
-
-  constructor() {}
-
-  ngOnInit(): void {
-
+  getAllUser() {
+    this.userService.getAllUser().subscribe(res => {console.log(res)});
   }
 }
