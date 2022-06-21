@@ -11,7 +11,6 @@ export class ClubHomePage implements OnInit {
   isVisible = false;
   data:any[] =[];
   index = 0;
-
   dataBase = [
     {
       name:"Apinan Thongpoo",
@@ -23,9 +22,6 @@ export class ClubHomePage implements OnInit {
   ngOnInit(): void {
     this.userService.getAllUser().subscribe(res => {
       this.data = res;
-      console.log(res);
-      console.log(this.data[0]);
-      
     });
   }
 
