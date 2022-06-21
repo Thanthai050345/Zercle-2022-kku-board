@@ -1,31 +1,32 @@
-#notiIcon{
-  fill: white;
+.logo {
+  @apply text-4xl text-white font-bold;
 }
-body{
-  padding:0;
-  margin: 0;
+
+.logo:hover {
+  @apply text-white;
 }
-/* .dropdown {
-  display: inline-block;
-  position: relative;
+
+.linkLists {
+  @apply h-full text-white flex items-center transition-all p-4 text-lg;
 }
-.dropdown-content {
-  display: none;
-  position: absolute;
-  width: 100%;
-  overflow: auto;
-  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+
+.linkLists:hover {
+  color: white;
+  border-bottom: 5px solid white;
 }
-.dropdown:hover .dropdown-content {
-  display: block;
+
+[nz-icon] {
+  color: white;
+  font-weight: 600;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 32px;
 }
-.dropdown-content a {
-  display: block;
-  color: #000000;
-  padding: 5px;
-  text-decoration: none;
+nz-badge {
+  border: none;
 }
-.dropdown-content a:hover {
-  color: #FFFFFF;
-  background-color: #00A4BD;
-} */
+[nz-dropdown] {
+  border: none;
+  background:none ;
+}

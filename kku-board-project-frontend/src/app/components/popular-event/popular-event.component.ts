@@ -117,7 +117,7 @@ export class PopularEventComponent implements OnInit {
   }
   checkIndex(e:any): void {
     this.index = e;
-    console.log(this.index);
+    // console.log(this.index);
   }
   cancel(): void {
     console.log('user do not join');
