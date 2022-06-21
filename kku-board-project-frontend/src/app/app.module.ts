@@ -31,7 +31,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { environment } from '../environments/environment';
-
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HotToastModule } from '@ngneat/hot-toast';
@@ -49,7 +49,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ClubHomePageComponent } from './pages/club-home-page/club-home-page.component';
-
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 registerLocaleData(th);
 @NgModule({
   declarations: [
@@ -99,6 +99,8 @@ registerLocaleData(th);
     NzImageModule,
     NzPopconfirmModule,
     NzDropDownModule,
+    NzBadgeModule,
+    NzAvatarModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],

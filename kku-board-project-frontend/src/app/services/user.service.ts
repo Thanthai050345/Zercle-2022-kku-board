@@ -14,6 +14,12 @@ export class UserService {
   getAllUser() {
     return this.http.get<any[]>(this.baseUrl + 'users/allUsers');
   }
+  getUserById(id:string | null | undefined) {
+    return this.http.get<User>(this.baseUrl + 'users/students/' + id);
+  }
+  getClubById(id:string | null | undefined) {
+    return this.http.get<Club>(this.baseUrl + 'users/clubAdmins/' + id);
+  }
   postUser(data: User) {
     return this.http.post(this.baseUrl + 'register/student', data)
   }
