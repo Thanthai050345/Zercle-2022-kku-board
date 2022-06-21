@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { PopularComponent } from './components/popular/popular.component';
 import { ModalEventDescription } from './components/KB-43-modal-event-description-component-frontend/ModalEventDescription';
 import { AllEventComponent } from './components/KB-26-all-event-component-frontend/all-event-component';
 import { ClubHomePage } from './components/KB-36-component-in-club-home-page-frontend/ClubHomePage';
@@ -54,7 +53,6 @@ registerLocaleData(th);
 @NgModule({
   declarations: [
     AppComponent,
-    PopularComponent,
     CountDownComponent,
     LoginPageComponent,
     HomePageComponent,
