@@ -2,13 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Club } from '../interfaces/club';
 import { User } from '../interfaces/user'
-
+import { baseUrl } from 'src/assets/datas/url';
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  baseUrl =
-    'http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/';
+  baseUrl = baseUrl;
   user: any;
   constructor(private http: HttpClient) {}
   getAllUser() {

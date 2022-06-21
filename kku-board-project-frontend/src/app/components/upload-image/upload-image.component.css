@@ -1,0 +1,8 @@
+.upload_image {
+    display: none;
+}
+
+.upload_image_label {
+    cursor: pointer;
+    color: #0A59DE;
+}

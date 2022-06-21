@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from 'src/app/services/event.service';
 
 
 @Component({
@@ -8,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
   uid:string | null | undefined;
-  constructor() { }
+  data:any[] =[];
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('userUid');
+    this.eventService.getEvenById(this.uid).subscribe(res => {
+      this.data = res;
+      console.log(res);
+    });
   }
-
 }
