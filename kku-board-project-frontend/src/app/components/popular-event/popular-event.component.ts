@@ -15,9 +15,10 @@ export class PopularEventComponent implements OnInit {
   dataBase:any[]= [];
   userUid: string | undefined | null = "";
   authority: string | undefined | null = "";
+  datas: any[] = [];
 
-  convertDatas = (data: dataEvent[]): any => {
-    console.log('convert');
+  convertDatas = (data: dataEvent[]) => {
+    console.log("data test", data);
     return data.map((item) => {
       const dateS = item.startDate * 1000;
       const dateE = item.endDate * 1000;
@@ -39,16 +40,15 @@ export class PopularEventComponent implements OnInit {
     });
   };
 
-  datas = this.convertDatas(this.dataBase);
   isVisible = false;
 
   ngOnInit() {
     this.userUid = localStorage.getItem('userUid');
     this.authority = localStorage.getItem('authority');
     this.productService.insertProduct(`${this.userUid}`).subscribe(res =>{
-      this.dataBase= res;
-      console.log(this.dataBase[0]);
-  });
+      this.dataBase = res;
+      this.datas = this.convertDatas(this.dataBase);
+    });
 }
 
 

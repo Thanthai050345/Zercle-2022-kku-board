@@ -39,7 +39,7 @@ export class TopBarComponent implements OnInit {
   };
   // urlImage: string;
   countdown: Countdown[] = [];
-  datas: any;
+  datas: any[] = [];
   constructor(
     private userService: UserService,
     private eventService: EventService,
