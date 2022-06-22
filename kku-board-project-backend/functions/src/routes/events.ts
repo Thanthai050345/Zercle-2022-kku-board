@@ -29,7 +29,7 @@ router.get("/", async (_: express.Request, res: express.Response) => {
   try {
     const event = await getAllEvents();
     const now = Date.now();
-    const filterEvents = event.find((event: Event, index: number) => {
+    const filterEvents = event.filter((event: Event, index: number) => {
       const endDate = event.endDate * 1000;
       return now < endDate;
     });
@@ -62,7 +62,7 @@ router.get(
     try {
       const event = await getEventByUid(uid);
       const now = Date.now();
-      const filterEvents = event.find((event: Event, index: number) => {
+      const filterEvents = event.filter((event: Event, index: number) => {
         const endDate = event.endDate * 1000;
         return now < endDate;
       });
@@ -81,9 +81,10 @@ router.get(
     try {
       const event = await getAllEventsByClubId(clubId);
       const now = Date.now();
-      const filterEvents = event.find((event: Event, index: number) => {
-        const endDate = event.endDate * 1000;
-        return now < endDate;
+      const filterEvents = event.filter((event: Event, index: number) => {
+        const startDate = event.startDate * 1000;
+        console.log(startDate);
+        return now < startDate;
       });
       return res.status(201).json(filterEvents);
     } catch (error) {
@@ -100,7 +101,7 @@ router.get(
     try {
       const event = await getEventForMyRole(uid);
       const now = Date.now();
-      const filterEvents = event.find((event: Event, index: number) => {
+      const filterEvents = event.filter((event: Event, index: number) => {
         const endDate = event.endDate * 1000;
         return now < endDate;
       });
