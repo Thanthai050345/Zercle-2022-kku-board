@@ -17,7 +17,12 @@ export const getAllEvents = async () => {
   const docs = await db.collection("events").get();
   let events: Event[] = [];
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
-  return events;
+  const now = Date.now();
+  const filterEvents = events.filter((event: Event, index: number) => {
+    const startDate = event.startDate * 1000;
+    return now < startDate;
+  });
+  return filterEvents;
 };
 
 export const getEventById = async (eventId: string) => {
@@ -26,9 +31,14 @@ export const getEventById = async (eventId: string) => {
     .collection("events")
     .where("eventId", "==", eventId)
     .get();
-  let user: object = {};
+  let user: any = {};
   event.forEach((doc) => (user = { ...(doc.data() as Event), id: doc.id }));
-  return user;
+  const now = Date.now();
+  const filterEvents = user.filter((event: Event, index: number) => {
+    const startDate = event.startDate * 1000;
+    return now < startDate;
+  });
+  return filterEvents;
 };
 
 export const deleteEventById = async (eventId: string) => {
@@ -53,7 +63,12 @@ export const getAllEventsByClubId = async (clubId: string) => {
     .get();
   let events: Event[] = [];
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
-  return events;
+  const now = Date.now();
+  const filterEvents = events.filter((event: Event, index: number) => {
+    const startDate = event.startDate * 1000;
+    return now < startDate;
+  });
+  return filterEvents;
 };
 
 // export const getAllEventsByStudentId = async (studentId: string) => {
@@ -87,9 +102,9 @@ export const updateUserJoinEvent = async (uid: string, eventId: string) => {
         join: [...join, { firstName, lastName, uid }],
         attendees: attendees + 1,
       });
-    return {"message":"successfull joined event"};
+    return { message: "successfull joined event" };
   } else {
-    return {"message":"already joined event"};
+    return { message: "already joined event" };
   }
 };
 
@@ -127,7 +142,12 @@ export const getEventByUid = async (uid: string) => {
       });
     }
   });
-  return events;
+  const now = Date.now();
+  const filterEvents = events.filter((event: Event, index: number) => {
+    const startDate = event.startDate * 1000;
+    return now < startDate;
+  });
+  return filterEvents;
 };
 
 export const deleteEventByUid = async (uid: string, eventId: string) => {
@@ -161,5 +181,10 @@ export const getEventForMyRole = async (uid: string) => {
       eventForMyRole.push(eventData);
     }
   });
-  return eventForMyRole;
+  const now = Date.now();
+  const filterEvents = eventForMyRole.filter((event: Event, index: number) => {
+    const startDate = event.startDate * 1000;
+    return now < startDate;
+  });
+  return filterEvents;
 };
