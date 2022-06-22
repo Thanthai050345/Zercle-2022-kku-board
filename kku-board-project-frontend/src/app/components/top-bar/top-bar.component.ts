@@ -69,7 +69,7 @@ export class TopBarComponent implements OnInit {
         );
         this.datas = this.convertDatas(this.countdown);
       });
-      this.eventServiec.getEventByUid(this.userUid).subscribe((res) => {
+      this.eventService.getEventByUid(this.userUid).subscribe((res) => {
         this.eventTable = this.convertEventTableDatas(res);
         console.log(this.eventTable);
       });
