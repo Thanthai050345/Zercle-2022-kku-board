@@ -3,19 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { CountDownComponent } from './components/count-down/count-down.component';
+import { MyTableEventComponent } from './components/my-table-event/my-table-event.component';
 import { PopularComponent } from './components/popular/popular.component';
 import { ModalEventDescription } from './components/KB-43-modal-event-description-component-frontend/ModalEventDescription';
 import { AllEventComponent } from './components/KB-26-all-event-component-frontend/all-event-component';
-import { ClubHomePage } from './components/KB-36-component-in-club-home-page-frontend/ClubHomePage';
 import { PopularEventComponent } from './components/popular-event/popular-event.component';
 
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CountDownComponent } from './components/count-down/count-down.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
@@ -23,6 +23,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzCalendarModule } from 'ng-zorro-antd/calendar';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -48,15 +50,27 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { ClubHomePageComponent } from './pages/club-home-page/club-home-page.component';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { EventUserPageComponent } from './pages/event-user-page/event-user-page.component';
+import { EventClubPageComponent } from './pages/event-club-page/event-club-page.component';
+import { CatchApiInterceptor } from './interceptors/catch-api.interceptor';
+
+FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin]);
+
 registerLocaleData(th);
 @NgModule({
   declarations: [
     AppComponent,
     PopularComponent,
     CountDownComponent,
+    MyTableEventComponent,
     LoginPageComponent,
     HomePageComponent,
     SignUpPageComponent,
@@ -65,11 +79,13 @@ registerLocaleData(th);
     RegClubFormComponent,
     ModalEventDescription,
     AllEventComponent,
-    ClubHomePage,
     PopularEventComponent,
     TopBarComponent,
     ClubHomePageComponent,
     UploadImageComponent,
+    CalendarComponent,
+    EventUserPageComponent,
+    EventClubPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,18 +93,21 @@ registerLocaleData(th);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NzTypographyModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
+    FullCalendarModule,
     AngularFireModule,
     NzStatisticModule,
     NzButtonModule,
-    NzAlertModule,
     NzIconModule,
-    NzTypographyModule,
+    NzCalendarModule,
+    NzTableModule,
+    NzDividerModule,
+    NzAlertModule,
     NzCarouselModule,
     NzFormModule,
     NzInputModule,
-    NzButtonModule,
     NzModalModule,
     NzCheckboxModule,
     NzSelectModule,
@@ -103,8 +122,12 @@ registerLocaleData(th);
     NzDropDownModule,
     NzBadgeModule,
     NzAvatarModule,
+    NzTableModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: th_TH }],
+  providers: [
+    { provide: NZ_I18N, useValue: th_TH },
+    { provide: HTTP_INTERCEPTORS, useClass: CatchApiInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

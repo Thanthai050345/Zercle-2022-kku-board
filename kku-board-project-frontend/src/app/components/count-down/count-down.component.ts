@@ -48,14 +48,14 @@ export class CountDownComponent implements OnInit {
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-    // if (localStorage.getItem('authority') === 'student') {
-    //   this.eventService
-    //     .getCountdownUserById(localStorage.getItem('userUid'))
-    //     .subscribe((res) => {
-    //       console.log(res);
-          
-    //     });
-    // }
-    // console.log(localStorage.getItem('userUid'));
+    if (localStorage.getItem('authority') === 'student') {
+      this.eventService
+        .getCountdownUserById(localStorage.getItem('userUid'))
+        .subscribe((res) => {
+          console.log(res);
+        });
+    } else {
+      console.log(localStorage.getItem('authority'));
+    }
   }
 }

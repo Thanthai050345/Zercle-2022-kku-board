@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Club } from 'src/app/interfaces/club';
 import { Countdown } from 'src/app/interfaces/countdown';
+import { EventTable } from 'src/app/interfaces/even';
 import { User } from 'src/app/interfaces/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EventService } from 'src/app/services/event.service';
@@ -37,9 +38,19 @@ export class TopBarComponent implements OnInit {
     faculty: '',
     urlImage: '',
   };
-  // urlImage: string;
+  eventTable: any[] = [{
+    eventId: '',
+    startDate: 0,
+    header: '',
+  }];
   countdown: Countdown[] = [];
   datas: any[] = [];
+<<<<<<< HEAD
+=======
+  isVisible = false;
+  isOkLoading = false;
+
+>>>>>>> ddee03bf120aafd566a3d5aac942b928349dc396
   constructor(
     private userService: UserService,
     private eventService: EventService,
@@ -49,10 +60,14 @@ export class TopBarComponent implements OnInit {
   ngOnInit(): void {
     this.authority = localStorage.getItem('authority');
     this.userUid = localStorage.getItem('userUid');
+
     if (this.authority === 'student') {
       this.userService.getUserById(this.userUid).subscribe((res) => {
         this.user = res;
+<<<<<<< HEAD
         // console.log(this.user);
+=======
+>>>>>>> ddee03bf120aafd566a3d5aac942b928349dc396
       });
       this.eventService.getCountdownUserById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
@@ -60,10 +75,13 @@ export class TopBarComponent implements OnInit {
         );
         this.datas = this.convertDatas(this.countdown);
       });
+      this.eventService.getEventByUid(this.userUid).subscribe((res) => {
+        this.eventTable = this.convertEventTableDatas(res);
+        console.log(this.eventTable);
+      });
     } else if (this.authority === 'clubAdmin') {
       this.userService.getClubById(this.userUid).subscribe((res) => {
         this.club = res;
-        console.log(this.club);
       });
       this.eventService.getCountdownClubById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
@@ -86,7 +104,36 @@ export class TopBarComponent implements OnInit {
     });
   };
 
+  convertEventTableDatas = (data: EventTable[]) => {
+    return data.map((item) => {
+      const dateS = item.startDate * 1000;
+      return {
+        eventId: item.eventId,
+        startDate:dayjs(dateS).locale('th').format('dd D MMM'),
+        header: item.header,
+      };
+    });
+  };
+
   logout() {
     this.authService.SignOut();
+  }
+
+  showModal(): void {
+    if (this.user.authority == "student") {
+      this.isVisible = true;
+    }
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 }

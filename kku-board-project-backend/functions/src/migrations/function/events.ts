@@ -3,19 +3,21 @@ import { Event } from "../../interface/events";
 
 export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
   {
+    // Jun 26 2022
     header: "กิจกรรมอบรมเพิ่มทักษะ",
     description: "กิจกรรมเพิ่มความรู้เรื่องการสัมภาษณ์งานให้นักศึกษา",
-    attendees: 5,
+    attendees: 0,
     eventType: "ออนไลน์",
     location: "อาคาร 50 ปี วิศวกรรมศาสตร์",
-    startDate: 1654589629,
-    endDate: 1654589629,
+    startDate: 1656209511,
+    endDate: 1656295911,
     roleAccept: ["EN", "KKBS", "AG"],
     image: ["https://picsum.photos/200/300"],
     clubName: "Mnics",
     join: [],
   },
   {
+    // Jun 07 2022
     header: "กิจกรรมทำความสะอาดห้องปฏิบัติการ",
     description: "กิจกรรมทำความสะอาดห้องปฏิบัติการ",
     attendees: 0,
@@ -23,33 +25,63 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
     location: "ห้อง Lab คณะวิทยาศาสตร์",
     startDate: 1654589629,
     endDate: 1654589629,
-    roleAccept: ["SC"],
+    roleAccept: ["SC", "KKBS"],
     image: ["https://picsum.photos/200/300"],
     clubName: "ScienceLab",
     join: [],
   },
   {
+    // Jun 23 2022
     header: "กิจกรรมปลูกต้นไม้",
     description: "กิจกรรมปลูกต้นไม้เฉลิมพระเกียรติ",
-    attendees: 2,
+    attendees: 0,
     eventType: "ออนไซต์",
     location: "ถนนเส้นสักสายรหัส",
-    startDate: 1654589629,
-    endDate: 1654589629,
-    roleAccept: ["EN"],
+    startDate: 1655950311,
+    endDate: 1656123111,
+    roleAccept: ["CE"],
     image: ["https://picsum.photos/200/300"],
     clubName: "Mnics",
     join: [],
   },
   {
+    // Jul 20 2022
     header: "กิจกรรมปลูกป่า",
     description: "กิจกรรมปลูกป่า",
-    attendees: 10,
+    attendees: 0,
     eventType: "ออนไซต์",
     location: "ถนนเส้นสักสายรหัส",
-    startDate: 1657188505,
-    endDate: 1659866905,
-    roleAccept: ["EN"],
+    startDate: 1658283111,
+    endDate: 1658455911,
+    roleAccept: ["CoE"],
+    image: ["https://picsum.photos/200/300"],
+    clubName: "ScienceLab",
+    join: [],
+  },
+  {
+    // May 22 2022
+    header: "กิจกรรมปลูกป่าอิหยังวะ",
+    description: "กิจกรรมปลูกป่าอิหยังวะ",
+    attendees: 0,
+    eventType: "ออนไซต์",
+    location: "ถนนเส้นสักสายรหัส",
+    startDate: 1653185511,
+    endDate: 1653358311,
+    roleAccept: ["SC", "FIN"],
+    image: ["https://picsum.photos/200/300"],
+    clubName: "Mnics",
+    join: [],
+  },
+  {
+    // Apr 24 2022
+    header: "กิจกรรมปลูกป่าอิหยังวะV2",
+    description: "กิจกรรมปลูกป่าอิหยังวะV2",
+    attendees: 0,
+    eventType: "ออนไซต์",
+    location: "ถนนเส้นสักสายรหัส",
+    startDate: 1650766311,
+    endDate: 1650852711,
+    roleAccept: ["EN", "CoE", "CE", "FIN"],
     image: ["https://picsum.photos/200/300"],
     clubName: "Mnics",
     join: [],
@@ -59,7 +91,9 @@ export const migrateEvents = async () => {
   for (const event of MOCKUP_EVENT) {
     try {
       await createEvents(event);
-      console.log(`   - Migrate event successfully: ${event.eventId} -> ${event.header}`);
+      console.log(
+        `   - Migrate event successfully: ${event.eventId} -> ${event.header}`
+      );
     } catch (error) {
       const err = error as any;
       console.log(err);
