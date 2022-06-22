@@ -51,6 +51,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ClubHomePageComponent } from './pages/club-home-page/club-home-page.component';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { NzTableModule } from 'ng-zorro-antd/table';
+
 registerLocaleData(th);
 @NgModule({
   declarations: [
@@ -103,6 +105,7 @@ registerLocaleData(th);
     NzDropDownModule,
     NzBadgeModule,
     NzAvatarModule,
+    NzTableModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: th_TH }],
   bootstrap: [AppComponent],
