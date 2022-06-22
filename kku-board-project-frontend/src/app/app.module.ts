@@ -61,6 +61,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventUserPageComponent } from './pages/event-user-page/event-user-page.component';
 import { EventClubPageComponent } from './pages/event-club-page/event-club-page.component';
 import { CatchApiInterceptor } from './interceptors/catch-api.interceptor';
+import { AddMemberButtonComponent } from './components/add-member-button/add-member-button.component';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin]);
 
@@ -86,6 +88,7 @@ registerLocaleData(th);
     CalendarComponent,
     EventUserPageComponent,
     EventClubPageComponent,
+    AddMemberButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,6 +126,7 @@ registerLocaleData(th);
     NzBadgeModule,
     NzAvatarModule,
     NzTableModule,
+    NzTagModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: th_TH },
