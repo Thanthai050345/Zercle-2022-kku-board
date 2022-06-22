@@ -15,7 +15,7 @@ import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CountDownComponent } from './components/count-down/count-down.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
@@ -51,6 +51,15 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ClubHomePageComponent } from './pages/club-home-page/club-home-page.component';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { EventUserPageComponent } from './pages/event-user-page/event-user-page.component';
+import { EventClubPageComponent } from './pages/event-club-page/event-club-page.component';
+import { CatchApiInterceptor } from './interceptors/catch-api.interceptor';
+
+FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin]);
 registerLocaleData(th);
 @NgModule({
   declarations: [
@@ -70,6 +79,9 @@ registerLocaleData(th);
     TopBarComponent,
     ClubHomePageComponent,
     UploadImageComponent,
+    CalendarComponent,
+    EventUserPageComponent,
+    EventClubPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +91,7 @@ registerLocaleData(th);
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
+    FullCalendarModule,
     AngularFireModule,
     NzStatisticModule,
     NzButtonModule,
@@ -104,7 +117,10 @@ registerLocaleData(th);
     NzBadgeModule,
     NzAvatarModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: th_TH }],
+  providers: [
+    { provide: NZ_I18N, useValue: th_TH },
+    { provide: HTTP_INTERCEPTORS, useClass: CatchApiInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
