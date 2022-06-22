@@ -24,7 +24,6 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
-import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -51,6 +50,7 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { ClubHomePageComponent } from './pages/club-home-page/club-home-page.component';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
@@ -63,6 +63,7 @@ import { EventClubPageComponent } from './pages/event-club-page/event-club-page.
 import { CatchApiInterceptor } from './interceptors/catch-api.interceptor';
 
 FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin]);
+
 registerLocaleData(th);
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ registerLocaleData(th);
     NzDropDownModule,
     NzBadgeModule,
     NzAvatarModule,
+    NzTableModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: th_TH },

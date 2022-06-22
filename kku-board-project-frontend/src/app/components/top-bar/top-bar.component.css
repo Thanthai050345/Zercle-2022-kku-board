@@ -1,56 +1,61 @@
 .logo {
-  @apply text-4xl text-white font-bold;
+    @apply text-4xl text-white font-bold;
 }
 
 .logo:hover {
-  @apply text-white;
+    @apply text-white;
 }
 
 .linkLists {
-  @apply h-full text-white flex items-center transition-all p-4 text-lg;
+    @apply h-full text-white flex items-center transition-all p-4 text-lg;
 }
 
 .linkLists:hover {
-  color: white;
-  border-bottom: 5px solid white;
+    color: white;
+    border-bottom: 5px solid white;
 }
 
 [nz-icon] {
-  color: white;
-  font-weight: 600;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  font-size: 32px;
+    color: white;
+    font-weight: 600;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 32px;
 }
+
 nz-badge {
-  border: none;
+    border: none;
 }
+
 [nz-dropdown] {
-  border: none;
-  background: none;
+    border: none;
+    background: none;
 }
+
 .nav-r {
-  @apply flex justify-end gap-2 basis-5/12 h-full items-center px-10;
+    @apply flex justify-end gap-2 basis-5/12 h-full items-center px-10;
 }
+
 .nav-l {
-  @apply h-full flex items-center basis-7/12 justify-between px-10;
+    @apply h-full flex items-center basis-7/12 justify-between px-10;
 }
+
 .lmenu {
-  display: none;
+    display: none;
 }
 
 @media screen and (max-width: 974px) {
-  .nav-r {
-    display: none;
-  }
-  .nav-l {
-    flex-basis: 100%;
-  }
-  .lmenu {
-    display: block;
-  }
-  .ulists {
-    display: none;
-  }
+    .nav-r {
+        display: none;
+    }
+    .nav-l {
+        flex-basis: 100%;
+    }
+    .lmenu {
+        display: block;
+    }
+    .ulists {
+        display: none;
+    }
 }
