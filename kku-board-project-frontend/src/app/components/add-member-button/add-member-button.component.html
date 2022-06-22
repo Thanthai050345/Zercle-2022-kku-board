@@ -1,0 +1,16 @@
+<button nz-button [nzType]="'primary'" (click)="showModal()"><span>Show Modal</span></button>
+<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null">
+    <ng-container *nzModalContent>
+        <p class="text-xl font-bold mb-4">เพิ่มสมาชิกเข้าชมรม/ชุมนุม</p>
+        <p class="mb-4 text-gray-400">กรอกอีเมลของสมาชิก</p>
+        <nz-tag class="mb-2" *ngFor="let tag of tags; let i = index" [nzMode]="'closeable'"
+            (nzOnClose)="handleClose(tag)">
+            {{ sliceTagName(tag) }}
+        </nz-tag>
+        <input แสฟ #inputElement nz-input type="text" [(ngModel)]="inputValue" class="w-full" (blur)="handleInputConfirm()"
+            (keydown.enter)="handleInputConfirm()" />
+            <div class="w-full flex justify-end">
+                <button class="mt-[30px]" nz-button>เพิ่มสมาชิก</button>
+            </div>
+    </ng-container>
+</nz-modal>
