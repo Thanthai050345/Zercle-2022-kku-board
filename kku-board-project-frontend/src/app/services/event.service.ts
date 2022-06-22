@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { baseUrl } from 'src/assets/datas/url';
 import { Countdown } from '../interfaces/countdown';
 import { EventTable } from '../interfaces/even';
+import { Event } from '../interfaces/event';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,13 @@ export class EventService {
   patchJoin(evenId: string | null | undefined, Uid: string | null | undefined) {
     return this.http.patch<any[]>(this.baseUrl + 'events/updateJoin/' + evenId +'/'+ Uid,null);
   }
-  getEventByUid(id: string | null | undefined) {
+  getEventByStudentUid(id: string | null | undefined) {
     return this.http.get<EventTable[]>(this.baseUrl + 'events/students/' + id);
+  }
+  getEventClubByUid(id: string | null | undefined) {
+    return this.http.get<Event[]>(this.baseUrl + 'events/clubs/' + id);
+  }
+  getEventUserByUid(id: string | null | undefined) {
+    return this.http.get<Event[]>(this.baseUrl + 'events/students/' + id);
   }
 }

@@ -62,21 +62,18 @@ export class TopBarComponent implements OnInit {
     if (this.authority === 'student') {
       this.userService.getUserById(this.userUid).subscribe((res) => {
         this.user = res;
-
-        // console.log(this.user);
-
-        // console.log(this.user);
-
       });
       this.eventService.getCountdownUserById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
           (element) => this.aDay > element.startDate * 1000 - Date.now()
         );
         this.datas = this.convertDatas(this.countdown);
+        // console.log(this.datas);
+        
       });
-      this.eventService.getEventByUid(this.userUid).subscribe((res) => {
+      this.eventService.getEventByStudentUid(this.userUid).subscribe((res) => {
         this.eventTable = this.convertEventTableDatas(res);
-        console.log(this.eventTable);
+        // console.log(this.eventTable);
       });
     } else if (this.authority === 'clubAdmin') {
       this.userService.getClubById(this.userUid).subscribe((res) => {
@@ -87,6 +84,8 @@ export class TopBarComponent implements OnInit {
           (element) => this.aDay > element.startDate * 1000 - Date.now()
         );
         this.datas = this.convertDatas(this.countdown);
+        // console.log(this.datas);
+
       });
     }
   }
