@@ -1,34 +1,39 @@
 <nav class="h-20 bg-[#243A73] flex flex-row items-center">
-    <div *ngIf="authority === 'student'" class="nav-l">
-        <a class="logo" [routerLink]="'/home'">KKU BOARDS </a>
-        <div class="ulists">
-            <ul class="flex h-20">
-                <li class="h-full">
-                    <a class="linkLists" [routerLink]="'/home'">หน้าหลัก</a>
-                </li>
-                <li class="h-full">
-                    <a class="linkLists" [routerLink]="'/home'">ตารางกิจกรรม</a>
-                </li>
-            </ul>
-        </div>
+  <div *ngIf="authority === 'student'" class="nav-l">
+    <a class="logo" [routerLink]="'/home'">KKU BOARDS </a>
+    <div class="ulists">
+      <ul class="flex h-20">
+        <li class="h-full">
+          <a class="linkLists" [routerLink]="'/home'">หน้าหลัก</a>
+        </li>
+        <li class="h-full">
+          <a class="linkLists" [routerLink]="'/event'">ตารางกิจกรรม</a>
+        </li>
+      </ul>
     </div>
+  </div>
 
-    <div *ngIf="authority === 'clubAdmin'" class="nav-l">
-        <a class="logo" [routerLink]="'/club-home'">KKU BOARDS </a>
-        <div class="ulists">
-            <ul class="flex h-20">
-                <li class="h-full">
-                    <a class="linkLists" [routerLink]="'/club-home'">หน้าหลัก</a>
-                </li>
-                <li class="h-full">
-                    <a class="linkLists" [routerLink]="'/club-home'">ตารางกิจกรรม</a>
-                </li>
-            </ul>
-        </div>
+  <div *ngIf="authority === 'clubAdmin'" class="nav-l">
+    <a class="logo" [routerLink]="'/club-home'">KKU BOARDS </a>
+    <div class="ulists">
+      <ul class="flex h-20">
+        <li class="h-full">
+          <a class="linkLists" [routerLink]="'/club-home'">หน้าหลัก</a>
+        </li>
+        <li class="h-full">
+          <a class="linkLists" [routerLink]="'/club-event'">ตารางกิจกรรม</a>
+        </li>
+      </ul>
     </div>
+  </div>
 
-    <div class="nav-r">
-        <button nz-button nz-dropdown [nzDropdownMenu]="menu" class="h-16 rounded-full w-16">
+  <div class="nav-r">
+    <button
+      nz-button
+      nz-dropdown
+      [nzDropdownMenu]="menu"
+      class="h-16 rounded-full w-16"
+    >
       <nz-badge [nzCount]="datas.length">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -46,16 +51,17 @@
         </svg>
       </nz-badge>
     </button>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-            <ul nz-menu>
-                <li *ngFor="let item of datas" nz-menu-item>
-                    <a>{{ item.eventHeader }}<br />เริ่ม {{ item.startDate }}
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li *ngFor="let item of datas" nz-menu-item>
+          <a
+            >{{ item.eventHeader }}<br />เริ่ม {{ item.startDate }}
             {{ item.startTime }}น.</a
           >
         </li>
       </ul>
     </nz-dropdown-menu>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 cursor-pointer" (click)="showModal()">
       <nz-avatar
         nzIcon="user"
         [nzSrc]="user.urlImage"
@@ -93,7 +99,8 @@
           stroke-linecap="round"
           stroke-linejoin="round"
           d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-        /></svg>ออกจากระบบ
+        /></svg
+      >ออกจากระบบ
     </button>
   </div>
   <button
@@ -121,24 +128,86 @@
     <ul nz-menu *ngIf="authority === 'student'">
       <li nz-menu-item>
         <a [routerLink]="'/home'">หน้าหลัก</a>
-                </li>
-                <li nz-menu-item>
-                    <a [routerLink]="'/home'">ตารางกิจกรรม</a>
-                </li>
-                <li nz-menu-item>
-                    <a (click)="logout()">ออกจากระบบ</a>
-                </li>
-            </ul>
-            <ul nz-menu *ngIf="authority === 'clubAdmin'">
-                <li nz-menu-item>
-                    <a [routerLink]="'/club-home'">หน้าหลัก</a>
-                </li>
-                <li nz-menu-item>
-                    <a [routerLink]="'/club-home'">ตารางกิจกรรม</a>
-                </li>
-                <li nz-menu-item>
-                    <a (click)="logout()">ออกจากระบบ</a>
-                </li>
-            </ul>
-        </nz-dropdown-menu>
+      </li>
+      <li nz-menu-item>
+        <a [routerLink]="'/event'">ตารางกิจกรรม</a>
+      </li>
+      <li nz-menu-item>
+        <a (click)="logout()">ออกจากระบบ</a>
+      </li>
+    </ul>
+    <ul nz-menu *ngIf="authority === 'clubAdmin'">
+      <li nz-menu-item>
+        <a [routerLink]="'/club-home'">หน้าหลัก</a>
+      </li>
+      <li nz-menu-item>
+        <a [routerLink]="'/club-event'">ตารางกิจกรรม</a>
+      </li>
+      <li nz-menu-item>
+        <a (click)="logout()">ออกจากระบบ</a>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
 </nav>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+  [nzFooter]="null"
+>
+  <div *nzModalContent class="flex flex-col mt-10">
+    <div class="flex justify-center w-full">
+      <nz-avatar
+        nzIcon="user"
+        class="w-[120px] h-[120px] align-center"
+        [nzSrc]="user.urlImage"
+        [nzSize]="'large'"
+      >
+      </nz-avatar>
+    </div>
+    <div class="flex flex-col mt-8 mx-16 justify-items-start">
+      <div class="mb-4">
+        <p class="text-gray-400">ชื่อสมาชิก:</p>
+        <p class="text-base">{{ user.firstName }} {{ user.lastName }}</p>
+      </div>
+      <div class="mb-4">
+        <p class="text-gray-400">อีเมล:</p>
+        <p class="text-base">{{ user.email }}</p>
+      </div>
+      <div class="mb-4">
+        <p class="text-gray-400">รหัสนักศึกษา:</p>
+        <p class="text-base">{{ user.studentId }}</p>
+      </div>
+      <div class="mb-4">
+        <p class="text-gray-400">คณะ:</p>
+        <p class="text-base">{{ user.faculty }}</p>
+      </div>
+      <div class="mb-4">
+        <p class="text-gray-400">สาขา:</p>
+        <p class="text-base">{{ user.major }}</p>
+      </div>
+      <div class="mb-4">
+        <p class="text-gray-400">เบอร์โทรศัพท์:</p>
+        <p class="text-base">{{ user.phoneNumber }}</p>
+      </div>
+    </div>
+    <div class="flex flex-col mx-16 justify-items-start">
+      <p class="text-gray-400">กิจกรรมของชมรมที่เข้าร่วม</p>
+      <nz-table #basicTable [nzData]="eventTable">
+        <thead>
+          <tr>
+            <th>ชื่อกิจกรรม</th>
+            <th>วันที่เริ่มกิจกรรม</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.header }}</td>
+            <td>{{ data.startDate }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</nz-modal>

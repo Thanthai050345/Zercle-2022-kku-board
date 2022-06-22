@@ -17,7 +17,7 @@
       nzEllipsis
       [nzEllipsisRows]="2"
     >
-      {{item.eventHeader}}
+      {{item.header}}
     </p>
     <p
       class="ml-8 text-base leading-6 font-light text-gray-600 md:flex"
@@ -36,7 +36,8 @@
       <div class="flex flex-row justify-end">
         <button
           (click)="showModal(item)"
-          class="bg-white ml-8 md:ml-12 w-28 h-8 rounded-2xl border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white delay-100"
+          class=" ml-8 md:ml-12 w-28 h-8 "
+          nz-button
         >
           รายละเอียด
         </button>
@@ -44,9 +45,10 @@
           nz-popconfirm
           nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?"
           nzPopconfirmPlacement="bottom"
-          (nzOnConfirm)="confirm()"
+          (nzOnConfirm)="confirm(item)"
           (nzOnCancel)="cancel()"
-          class="bg-blue-900 ml-4 md:ml-8 mr-5 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
+          class=" ml-4 md:ml-8 mr-5 w-28 h-8 "
+          nz-button  nzType="primary"
         >
           เข้าร่วม
         </button>
@@ -57,16 +59,16 @@
 
 <nz-modal
   [(nzVisible)]="isVisible"
-  nzTitle="{{datamodal.eventHeader}}"
+  nzTitle="{{datamodal.header}}"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk() "
   [nzFooter]="null"
 >
   <ng-container *nzModalContent>
-    <p class="" nz-row nzJustify="end">item.startDate</p>
+    <p class="" nz-row nzJustify="end">{{datamodal.startDate}}</p>
 
-    <!-- <img class="h-full w-full" src="item.image" /> -->
-    <p>item.description</p>
-    <p class="mt-[10px]" nz-row nzJustify="end">item.location</p>
+    <img class=" w-[300px] h-[300px] " src="{{datamodal.image}}" />
+    <p>{{datamodal.description}}</p>
+    <p class="mt-[10px]" nz-row nzJustify="end">{{datamodal.location}}</p>
   </ng-container>
 </nz-modal>

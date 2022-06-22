@@ -1,0 +1,10 @@
+@media screen and (max-width: 800px) {
+  .res-width {
+    width: 500px;
+  }
+}
+@media screen and (max-width: 500px) {
+    .res-width {
+      width: 355px;
+    }
+  }
