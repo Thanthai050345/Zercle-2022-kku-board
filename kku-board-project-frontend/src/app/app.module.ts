@@ -3,17 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { CountDownComponent } from './components/count-down/count-down.component';
+import { MyTableEventComponent } from './components/my-table-event/my-table-event.component';
 import { PopularComponent } from './components/popular/popular.component';
 import { ModalEventDescription } from './components/KB-43-modal-event-description-component-frontend/ModalEventDescription';
 import { AllEventComponent } from './components/KB-26-all-event-component-frontend/all-event-component';
-import { ClubHomePage } from './components/KB-36-component-in-club-home-page-frontend/ClubHomePage';
 import { PopularEventComponent } from './components/popular-event/popular-event.component';
 
 import { NZ_I18N, th_TH } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import th from '@angular/common/locales/th';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CountDownComponent } from './components/count-down/count-down.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +23,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzCalendarModule } from 'ng-zorro-antd/calendar';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -59,6 +62,7 @@ registerLocaleData(th);
     AppComponent,
     PopularComponent,
     CountDownComponent,
+    MyTableEventComponent,
     LoginPageComponent,
     HomePageComponent,
     SignUpPageComponent,
@@ -67,7 +71,6 @@ registerLocaleData(th);
     RegClubFormComponent,
     ModalEventDescription,
     AllEventComponent,
-    ClubHomePage,
     PopularEventComponent,
     TopBarComponent,
     ClubHomePageComponent,
@@ -79,18 +82,20 @@ registerLocaleData(th);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NzTypographyModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     AngularFireModule,
     NzStatisticModule,
     NzButtonModule,
-    NzAlertModule,
     NzIconModule,
-    NzTypographyModule,
+    NzCalendarModule,
+    NzTableModule,
+    NzDividerModule,
+    NzAlertModule,
     NzCarouselModule,
     NzFormModule,
     NzInputModule,
-    NzButtonModule,
     NzModalModule,
     NzCheckboxModule,
     NzSelectModule,

@@ -50,7 +50,7 @@ export class TopBarComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private eventServiec: EventService,
+    private eventService: EventService,
     private authService: AuthenticationService
   ) {}
 
@@ -63,7 +63,7 @@ export class TopBarComponent implements OnInit {
         this.user = res;
         console.log(this.user);
       });
-      this.eventServiec.getCountdownUserById(this.userUid).subscribe((res) => {
+      this.eventService.getCountdownUserById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
           (element) => this.aDay > element.startDate * 1000 - Date.now()
         );
@@ -78,7 +78,7 @@ export class TopBarComponent implements OnInit {
         this.club = res;
         console.log(this.club);
       });
-      this.eventServiec.getCountdownClubById(this.userUid).subscribe((res) => {
+      this.eventService.getCountdownClubById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
           (element) => this.aDay > element.startDate * 1000 - Date.now()
         );
