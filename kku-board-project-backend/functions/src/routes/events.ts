@@ -28,12 +28,12 @@ router.post("/:uid", async (req: express.Request, res: express.Response) => {
 router.get("/", async (_: express.Request, res: express.Response) => {
   try {
     const event = await getAllEvents();
-    const now = Date.now();
-    const filterEvents = event.filter((event: Event, index: number) => {
-      const endDate = event.endDate * 1000;
-      return now < endDate;
-    });
-    return res.status(201).json(filterEvents);
+    // const now = Date.now();
+    // const filterEvents = event.filter((event: Event, index: number) => {
+    //   const endDate = event.endDate * 1000;
+    //   return now < endDate;
+    // });
+    return res.status(201).json(event);
   } catch (error) {
     const err = error as any;
     return catchingError(res, { message: err.code }, err?.code);
@@ -61,12 +61,12 @@ router.get(
     const uid = req.params.uid;
     try {
       const event = await getEventByUid(uid);
-      const now = Date.now();
-      const filterEvents = event.filter((event: Event, index: number) => {
-        const endDate = event.endDate * 1000;
-        return now < endDate;
-      });
-      return res.status(201).json(filterEvents);
+      // const now = Date.now();
+      // const filterEvents = event.filter((event: Event, index: number) => {
+      //   const endDate = event.endDate * 1000;
+      //   return now < endDate;
+      // });
+      return res.status(201).json(event);
     } catch (error) {
       const err = error as any;
       return catchingError(res, { message: err.code }, err?.code);
@@ -80,13 +80,13 @@ router.get(
     const clubId = req.params.clubId;
     try {
       const event = await getAllEventsByClubId(clubId);
-      const now = Date.now();
-      const filterEvents = event.filter((event: Event, index: number) => {
-        const startDate = event.startDate * 1000;
-        console.log(startDate);
-        return now < startDate;
-      });
-      return res.status(201).json(filterEvents);
+      // const now = Date.now();
+      // const filterEvents = event.filter((event: Event, index: number) => {
+      //   const startDate = event.startDate * 1000;
+      //   console.log(startDate);
+      //   return now < startDate;
+      // });
+      return res.status(201).json(event);
     } catch (error) {
       const err = error as any;
       return catchingError(res, { message: err.code }, err?.code);
@@ -100,12 +100,12 @@ router.get(
     const uid = req.params.uid;
     try {
       const event = await getEventForMyRole(uid);
-      const now = Date.now();
-      const filterEvents = event.filter((event: Event, index: number) => {
-        const endDate = event.endDate * 1000;
-        return now < endDate;
-      });
-      return res.status(201).json(filterEvents);
+      // const now = Date.now();
+      // const filterEvents = event.filter((event: Event, index: number) => {
+      //   const endDate = event.endDate * 1000;
+      //   return now < endDate;
+      // });
+      return res.status(201).json(event);
     } catch (error) {
       const err = error as any;
       return catchingError(res, { message: err.code }, err?.code);
