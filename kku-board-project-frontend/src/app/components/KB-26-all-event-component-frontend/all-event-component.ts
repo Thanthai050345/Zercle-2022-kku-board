@@ -18,7 +18,7 @@ export class AllEventComponent implements OnInit {
     this.eventService.getEvenById(this.uid).subscribe((res) => {
       this.datas = this.convertDatas(res)
       
-      console.log(res);
+      // console.log(res);
       
     });
     

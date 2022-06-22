@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { MyTableEvent } from 'src/app/interfaces/myTableEvent';
 import * as buddhistEra from "dayjs/plugin/buddhistEra";
@@ -18,6 +18,10 @@ interface Person {
   styleUrls: ['./my-table-event.component.css'],
 })
 export class MyTableEventComponent implements OnInit {
+  @Input() events: any[] = []
+  toDay = Date.now();
+  aDay = 86400 * 1000;
+  aHour = 3600 * 1000;
   dataBase: MyTableEvent[] = [
     {
       eventId: '1',
