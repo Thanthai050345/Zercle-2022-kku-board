@@ -62,11 +62,6 @@ export class TopBarComponent implements OnInit {
     if (this.authority === 'student') {
       this.userService.getUserById(this.userUid).subscribe((res) => {
         this.user = res;
-
-        // console.log(this.user);
-
-        // console.log(this.user);
-
       });
       this.eventService.getCountdownUserById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
@@ -76,7 +71,6 @@ export class TopBarComponent implements OnInit {
       });
       this.eventService.getEventByUid(this.userUid).subscribe((res) => {
         this.eventTable = this.convertEventTableDatas(res);
-        console.log(this.eventTable);
       });
     } else if (this.authority === 'clubAdmin') {
       this.userService.getClubById(this.userUid).subscribe((res) => {

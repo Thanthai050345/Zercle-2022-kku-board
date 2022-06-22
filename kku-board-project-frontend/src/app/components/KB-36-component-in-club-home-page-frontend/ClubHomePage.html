@@ -1,35 +1,47 @@
-<div class="w-[750px] bg-[#F2EBE9] flex flex-col items-center justify-items-center">
-    <!-- header  -->
-    <div class="flex items-center w-[700px] h-[50px] justify-between">
-        <div class="flex">
-            <p class="font-extrabold text-3xl">สมาชิก</p>
-            <p class="text-3xl">ในชมรม</p>
-        </div>
+<nz-table #basicTable [nzData]="data" nzSize="middle">
+  <!-- <thead>
+    <tr>
+      <th></th>
+      <th nzAlign="left">ชื่อ</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead> -->
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td [nzIndentSize]=5>
+        <img class="rounded-full w-[50px] h-[50px]" src="{{data.urlImage}}" />
+      </td>
+      <td >{{ data.firstName}}  {{ data.lastName }}</td>
+      <td [nzIndentSize]=100>
+        <button nz-button nzType="primary" (click)="showModal(data)">
+          รายละเอียด
+        </button>
+      </td>
+      <td><button nz-button nzType="primary" nzDanger>ลบ</button></td>
+    </tr>
+  </tbody>
+</nz-table>
 
-        <button class="w-28 h-8 rounded-2xl border-2 border-blue-900 bg-white text-blue-900 items-center flex justify-center">
-      <i nz-icon nzType="user-add" nzTheme="outline"></i>
-      เพิ่มสมาชิก
-    </button>
-    </div>
-    <!-- content  -->
-    <div>
-        <div class="flex w-[700px] h-[80px] border-2 border-gray-200 bg-gray-200 items-center p-5 justify-between" *ngFor="let item of data">
-            <div class="flex flex-row items-center gap-5">
-                <img class="rounded-full w-[50px] h-[50px]" src="{{item.urlImage}}" />
-                <p class="text-[#243A73] text-base">{{item.firstName}}</p>
-            </div>
-            <div class="flex items-center gap-3" (click)="showModal()">
-                <button nz-button nzType="primary">รายละเอียด</button>
-                <button nz-button nzType="primary" nzDanger>ลบ</button>
-            </div>
-        </div>
-    </div>
-    <!-- Pagination  -->
-    <!-- <div class="flex flex-row-reverse w-[700px] h-[50px] items-center">
-    <nz-pagination
-      [(nzPageIndex)]="current"
-      [nzTotal]="50"
-      [nzSize]="'small'"
-    ></nz-pagination>
-  </div> -->
-</div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="{{datamodal.urlImage}}"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk() "
+  [nzFooter]="null"
+>
+  <ng-container *nzModalContent>
+    <p>ชื่อสมาชิก:</p>
+    <p>{{datamodal.firstName}} {{datamodal.lastName}}</p>
+    <p>อีเมล์:</p>
+    <p>{{datamodal.email}}</p>
+    <p>รหัสนักศึกษา:</p>
+    <p>{{datamodal.studentId}}</p>
+    <p>คณะ:</p>
+    <p>{{datamodal.faculty}}</p>
+    <p>สาขา:</p>
+    <p>{{datamodal.major}}</p>
+    <p>เบอร์โทรศัพท์:</p>
+    <p>{{datamodal.phoneNumber}}</p>
+  </ng-container>
+</nz-modal>

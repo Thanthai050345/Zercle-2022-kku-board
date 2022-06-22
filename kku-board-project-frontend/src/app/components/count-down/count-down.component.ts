@@ -52,7 +52,6 @@ export class CountDownComponent implements OnInit {
       this.eventService
         .getCountdownUserById(localStorage.getItem('userUid'))
         .subscribe((res) => {
-          console.log(res);
         });
     } else {
       console.log(localStorage.getItem('authority'));
