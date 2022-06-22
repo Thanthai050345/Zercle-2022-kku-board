@@ -1,6 +1,6 @@
 import { Component,Input ,OnInit } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/interfaces/user';
+import { MemberService } from 'src/app/services/member.service';
 @Component({
   selector: 'club-component',
   templateUrl: './ClubHomePage.html',
@@ -11,48 +11,45 @@ export class ClubHomePage implements OnInit {
   isVisible = false;
   data:any[] =[];
   index = 0;
-  dataBase = [
-    {
-      name:"Apinan Thongpoo",
-      image: "https://image.makewebeasy.net/makeweb/0/wdU8ZjHiP/PicAngthong62/%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B8%9C%E0%B9%89%E0%B8%B2%E0%B8%9B%E0%B9%88%E0%B8%B2_%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%AD%E0%B8%87_%E0%B8%88_%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87_11052019_%E0%B9%91%E0%B9%99%E0%B9%90%E0%B9%95%E0%B9%91%E0%B9%93_0286.jpg",
-    }
-  ];
+  clubId: string | null | undefined;
   current = 1;
+  datamodal:User = {
+    studentId: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    phoneNumber: '',
+    major: '',
+    authority: '',
+    clubed: [],
+    email: '',
+    faculty: '',
+    urlImage: ''
+  }
+
+  constructor(private memberService: MemberService) {
+    
+  }
 
   ngOnInit(): void {
-    this.userService.getAllUser().subscribe(res => {
+    console.log(this.clubId);
+    this.clubId = localStorage.getItem('userUid');
+    this.memberService.getMemberByClubId(this.clubId).subscribe(res => {
       this.data = res;
     });
+
   }
 
-  constructor(private modal: NzModalService,
-              private userService: UserService) {}
-
-  showModal() {
+  showModal(data: User): void {
+    this.datamodal = data;
     this.isVisible = true;
-    this.modal.create({
-      nzTitle: `${this.data[this.index].urlImage}`,
-      nzFooter: null,
-      nzContent:`ชื่อสมาชิก:<br>
-      ${this.data[this.index].firstName}  ${this.data[this.index].lastName}<br>
-      อีเมล์:<br>
-      ${this.data[this.index].email}<br>
-      รหัสนักศึกษา:<br>
-      ${this.data[this.index].studentId}<br>
-      คณะ:<br>
-      ${this.data[this.index].faculty}<br>
-      สาขา:<br>
-      ${this.data[this.index].major}<br>
-      เบอร์โทรศัพท์:<br>
-      ${this.data[this.index].phoneNumber}<br>
-      `
-    })
   }
 
-  handleCancel(): void {
-    console.log('closed detail modal!');
+  handleOk(): void {
     this.isVisible = false;
   }
 
-  
+  handleCancel(): void {
+    this.isVisible = false;
+  } 
 }
