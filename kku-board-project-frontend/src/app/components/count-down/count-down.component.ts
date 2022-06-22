@@ -48,7 +48,6 @@ export class CountDownComponent implements OnInit {
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-<<<<<<< HEAD
     if (localStorage.getItem('authority') === 'student') {
       this.eventService
         .getCountdownUserById(localStorage.getItem('userUid'))
@@ -57,16 +56,6 @@ export class CountDownComponent implements OnInit {
     } else {
       console.log(localStorage.getItem('authority'));
     }
-=======
-    // if (localStorage.getItem('authority') === 'student') {
-    //   this.eventService
-    //     .getCountdownUserById(localStorage.getItem('userUid'))
-    //     .subscribe((res) => {
-    //       console.log(res);
-    //     });
-    // } else {
-    //   console.log(localStorage.getItem('authority'));
-    // }
->>>>>>> de299fb53ffaa7ad6681bddc4ce0835a9f6fd2a2
+
   }
 }
