@@ -56,9 +56,6 @@ export class MyTableEventComponent implements OnInit {
       endDate: 1654951678,
     },
   ];
-  // getData() {
-  //   this.listOfData = this.dataBase;
-  // }
   convertDatas = (data: MyTableEvent[]): any => {
     return data.map((item) => {
       const dateS = item.startDate * 1000;
