@@ -61,7 +61,12 @@ router.get(
     const uid = req.params.uid;
     try {
       const event = await getEventByUid(uid);
-      return res.status(201).json(event);
+      const now = Date.now();
+      const filterEvents = event.find((event: Event, index: number) => {
+        const endDate = event.endDate * 1000;
+        return now < endDate;
+      });
+      return res.status(201).json(filterEvents);
     } catch (error) {
       const err = error as any;
       return catchingError(res, { message: err.code }, err?.code);
@@ -75,7 +80,12 @@ router.get(
     const clubId = req.params.clubId;
     try {
       const event = await getAllEventsByClubId(clubId);
-      return res.status(201).json(event);
+      const now = Date.now();
+      const filterEvents = event.find((event: Event, index: number) => {
+        const endDate = event.endDate * 1000;
+        return now < endDate;
+      });
+      return res.status(201).json(filterEvents);
     } catch (error) {
       const err = error as any;
       return catchingError(res, { message: err.code }, err?.code);
@@ -89,7 +99,12 @@ router.get(
     const uid = req.params.uid;
     try {
       const event = await getEventForMyRole(uid);
-      return res.status(201).json(event);
+      const now = Date.now();
+      const filterEvents = event.find((event: Event, index: number) => {
+        const endDate = event.endDate * 1000;
+        return now < endDate;
+      });
+      return res.status(201).json(filterEvents);
     } catch (error) {
       const err = error as any;
       return catchingError(res, { message: err.code }, err?.code);

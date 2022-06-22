@@ -40,6 +40,15 @@ export const MOCKUP_ADMINS = [
     authority: "clubAdmin",
     members: [],
   },
+  {
+    clubName: "ScienceLab",
+    password: "123456",
+    faculty: "Engineering",
+    email: "test5@test.com",
+    urlImage: "https://picsum.photos/200/300",
+    authority: "clubAdmin",
+    members: [],
+  },
 ];
 
 export const migrateUsers = async () => {
