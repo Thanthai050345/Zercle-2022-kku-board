@@ -61,6 +61,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventUserPageComponent } from './pages/event-user-page/event-user-page.component';
 import { EventClubPageComponent } from './pages/event-club-page/event-club-page.component';
 import { CatchApiInterceptor } from './interceptors/catch-api.interceptor';
+import { ClubHomePage } from'./components/KB-36-component-in-club-home-page-frontend/ClubHomePage';
 
 FullCalendarModule.registerPlugins([dayGridPlugin, interactionPlugin]);
 
@@ -81,6 +82,7 @@ registerLocaleData(th);
     AllEventComponent,
     PopularEventComponent,
     TopBarComponent,
+    ClubHomePage,
     ClubHomePageComponent,
     UploadImageComponent,
     CalendarComponent,

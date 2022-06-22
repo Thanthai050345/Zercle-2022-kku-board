@@ -45,6 +45,7 @@ export class TopBarComponent implements OnInit {
   }];
   countdown: Countdown[] = [];
   datas: any[] = [];
+
   isVisible = false;
   isOkLoading = false;
 
@@ -61,6 +62,11 @@ export class TopBarComponent implements OnInit {
     if (this.authority === 'student') {
       this.userService.getUserById(this.userUid).subscribe((res) => {
         this.user = res;
+
+        // console.log(this.user);
+
+        // console.log(this.user);
+
       });
       this.eventService.getCountdownUserById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(

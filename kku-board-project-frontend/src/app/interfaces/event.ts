@@ -1,5 +1,5 @@
 export interface Event {
-    eventHeader: string,
+    header: string,
     description: string,
     attendees: number,
     eventType: string,

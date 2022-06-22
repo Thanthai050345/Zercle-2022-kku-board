@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from 'src/app/services/event.service';
 
 
 @Component({
@@ -7,11 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  uid:string | null | undefined;
-  constructor() { }
+  // uid:string | null | undefined;
+  // data:any[] =[];
+  // constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
-    this.uid = localStorage.getItem('userUid');
+    // this.uid = localStorage.getItem('userUid');
+    // this.eventService.getEvenById(this.uid).subscribe(res => {
+    //   this.data = res;
+    //   console.log(this.data);
+    // });
   }
-
 }
