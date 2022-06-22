@@ -45,12 +45,10 @@ export class TopBarComponent implements OnInit {
   }];
   countdown: Countdown[] = [];
   datas: any[] = [];
-<<<<<<< HEAD
-=======
+
   isVisible = false;
   isOkLoading = false;
 
->>>>>>> ddee03bf120aafd566a3d5aac942b928349dc396
   constructor(
     private userService: UserService,
     private eventService: EventService,
@@ -64,10 +62,11 @@ export class TopBarComponent implements OnInit {
     if (this.authority === 'student') {
       this.userService.getUserById(this.userUid).subscribe((res) => {
         this.user = res;
-<<<<<<< HEAD
+
         // console.log(this.user);
-=======
->>>>>>> ddee03bf120aafd566a3d5aac942b928349dc396
+
+        // console.log(this.user);
+
       });
       this.eventService.getCountdownUserById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
