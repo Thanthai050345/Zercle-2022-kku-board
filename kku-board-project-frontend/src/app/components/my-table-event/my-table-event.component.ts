@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { MyTableEvent } from 'src/app/interfaces/myTableEvent';
-import * as buddhistEra from "dayjs/plugin/buddhistEra";
+import * as buddhistEra from 'dayjs/plugin/buddhistEra';
 
 dayjs.extend(buddhistEra);
 
@@ -18,7 +18,7 @@ interface Person {
   styleUrls: ['./my-table-event.component.css'],
 })
 export class MyTableEventComponent implements OnInit {
-  @Input() events: any[] = []
+  @Input() events: any[] = [];
   toDay = Date.now();
   aDay = 86400 * 1000;
   aHour = 3600 * 1000;
@@ -67,19 +67,19 @@ export class MyTableEventComponent implements OnInit {
       return {
         id: item.eventId,
         eventHeader: item.eventHeader,
-        startDate: dayjs(dateS).locale("th").format('D/MMM/BB'),
-        endDate: dayjs(dateE).locale("th").format('D/MMM/BB'),
+        startDate: dayjs(dateS).locale('th').format('D/MMM/BB'),
+        endDate: dayjs(dateE).locale('th').format('D/MMM/BB'),
         deadline: dateS,
       };
     });
   };
-  
-  listOfData = this.convertDatas(this.dataBase)
-  
-  getEvent () {
+
+  listOfData = this.convertDatas(this.dataBase);
+
+  getEvent(data: any) {
     console.log('รายละเอียด');
   }
-  deleteEvent () {
+  deleteEvent(data: any) {
     console.log('ออกจากกิจกรรม');
   }
   constructor() {}
