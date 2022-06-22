@@ -16,7 +16,14 @@ export class AllEventComponent implements OnInit {
   constructor(private eventService: EventService) {
     this.uid = localStorage.getItem('userUid');
     this.eventService.getEvenById(this.uid).subscribe((res) => {
+<<<<<<< HEAD
       this.datas = this.convertDatas(res)      
+=======
+      this.datas = this.convertDatas(res)
+      
+      // console.log(res);
+      
+>>>>>>> de299fb53ffaa7ad6681bddc4ce0835a9f6fd2a2
     });
     
   }

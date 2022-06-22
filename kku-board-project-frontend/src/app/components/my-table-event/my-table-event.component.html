@@ -1,21 +1,23 @@
 <div class="res-width">
   <nz-table
     #myTableEvent
-    [nzData]="listOfData"
+    [nzData]="events"
     [nzPageSize]="4"
     [nzScroll]="{ x: '800px' }"
     nzTableLayout="fixed"
   >
     <thead>
       <tr>
-        <th nzEllipsis [nzAlign]="'center'" id="eventHeader">ชื่อกิจกรรม</th>
-        <th nzEllipsis [nzAlign]="'center'" nzWidth="150px" id="startDate">
+        <th nzEllipsis [nzAlign]="'left'" nzWidth="57%" id="eventHeader">
+          ชื่อกิจกรรม
+        </th>
+        <th nzEllipsis [nzAlign]="'center'" nzWidth="11%" id="startDate">
           วันที่เริ่มกิจกรรม
         </th>
-        <th nzEllipsis [nzAlign]="'center'" nzWidth="150px" id="endDate">
+        <th nzEllipsis [nzAlign]="'center'" nzWidth="11%" id="endDate">
           วันที่สิ้นสุดกิจกรรม
         </th>
-        <th nzEllipsis [nzAlign]="'center'" nzWidth="150px" id="deadline">
+        <th nzEllipsis [nzAlign]="'center'" nzWidth="11%" id="deadline">
           นับเวลาถอยหลัง
         </th>
         <th
@@ -33,10 +35,28 @@
         <td nzEllipsis [nzAlign]="'center'">{{ item.startDate }}</td>
         <td nzEllipsis [nzAlign]="'center'">{{ item.endDate }}</td>
         <td nzEllipsis [nzAlign]="'center'">
-          <nz-countdown
-            [nzValue]="item.deadline"
-            [nzFormat]="'D:HH:mm'"
-          ></nz-countdown>
+          <ng-container *ngIf="item.deadline - toDay > aDay">
+            <nz-countdown
+              [nzValue]="item.deadline"
+              [nzFormat]="'D วัน'"
+            ></nz-countdown>
+          </ng-container>
+          <ng-container
+            *ngIf="
+              item.deadline - toDay > aHour && item.deadline - toDay < aDay
+            "
+          >
+            <nz-countdown
+              [nzValue]="item.deadline"
+              [nzFormat]="'H ชั่วโมง'"
+            ></nz-countdown>
+          </ng-container>
+          <ng-container *ngIf="item.deadline - toDay < aHour">
+            <nz-countdown
+              [nzValue]="item.deadline"
+              [nzFormat]="'m นาที'"
+            ></nz-countdown>
+          </ng-container>
         </td>
         <td nzRight>
           <div class="flex gap-2 justify-center">
