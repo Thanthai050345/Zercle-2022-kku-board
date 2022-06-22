@@ -26,7 +26,7 @@ export class EventService {
   patchJoin(evenId: string | null | undefined, Uid: string | null | undefined) {
     return this.http.patch<any[]>(this.baseUrl + 'events/updateJoin/' + evenId +'/'+ Uid,null);
   }
-  getEventByUid(id: string | null | undefined) {
+  getEventByStudentUid(id: string | null | undefined) {
     return this.http.get<EventTable[]>(this.baseUrl + 'events/students/' + id);
   }
   getEventClubByUid(id: string | null | undefined) {

@@ -71,7 +71,7 @@ export class TopBarComponent implements OnInit {
         // console.log(this.datas);
         
       });
-      this.eventService.getEventByUid(this.userUid).subscribe((res) => {
+      this.eventService.getEventByStudentUid(this.userUid).subscribe((res) => {
         this.eventTable = this.convertEventTableDatas(res);
         // console.log(this.eventTable);
       });

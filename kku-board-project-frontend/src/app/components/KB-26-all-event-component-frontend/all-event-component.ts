@@ -16,10 +16,7 @@ export class AllEventComponent implements OnInit {
   constructor(private eventService: EventService) {
     this.uid = localStorage.getItem('userUid');
     this.eventService.getEvenById(this.uid).subscribe((res) => {
-      this.datas = this.convertDatas(res)
-      
-      // console.log(res);
-      
+      this.datas = this.convertDatas(res)      
     });
     
   }
@@ -71,18 +68,15 @@ export class AllEventComponent implements OnInit {
   isVisible = false;
 
   showModal(data: Event): void {
-    console.log(data);
     this.datamodal = data;
     this.isVisible = true;
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
   cancel(): void {}
