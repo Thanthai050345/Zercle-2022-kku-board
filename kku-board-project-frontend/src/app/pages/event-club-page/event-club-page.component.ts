@@ -45,7 +45,14 @@ export class EventClubPageComponent implements OnInit {
         eventHeader: item.header,
         startDate: dayjs(dateS).locale("th").format('D/MMM/BB'),
         endDate: dayjs(dateE).locale("th").format('D/MMM/BB'),
+        startTime: dayjs(dateS).locale("th").format('H:mm'),
+        endTime: dayjs(dateE).locale("th").format('H:mm'),
         deadline: dateS,
+        eventType: item.eventType,
+        location: item.location,
+        attendees: item.attendees,
+        clubName: item.clubName,
+        description:  item.description
       };
     });
   }
