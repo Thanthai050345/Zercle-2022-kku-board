@@ -1,0 +1,20 @@
+<app-top-bar></app-top-bar>
+<div class="div_all">
+    <div class="allComponentPageEvent">
+        <div class="divTop">
+            <div class="eventSoon">
+                <p class="top_event_header">กิจกรรมยอดนิยม</p>
+                <popular-event class="pop_event"></popular-event>
+            </div>
+            <div class="eventCountdown" id="countdown">
+                <p class="countdown_header">กิจกรรมที่ใกล้จะถึง</p>
+                <app-count-down class="ele_eventCountdown"></app-count-down>
+            </div>
+        </div>
+        <div class="allEvents">
+            <p class="all_event_header">กิจกรรมทั้งหมด</p>
+            <all-event class="all_event_element"></all-event>
+            <nz-pagination [nzPageIndex]="1" [nzTotal]="500" class="flex justify-end mt-10"></nz-pagination>
+        </div>
+    </div>
+</div>

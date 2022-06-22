@@ -1,0 +1,185 @@
+<form
+  class="flex flex-col lg:w-[440px] md:w-80 w-[350px] gap-1 text-[#243A73]"
+  [formGroup]="regUserForm"
+  (ngSubmit)="onSubmit()"
+>
+  <input
+    nz-input
+    nzSize="large"
+    class="rounded-[15px]"
+    placeholder="ชื่อจริง"
+    type="firstName"
+    formControlName="firstName"
+  />
+  <small
+    *ngIf="
+      regUserForm.controls['firstName'].hasError('required') &&
+      regUserForm.controls['firstName'].invalid &&
+      regUserForm.controls['firstName'].touched
+    "
+    >*กรุณากรอกชื่อจริง
+  </small>
+  <input
+    nz-input
+    nzSize="large"
+    class="rounded-[15px]"
+    placeholder="นามสกุล"
+    type="lastName"
+    formControlName="lastName"
+  />
+  <small
+    *ngIf="
+      regUserForm.controls['lastName'].hasError('required') &&
+      regUserForm.controls['lastName'].invalid &&
+      regUserForm.controls['lastName'].touched
+    "
+    >*กรุณากรอกนามสกุล
+  </small>
+  <nz-select
+    nzBorderless
+    nzSize="large"
+    ngModel="faculty"
+    nzPlaceHolder="คณะ"
+    formControlName="faculty"
+    (ngModelChange)="onChange($event)"
+  >
+    <nz-option
+      *ngFor="let faculty of facultys"
+      nzValue="{{ faculty.value }}"
+      nzLabel="{{ faculty.name }}"
+    ></nz-option>
+  </nz-select>
+  <nz-select
+    nzBorderless
+    nzSize="large"
+    *ngIf="majors"
+    nzPlaceHolder="สาขาวิชา"
+    formControlName="major"
+    ngModel="major"
+  >
+    <nz-option
+      *ngFor="let major of majors"
+      nzValue="{{ major.value }} "
+      nzLabel="{{ major.name }} "
+    ></nz-option>
+  </nz-select>
+  <input
+    nz-input
+    nzSize="large"
+    class="rounded-[15px]"
+    placeholder="อีเมล์"
+    type="email"
+    formControlName="email"
+  />
+  <small
+    *ngIf="
+      regUserForm.controls['email'].hasError('required') &&
+      regUserForm.controls['email'].invalid &&
+      regUserForm.controls['email'].touched
+    "
+    >*กรุณากรอกอีเมล
+  </small>
+  <small
+    *ngIf="
+      regUserForm.controls['email'].hasError('email') &&
+      regUserForm.controls['email'].invalid &&
+      regUserForm.controls['email'].touched
+    "
+    >*กรุณากรอกอีเมลให้ถูกต้อง
+  </small>
+  <input
+    nz-input
+    nzSize="large"
+    class="rounded-[15px]"
+    placeholder="รหัสนักศึกษา"
+    type="studentId"
+    formControlName="studentId"
+  />
+  <small
+    *ngIf="
+      regUserForm.controls['studentId'].hasError('required') &&
+      regUserForm.controls['studentId'].invalid &&
+      regUserForm.controls['studentId'].touched
+    "
+    >*กรุณากรอกรหัสนักศึกษา
+  </small>
+  <input
+    nz-input
+    nzSize="large"
+    class="rounded-[15px]"
+    placeholder="เบอร์โทรศัพท์"
+    type="phoneNumber"
+    formControlName="phoneNumber"
+  />
+  <small
+    *ngIf="
+      regUserForm.controls['phoneNumber'].hasError('required') &&
+      regUserForm.controls['phoneNumber'].invalid &&
+      regUserForm.controls['phoneNumber'].touched
+    "
+    >*กรุณากรอกเบอร์โทรศัพท์
+  </small>
+  <div class="flex w-full gap-1">
+    <div class="w-1/2 flex flex-col">
+      <input
+        nz-input
+        nzSize="large"
+        class="rounded-[15px]"
+        placeholder="รหัสผ่าน"
+        type="password"
+        formControlName="password"
+      />
+      <small
+        *ngIf="
+          regUserForm.controls['password'].hasError('required') &&
+          regUserForm.controls['password'].invalid &&
+          regUserForm.controls['password'].touched
+        "
+        >*กรุณากรองรหัสผ่าน
+      </small>
+      <small
+        *ngIf="
+          regUserForm.controls['password'].hasError('minLength') &&
+          regUserForm.controls['password'].invalid &&
+          regUserForm.controls['password'].touched
+        "
+        >*ความยาวรหัสผ่านไม่เพียงพอ
+      </small>
+    </div>
+    <div class="w-1/2 flex flex-col">
+      <input
+        nz-input
+        nzSize="large"
+        class="rounded-[15px]"
+        placeholder="ยืนยันรหัสผ่าน"
+        type="password"
+        formControlName="confirmPassword"
+      />
+
+      <small
+        *ngIf="
+          regUserForm.controls['confirmPassword'].hasError('required') &&
+          regUserForm.controls['confirmPassword'].invalid &&
+          regUserForm.controls['confirmPassword'].touched
+        "
+        >*กรุณากรองยืนยันรหัสผ่าน
+      </small>
+      <small
+        *ngIf="
+          regUserForm.controls['confirmPassword'].hasError('minlength') &&
+          regUserForm.controls['confirmPassword'].invalid &&
+          regUserForm.controls['confirmPassword'].touched
+        "
+        >*ความยาวรหัสผ่านไม่เพียงพอ
+      </small>
+    </div>
+  </div>
+  <button
+    nz-button
+    class="my-2 h-12 text-2xl"
+    [disabled]="regUserForm.invalid"
+    nzType="primary"
+  >
+    สมัครสมาชิก
+  </button>
+</form>

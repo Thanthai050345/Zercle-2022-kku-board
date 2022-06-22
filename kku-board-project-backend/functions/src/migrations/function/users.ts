@@ -1,11 +1,11 @@
-import { User } from "../../interface/user";
-import { createAdmin, createStudent } from "../../services/register";
+import { Student } from "../../interface/user";
+import { createClubAdmin, createStudent } from "../../services/register";
 
-export const MOCKUP_STUDENTS: User[] = [
+export const MOCKUP_STUDENTS: Student[] = [
   {
     firstName: "เหลี่ยม",
     lastName: "ทำเทส",
-    faculty: "บริหารธุรกิจ",
+    faculty: "KKBS",
     major: "การเงิน",
     email: "test2@test.com",
     studentId: "633040000-1",
@@ -13,18 +13,20 @@ export const MOCKUP_STUDENTS: User[] = [
     password: "123456",
     urlImage: "https://picsum.photos/200/300",
     authority: "student",
+    clubed: [],
   },
   {
     firstName: "แทนไทย",
     lastName: "จิตต์ประทุม",
-    faculty: "วิศวกรรมศาสตร์",
-    major: "วิศวกรรมคอมพิวเตอร์",
+    faculty: "EN",
+    major: "EN",
     email: "test@test.com",
     studentId: "633040157-2",
     phoneNumber: "0996569600",
     password: "123456",
     urlImage: "https://picsum.photos/200/300",
     authority: "student",
+    clubed: ["Engine"],
   },
 ];
 
@@ -36,6 +38,7 @@ export const MOCKUP_ADMINS = [
     email: "test3@test.com",
     urlImage: "https://picsum.photos/200/300",
     authority: "clubAdmin",
+    members: [],
   },
 ];
 
@@ -62,7 +65,7 @@ export const migrateUsers = async () => {
   }
   for (const admin of MOCKUP_ADMINS) {
     try {
-      const adminRegistered = await createAdmin(admin);
+      const adminRegistered = await createClubAdmin(admin);
       console.log(
         `   - Migrate admins successfully: ${adminRegistered.authority} -> ${adminRegistered.clubName}`
       );

@@ -1,15 +1,18 @@
-// import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as bodyParser from "body-parser";
-import routes from "./routes";
-import migrate from "./migrations/function";   
+import * as functions from "firebase-functions";
+import * as cors from "cors";
+import migrate from "./migrations/function";
 import * as express from "express";
+import router from "./routes";
 
 const app = express();
 
-admin.initializeApp()
+admin.initializeApp();
+app.use(cors({ credentials: true, origin: true }));
+app.use("/v1", router);
 
-export const db = admin.firestore()
+export const db = admin.firestore();
 
 app.use(bodyParser.json());
 
@@ -17,11 +20,14 @@ app.get("/", async (req: express.Request, res: express.Response) => {
   res.send("Hello World!");
 });
 
-app.use(routes);
+const runtimeOpts: functions.RuntimeOptions = {
+  timeoutSeconds: 300,
+  memory: "1GB",
+};
 
-app.listen(3001, () => {
-  console.log("listening on port 3001");
-});
+migrate();
 
-migrate()
-export default app;
+export const api = functions
+  .runWith(runtimeOpts)
+  .region("asia-southeast2")
+  .https.onRequest(app);
