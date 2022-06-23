@@ -6,6 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { TopEventService } from '../../services/top-event.service';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'popular-event',
   templateUrl: './popular-event.component.html',
@@ -17,6 +18,22 @@ export class PopularEventComponent implements OnInit {
   userUid: string | undefined | null = '';
   authority: string | undefined | null = '';
   datas: any[] = [];
+
+  constructor(
+    private http: HttpClient,
+    private modal: NzModalService,
+    private Service: TopEventService,
+    private toastr: ToastrService
+  ) {}
+
+  ngOnInit() {
+    this.userUid = localStorage.getItem('userUid');
+    this.authority = localStorage.getItem('authority');
+    this.Service.insertProduct(`${this.userUid}`).subscribe((res) => {
+      this.dataBase = res;
+      this.datas = this.convertDatas(this.dataBase);
+    });
+  }
 
   convertDatas = (data: dataEvent[]) => {
     // console.log("data test", data);
@@ -43,19 +60,12 @@ export class PopularEventComponent implements OnInit {
 
   isVisible = false;
 
-  ngOnInit() {
-    this.userUid = localStorage.getItem('userUid');
-    this.authority = localStorage.getItem('authority');
-    this.productService.insertProduct(`${this.userUid}`).subscribe((res) => {
-      this.dataBase = res;
-      this.datas = this.convertDatas(this.dataBase);
-    });
-  }
+
 
   showModal(): void {
     this.isVisible = true;
     console.log(this.datas[this.index].image);
-    
+
     this.modal.create({
       nzTitle: `${this.datas[this.index].Header}`,
       nzFooter: null,
@@ -89,16 +99,9 @@ export class PopularEventComponent implements OnInit {
   }
 
   confirm(eventId: string): void {
-    // console.log(`user join ${eventId}`);
-    this.productService
-      .patchJoin(this.datas[this.index].eventId, this.userUid)
-      .subscribe();
-  }
-
-  showAlert() {
     Swal.fire({
-      title: 'ยืนยันการเข้าร่วมกิจกรรม?',
-      text: `${this.datas[this.index].eventHeader}`,
+      title: 'ยืนยันการเข้าร่วมกิจกรรม',
+      text: `${this.datas[this.index].Header}`,
       icon: 'warning',
       iconColor: '#FFCD00',
       showCancelButton: true,
@@ -108,22 +111,24 @@ export class PopularEventComponent implements OnInit {
       cancelButtonText: 'ยกเลิก',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.productService
-        .patchJoin(this.datas[this.index].eventId, this.userUid)
-        .subscribe();
-        Swal.fire({
-          icon: 'success',
-          title: 'เข้าร่วมกิจกรรมเสร็จสิ้น',
-          showConfirmButton: false,
-          timer: 1500,
+        this.Service.patchJoin(this.datas[this.index].eventId, this.userUid).subscribe({
+          next: (data:any ) => {
+            console.log(data);
+            if (data.message === 'successfull joined event'){
+              window.location.reload();
+            } else if (data.message === 'already joined event') {
+              this.toastr.error("คุณได้เข้าร่วมกิจกรรมนี้แล้ว", 'Error');
+            }else if (data.message === `can't join this event because event is full`) {
+              this.toastr.error("กิจกรรมนี้ได้มีผู้สนใจเข้าร่วมเต็มจำนวนแล้ว", 'Error');
+            }
+            },
+            error: (error) => {
+            this.toastr.error(error.error.message, 'Error');
+            },
         });
       }
-    });
+    })
   }
 
-  constructor(
-    private http: HttpClient,
-    private modal: NzModalService,
-    private productService: TopEventService
-  ) {}
+
 }
