@@ -63,7 +63,12 @@
             <button nz-button nzType="primary" (click)="getEvent(item)">
               รายละเอียด
             </button>
-            <button nz-button nzDanger nzType="primary" (click)="deleteEvent(item)">
+            <button
+              nz-button
+              nzDanger
+              nzType="primary"
+              (click)="deleteEvent(item)"
+            >
               ลบ
             </button>
           </div>
@@ -72,3 +77,22 @@
     </tbody>
   </nz-table>
 </div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+  [nzFooter]="null"
+>
+  <div *nzModalContent class="flex flex-col mt-10">
+    <!-- <div class="flex flex-col mt-8 mx-16 justify-items-start">
+      
+    </div> -->
+    <h1 class=" text-3xl font-bold">{{dataModal.eventHeader}}</h1>
+    <nz-carousel nzAutoPlay>
+      <div nz-carousel-content *ngFor="let item of dataModal.image">
+        <img class=" w-full h-48 object-cover" src="{{item}}" alt="">
+      </div>
+    </nz-carousel>
+  </div>
+</nz-modal>

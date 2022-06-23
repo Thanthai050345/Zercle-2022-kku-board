@@ -52,7 +52,8 @@ export class EventClubPageComponent implements OnInit {
         location: item.location,
         attendees: item.attendees,
         clubName: item.clubName,
-        description:  item.description
+        description: item.description,
+        image: item.image
       };
     });
   }
