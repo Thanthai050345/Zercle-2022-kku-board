@@ -4,8 +4,8 @@ import 'dayjs/locale/th';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UploadImageService } from 'src/app/services/upload-image.service';
-import Swal from 'sweetalert2';
-
+import { UserService } from 'src/app/services/user.service';
+import { Club } from 'src/app/interfaces/club';
 @Component({
   selector: 'modal-event',
   templateUrl: './ModalEventDescription.html',
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class ModalEventDescription implements OnInit {
   constructor(
+    private userService: UserService,
     private fb: FormBuilder,
     private http: HttpClient,
     private uploadService: UploadImageService
@@ -28,6 +29,15 @@ export class ModalEventDescription implements OnInit {
   userId: string | null | undefined = '';
   authority: string | null | undefined = '';
   @Input() role = '';
+  club: Club = {
+    password: '',
+    members: [],
+    clubName: '',
+    authority: '',
+    email: '',
+    faculty: '',
+    urlImage: '',
+  };
   dataBase = [
     {
       image:
@@ -40,22 +50,37 @@ export class ModalEventDescription implements OnInit {
   };
   nodes = [
     {
-      title: 'วิศวะ',
-      key: 'EN',
+      title: 'คณะ',
+      key: 'facultys',
       children: [
         {
-          title: 'วิศวะรวมๆ',
-          key: 'ENALL',
+          title: 'วิศวะ',
+          key: 'EN',
           children: [
-            { title: 'ชุมนุมแมคคา', key: '10010', isLeaf: true },
-            { title: 'ชุมนุมยานยนต์', key: '10011', isLeaf: true },
+            { title: 'วิศวกรรมโยธา', key: 'CE', isLeaf: true },
+            { title: 'วิศวกรรมคอมพิวเตอร์', key: 'CoE', isLeaf: true },
+            { title: 'วิศวกรรมไฟฟ้า', key: 'EE', isLeaf: true },
+            { title: 'วิศวกรรมอุตสาหการ', key: 'IE', isLeaf: true },
           ],
         },
         {
-          title: 'วิศวะคอม',
-          key: 'CoE',
+          title: 'คณะบริหารธุรกิจและการบัญชี',
+          key: 'KKBS',
           children: [
-            { title: 'ชุมนุมคอมพิวเตอร์', key: '10020', isLeaf: true },
+            { title: 'วิชาผู้ประกอบการดิจิทัล', key: 'DE', isLeaf: true },
+            { title: 'วิชาเอกการเงิน', key: 'FIN', isLeaf: true },
+            { title: 'วิชาเอกการตลาด', key: 'MK', isLeaf: true },
+            { title: 'วิชาเอกการจัดการ', key: 'MGT', isLeaf: true },
+          ],
+        },
+        {
+          title: 'คณะเภสัชศาสตร์',
+          key: 'PS',
+          children: [
+            { title: 'สาขาวิชาเภสัชเคมี', key: 'PSI', isLeaf: true },
+            { title: 'สาขาวิชาเทคโนโลยีเภสัชกรรม', key: 'PSII', isLeaf: true },
+            { title: 'สาขาวิชาเภสัชเวทและพิษวิทยา', key: 'PSIII', isLeaf: true },
+            { title: 'สาขาวิชาเภสัชศาสตรสังคมและการบริหาร', key: 'PSIV', isLeaf: true },
           ],
         },
       ],
@@ -68,15 +93,19 @@ export class ModalEventDescription implements OnInit {
           title: 'พุทธรรม',
           key: 'buddhism',
         },
-        {
-          title: 'วิศวะคอม',
-          key: 'CoE',
-        },
       ],
     },
   ];
 
   ngOnInit(): void {
+    if (this.authority === 'clubAdmin') {
+      this.userId = localStorage.getItem('userUid');
+      this.userService.getClubById(this.userId).subscribe((res) => {
+        this.club = res;
+      });
+     
+    }
+    
     this.userId = localStorage.getItem('userUid');
     this.authority = localStorage.getItem('authority');
     this.validateForm = this.fb.group({
@@ -88,7 +117,7 @@ export class ModalEventDescription implements OnInit {
       location: [null, [Validators.required]],
       eventDate: [null, [Validators.required]],
       roleAccept: [null, [Validators.required]],
-      clubName: ['mnic'],
+      clubName: [`${this.club.clubName}`],
       join: [[]],
     });
   }
