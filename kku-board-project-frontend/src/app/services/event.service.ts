@@ -49,6 +49,5 @@ export class EventService {
       this.baseUrl + 'events/leftFromEvent/' + evenId + '/' + Uid,
       null
     );
-    return this.http.patch<any[]>(this.baseUrl + 'events/updateJoin/' + evenId +'/'+ Uid,null);
   }
 }

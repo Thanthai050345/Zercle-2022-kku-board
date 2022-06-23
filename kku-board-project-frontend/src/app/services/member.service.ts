@@ -13,6 +13,10 @@ export class MemberService {
   }
 
   addMemberByClub (clubId:string | null | undefined, email: string | null | undefined){
-    return this.http.get<any[]>(this.baseUrl + 'members/updateClubMember/' + clubId + '/' + email);
+    return this.http.patch<any[]>(this.baseUrl + 'members/updateClubMember/' + clubId + '/' + email,null);
+  }
+
+  deleteClubMember(clubId:string | null | undefined, email: string | null | undefined) {
+    return this.http.patch<any[]>(this.baseUrl + 'members/deleteClubMember/' + clubId + '/' + email,null);
   }
 }
