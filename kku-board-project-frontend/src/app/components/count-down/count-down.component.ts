@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Countdown } from 'src/app/interfaces/countdown';
 import 'dayjs/locale/th';
@@ -11,9 +11,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./count-down.component.css'],
 })
 export class CountDownComponent implements OnInit {
-  @Input() role = '';
-  @Input() id = '';
-  dataBase:any[]= [];
+  dataBase: any[] = [];
+  datas: any[] = [];
   userUid: string | undefined | null = "";
   authority: string | undefined | null = "";
 
@@ -25,7 +24,6 @@ export class CountDownComponent implements OnInit {
       this.Service.getcountdownClubID(`${this.userUid}`).subscribe((res) => {
       this.dataBase = res;
       this.datas = this.convertDatas(this.dataBase);
-
       });
     }else if (this.authority == 'student'){
       this.Service.getcountdownStudent(`${this.userUid}`).subscribe((res) => {
@@ -33,9 +31,7 @@ export class CountDownComponent implements OnInit {
         this.datas = this.convertDatas(this.dataBase);
       });
     }
-
   }
-
   ngOnInit(): void {
   }
   convertDatas = (data: Countdown[]): any => {
@@ -50,11 +46,7 @@ export class CountDownComponent implements OnInit {
       };
     });
   };
-  datas = this.convertDatas(this.dataBase);
-
-  countdownFormat = 'D ว. H ชม. m น. ss';
   toDay = Date.now();
   aDay = 86400 * 1000;
   aHour = 3600 * 1000;
-
 }
