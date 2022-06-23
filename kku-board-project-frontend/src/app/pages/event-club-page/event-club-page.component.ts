@@ -13,7 +13,7 @@ import { EventService } from 'src/app/services/event.service';
 export class EventClubPageComponent implements OnInit {
   uid: string | null | undefined;
   authority: string | null | undefined;
-  eventCalendar: EventCalendar[] = [];
+  eventCalendar: any[] = [];
   eventTable: any[] = [];
   constructor(private eventService: EventService) {}
 
@@ -21,23 +21,10 @@ export class EventClubPageComponent implements OnInit {
     this.uid = localStorage.getItem('userUid');
     this.authority = localStorage.getItem('authority');
     this.eventService.getEventClubByUid(this.uid).subscribe((res) => {
-      this.eventCalendar = this.convertDataForCalendar(res);
-      // console.log(this.eventCalendar);
       this.eventTable = this.convertDataForTable(res);
-      // console.log(this.eventTable);
     });
   }
-  convertDataForCalendar(data: Event[]) {
-    return data.map((item) => {
-      const dateS = item.startDate * 1000;
-      return {
-        title: item.header,
-        start: dayjs(dateS).format('YYYY-MM-DD'),
-        end: dayjs(dateS).format('YYYY-MM-DD'),
-        color: '#134133',
-      };
-    });
-  }
+  
   convertDataForTable(data: Event[]) {
     return data.map((item) => {
       const dateS = item.startDate * 1000;

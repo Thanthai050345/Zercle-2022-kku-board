@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
-import { EventCalendar } from 'src/app/interfaces/calendar';
+import * as dayjs from 'dayjs';
+import { Event } from 'src/app/interfaces/event';
 import { EventService } from 'src/app/services/event.service';
+import { colors } from 'src/assets/datas/color';
 
 @Component({
   selector: 'app-calendar',
@@ -9,27 +11,42 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./calendar.component.css'],
 })
 export class CalendarComponent implements OnInit {
-  @Input() events: EventCalendar[] = [
-    {
-      color: '#134133',
-      end: '2022-06-23',
-      start: '2022-06-23',
-      title: 'กิจกรรมปลูกต้นไม้'
-    },
-  ];
-
+  @Input() uid: string | null | undefined;
+  @Input() authority: string | null | undefined;
+  color = colors;
   constructor(private eventService: EventService) {}
 
   ngOnInit() {
-    console.log(this.events);
-    
+    if (this.authority === 'clubAdmin') {
+      this.eventService.getEventClubByUid(this.uid).subscribe((res) => {
+        this.calendarOptions.events = this.convertDataForCalendar(res);
+      });
+    } else if (this.authority === 'student') {
+      this.eventService.getEventUserByUid(this.uid).subscribe((res) => {
+        this.calendarOptions.events = this.convertDataForCalendar(res);
+      });
+    }
   }
+
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     dateClick: this.handleDateClick.bind(this),
     locale: 'th',
-    events: this.events,
   };
+
+  convertDataForCalendar(data: Event[]) {
+    return data.map((item) => {
+      const dateS = item.startDate * 1000;
+      const dateE = item.endDate * 1000;
+      const randomColor = this.color[Math.floor(Math.random() * this.color.length)];
+      return {
+        title: item.header,
+        start: dayjs(dateS).format('YYYY-MM-DD'),
+        end: dayjs(dateE).format('YYYY-MM-DD'),
+        color: randomColor,
+      };
+    });
+  }
 
   handleDateClick(arg: any) {
     console.log(arg);
