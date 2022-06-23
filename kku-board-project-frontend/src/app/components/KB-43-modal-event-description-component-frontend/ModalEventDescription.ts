@@ -112,8 +112,6 @@ export class ModalEventDescription implements OnInit {
             this.validateForm.value.endDate =
             this.validateForm.value.eventDate[1].getTime();
             this.validateForm.value.image = this.imageUrl;
-            console.log(this.validateForm.value);
-            
             this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events/bRy0LPv9FhQtduQlgkbdZRhtCzb4.json',this.validateForm.value).subscribe();
           });
       });
