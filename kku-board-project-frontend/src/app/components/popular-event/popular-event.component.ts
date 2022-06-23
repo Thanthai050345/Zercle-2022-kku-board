@@ -18,7 +18,7 @@ export class PopularEventComponent implements OnInit {
   datas: any[] = [];
 
   convertDatas = (data: dataEvent[]) => {
-    console.log("data test", data);
+    // console.log("data test", data);
     return data.map((item) => {
       const dateS = item.startDate * 1000;
       const dateE = item.endDate * 1000;
@@ -75,12 +75,10 @@ export class PopularEventComponent implements OnInit {
 
 
   handleCancel(): void {
-    console.log('closed detail modal!');
     this.isVisible = false;
   }
   checkIndex(e:any): void {
     this.index = e;
-    console.log('datassss  '+this.datas);
 
   }
   cancel(): void {
@@ -89,13 +87,12 @@ export class PopularEventComponent implements OnInit {
   }
 
   confirm(eventId:string): void {
-    console.log(`user join ${eventId}`);
+    // console.log(`user join ${eventId}`);
+    this.productService.patchJoin(this.datas[this.index].eventId,this.userUid).subscribe();
 
   }
 
   constructor(private http: HttpClient,private modal: NzModalService,private productService: TopEventService) { }
-test(){
-  console.log('datassss  '+this.datas);
-}
+
 
 }

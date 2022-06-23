@@ -10,19 +10,32 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./all-event-component.css'],
 })
 export class AllEventComponent implements OnInit {
-  datas : any[] = [];
+  datas: any[] = [];
   uid: string | null | undefined;
+  authority: string | null | undefined;
+  isVisible = false;
+  buttonJoinVisible = false;
+  buttonJoinDelete = false;
 
   constructor(private eventService: EventService) {
     this.uid = localStorage.getItem('userUid');
-    this.eventService.getEvenById(this.uid).subscribe((res) => {
-      this.datas = this.convertDatas(res)      
-    });
-    
+    this.authority = localStorage.getItem('authority');
+    console.log(this.uid);
+    if (this.authority  == 'student') {
+      this.eventService.getEvenById(this.uid).subscribe((res) => {
+        this.buttonJoinVisible = true;
+        console.log("stu/",res);
+        this.datas = this.convertDatas(res);
+      });
+    } else if (this.authority  == 'clubAdmin') {
+      this.eventService.getEventClubByUid(this.uid).subscribe((res) => {
+        this.buttonJoinDelete = true;
+        console.log("club/",res);
+        this.datas = this.convertDatas(res);
+      });
+    }
   }
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
   convertDatas = (data: Event[]) => {
     return data.map((item) => {
       return {
@@ -65,8 +78,6 @@ export class AllEventComponent implements OnInit {
     eventId: 0,
     clubName: '',
   };
-  isVisible = false;
-
   showModal(data: Event): void {
     this.datamodal = data;
     this.isVisible = true;
@@ -81,8 +92,11 @@ export class AllEventComponent implements OnInit {
   }
   cancel(): void {}
 
-  confirm(item:any): void {
+  confirm(item: any): void {
     this.uid = localStorage.getItem('userUid');
-    this.eventService.patchJoin(item.eventId,this.uid).subscribe();
+    this.eventService.patchJoin(item.eventId, this.uid).subscribe();
+  }
+
+  confirmDelete(): void {
   }
 }

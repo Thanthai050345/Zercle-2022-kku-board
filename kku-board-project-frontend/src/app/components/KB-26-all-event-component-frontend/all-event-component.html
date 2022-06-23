@@ -42,6 +42,7 @@
           รายละเอียด
         </button>
         <button
+          *ngIf="buttonJoinVisible"
           nz-popconfirm
           nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?"
           nzPopconfirmPlacement="bottom"
@@ -51,6 +52,19 @@
           nz-button  nzType="primary"
         >
           เข้าร่วม
+        </button>
+
+        <button
+          *ngIf="buttonJoinDelete"
+          nz-popconfirm
+          nzPopconfirmTitle="กรุณากดยืนยันเพื่อลบกิจกรรม"
+          nzPopconfirmPlacement="bottom"
+          (nzOnConfirm)="confirmDelete()"
+          (nzOnCancel)="cancel()"
+          class=" ml-4 md:ml-8 mr-5 w-28 h-8 "
+          nz-button  nzType="primary" nzDanger
+        >
+          ลบ
         </button>
       </div>
     </div>

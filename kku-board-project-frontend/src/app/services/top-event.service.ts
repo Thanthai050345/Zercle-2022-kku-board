@@ -12,4 +12,7 @@ export class TopEventService {
   insertProduct(id: string | undefined) {
     return this.http.get<dataEvent[]>(this.baseEventURL+ 'topEvents/' + id);
   }
+  patchJoin(evenId: string | null | undefined, Uid: string | null | undefined) {
+    return this.http.patch<any[]>(this.baseEventURL + 'events/updateJoin/' + evenId +'/'+ Uid,null);
+  }
 }

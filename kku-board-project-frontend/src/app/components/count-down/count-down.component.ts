@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Countdown } from 'src/app/interfaces/countdown';
 import 'dayjs/locale/th';
-import { EventService } from 'src/app/services/event.service';
+import{CountDownService} from '../../services/count-down.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-count-down',
@@ -10,24 +11,33 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./count-down.component.css'],
 })
 export class CountDownComponent implements OnInit {
-  dataBase: Countdown[] = [
-    {
-      eventId: '1',
-      eventHeader: 'เส้นทางสู่นักทดสอบเจาะระบบและสายงานไซเบอร์ซีคิวริตี้',
-      startDate: 1655780816,
-    },
-    {
-      eventId: '2',
-      eventHeader: 'ค่าย CESCa ครั้งที่ 17',
-      startDate: 1655879816,
-    },
-    {
-      eventId: '3',
-      eventHeader: 'โครงการ ZERCLE INCUBATION PROGRAM',
-      startDate: 1656905400,
-    },
-  ];
+  @Input() role = '';
+  @Input() id = '';
+  dataBase:any[]= [];
+  userUid: string | undefined | null = "";
+  authority: string | undefined | null = "";
 
+  constructor(private http: HttpClient,private Service: CountDownService) {
+    this.userUid = localStorage.getItem('userUid');
+    this.authority = localStorage.getItem('authority');
+    console.log(`${this.authority}`);
+    if (this.authority == 'clubAdmin'){
+      this.Service.getcountdownClubID(`${this.userUid}`).subscribe((res) => {
+      this.dataBase = res;
+      this.datas = this.convertDatas(this.dataBase);
+
+      });
+    }else if (this.authority == 'student'){
+      this.Service.getcountdownStudent(`${this.userUid}`).subscribe((res) => {
+        this.dataBase = res;
+        this.datas = this.convertDatas(this.dataBase);
+      });
+    }
+
+  }
+
+  ngOnInit(): void {
+  }
   convertDatas = (data: Countdown[]): any => {
     return data.map((item) => {
       const dateS = item.startDate * 1000;
@@ -41,21 +51,10 @@ export class CountDownComponent implements OnInit {
     });
   };
   datas = this.convertDatas(this.dataBase);
+
   countdownFormat = 'D ว. H ชม. m น. ss';
   toDay = Date.now();
   aDay = 86400 * 1000;
   aHour = 3600 * 1000;
-  constructor(private eventService: EventService) {}
 
-  ngOnInit(): void {
-    if (localStorage.getItem('authority') === 'student') {
-      this.eventService
-        .getCountdownUserById(localStorage.getItem('userUid'))
-        .subscribe((res) => {
-        });
-    } else {
-      console.log(localStorage.getItem('authority'));
-    }
-
-  }
 }
