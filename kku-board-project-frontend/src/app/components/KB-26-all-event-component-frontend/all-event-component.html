@@ -77,7 +77,6 @@
       </div>
     </div>
 
-<<<<<<< Updated upstream
 <nz-modal
   [(nzVisible)]="isVisible"
   nzTitle="{{datamodal.header}}"
@@ -114,37 +113,3 @@
     <p class="mt-[10px]" nz-row nzJustify="end">{{datamodal.location}}</p>
   </ng-container>
 </nz-modal>
-=======
-    <nz-modal
-      [(nzVisible)]="isVisible"
-      (nzOnCancel)="handleCancel()"
-      (nzOnOk)="handleOk()"
-      [nzFooter]="null"
-    >
-      <div *nzModalContent class="flex flex-col mt-10">
-        <h1 class="text-3xl font-bold mb-4">{{datamodal.header}}</h1>
-        <nz-carousel nzAutoPlay>
-          <div nz-carousel-content *ngFor="let item of datamodal.image">
-            <img class="w-full h-48 object-cover" src="{{item}}" alt="" />
-          </div>
-        </nz-carousel>
-        <p class="text-gray-400 mt-8">วันที่จัดกิจกรรม</p>
-        <p>
-          {{datamodal.startDate}} เวลา {{datamodal.startTime}}<span> ถึง </span
-          >{{datamodal.endDate}} เวลา {{datamodal.endTime}}
-        </p>
-        <p class="text-gray-400 mt-2">รายละเอียดกิจกรรม</p>
-        <p>{{datamodal.description}}</p>
-        <p class="text-gray-400 mt-2">รูปแบบกิจกรรม</p>
-        <p>{{datamodal.eventType}}</p>
-        <p class="text-gray-400 mt-2">สถานที่จัดกิจกรรม</p>
-        <p>{{datamodal.location}}</p>
-        <p class="text-gray-400 mt-2">จำนวนผู้เข้าร่วมแล้ว</p>
-        <p>{{datamodal.attendees}} ท่าน</p>
-      </div>
-    </nz-modal>
-    </td>
-
-  </tbody>
-</nz-table>
->>>>>>> Stashed changes
