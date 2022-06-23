@@ -19,7 +19,7 @@ export const updateMember = async (clubId: string, email: string) => {
   });
 
   if (checkClubMember) {
-    return "already member";
+    return { message: "already member"};
   } else {
     const newMembers = clubMembers.concat({
       firstName: user[0].firstName,
@@ -38,7 +38,7 @@ export const updateMember = async (clubId: string, email: string) => {
       .collection("students")
       .doc(user[0].uid)
       .update({ clubed: newClubed });
-    return "successfully added member";
+    return { message: "successfully added member"};
   }
 };
 
@@ -65,9 +65,9 @@ export const deleteMember = async (clubId: string, email: string) => {
       .collection("students")
       .doc(user[0].uid)
       .update({ clubed: newClubed });
-    return "successfully left";
+    return { message: "successfully left"};
   } else {
-    return "already left";
+    return { message: "already left"};
   }
 };
 

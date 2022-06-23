@@ -44,13 +44,13 @@ export const getEventById = async (eventId: string) => {
 export const deleteEventById = async (eventId: string) => {
   const db = admin.firestore();
   await db.collection("events").doc(eventId).delete();
-  return "successfully deleted event";
+  return { message: "successfully deleted event"};
 };
 
 export const updateEventById = async (eventId: string, body: Event) => {
   const db = admin.firestore();
   await db.collection("events").doc(eventId).update(body);
-  return "successfully updated event";
+  return { message: "successfully updated event"};
 };
 
 export const getAllEventsByClubId = async (clubId: string) => {
@@ -70,17 +70,6 @@ export const getAllEventsByClubId = async (clubId: string) => {
   });
   return filterEvents;
 };
-
-// export const getAllEventsByStudentId = async (studentId: string) => {
-//   const db = admin.firestore();
-//   const docs = await db
-//     .collection("events")
-//     .where("studentId", "==", studentId)
-//     .get();
-//   let events: Event[] = [];
-//   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
-//   return events;
-// };
 
 export const updateUserJoinEvent = async (uid: string, eventId: string) => {
   const db = admin.firestore();
@@ -111,18 +100,6 @@ export const updateUserJoinEvent = async (uid: string, eventId: string) => {
 export const getEventByUid = async (uid: string) => {
   const db = admin.firestore();
   const docs = await db.collection("events").get();
-  // let events: (Omit<
-  //   Event,
-  //   | "description"
-  //   | "attendees"
-  //   | "eventType"
-  //   | "location"
-  //   | "endDate"
-  //   | "roleAccept"
-  //   | "image"
-  //   | "clubName"
-  //   | "join"
-  // >)[] = [];
   let events: any[] = [];
   docs.forEach((doc) => {
     const eventData = doc.data();
