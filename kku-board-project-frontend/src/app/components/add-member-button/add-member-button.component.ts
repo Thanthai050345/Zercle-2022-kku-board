@@ -75,10 +75,19 @@ export class AddMemberButtonComponent implements OnInit {
           this.memberService.addMemberByClub(this.uid, element).subscribe({
             next: (data:any ) => {
               console.log(data);
+              
               if (data.message === 'already member') {
-                this.toastr.error(`อีเมลล์${element}ได้เข้าร่วมคลับนี้แล้ว`, 'Error');
-              }else if (data.message === ``) {
-                this.toastr.error(`ไม่พบอีเมลล์${element}ในระบบ`, 'Error');
+                this.toastr.error(`อีเมลล์ ${element} ได้เข้าร่วมคลับนี้แล้ว`, 'Error');
+              }else if (data.message === `not have user`) {
+                this.toastr.error(`ไม่พบอีเมลล์ ${element} ในระบบ`, 'Error');
+              } else if (data.message === 'successfully added member') {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'เพิ่มสมาชิกสำเร็จ',
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                window.location.reload();
               }
               },
               error: (error) => {
@@ -86,15 +95,7 @@ export class AddMemberButtonComponent implements OnInit {
               },
           });
           console.log(index);
-          
         }
-        Swal.fire({
-          icon: 'success',
-          title: 'เพิ่มสมาชิกสำเร็จ',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        window.location.reload();
       }
     });
   }

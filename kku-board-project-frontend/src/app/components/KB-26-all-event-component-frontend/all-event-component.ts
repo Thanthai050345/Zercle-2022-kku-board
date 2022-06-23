@@ -4,6 +4,7 @@ import { Event } from 'src/app/interfaces/event';
 import 'dayjs/locale/th';
 import { EventService } from 'src/app/services/event.service';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'all-event',
@@ -18,7 +19,10 @@ export class AllEventComponent implements OnInit {
   buttonJoinVisible = false;
   buttonJoinDelete = false;
 
-  constructor(private eventService: EventService) {
+  constructor(
+    private eventService: EventService,
+    private toastr: ToastrService
+  ) {
     this.uid = localStorage.getItem('userUid');
     this.authority = localStorage.getItem('authority');
     if (this.authority == 'student') {
@@ -42,12 +46,8 @@ export class AllEventComponent implements OnInit {
         attendees: item.attendees,
         eventType: item.eventType,
         location: item.location,
-        startDate: dayjs(item.startDate)
-          .locale('th')
-          .format('ddd D MMM YYYY'),
-        endDate: dayjs(item.endDate)
-          .locale('th')
-          .format('ddd D MMM YYYY'),
+        startDate: dayjs(item.startDate).locale('th').format('ddd D MMM YYYY'),
+        endDate: dayjs(item.endDate).locale('th').format('ddd D MMM YYYY'),
         startTime: dayjs(item.startDate).locale('th').format('HH:mm'),
         endTime: dayjs(item.endDate).locale('th').format('HH:mm'),
         roleAccept: item.roleAccept,
@@ -89,14 +89,14 @@ export class AllEventComponent implements OnInit {
   sweetalertDelete(item: any): void {
     Swal.fire({
       title: 'คุณต้องการลบกิจกรรมใช่ไหม',
-      text: "กดยืนยันเพื่อลบกิจกรรม",
+      text: 'กดยืนยันเพื่อลบกิจกรรม',
       icon: 'warning',
       showCancelButton: true,
       iconColor: '#FFCD00',
       confirmButtonColor: '#243A73',
       cancelButtonColor: '#B73151',
       confirmButtonText: 'ยืนยัน',
-      cancelButtonText: "ยกเลิก"
+      cancelButtonText: 'ยกเลิก',
     }).then((result) => {
       if (result.isConfirmed) {
         this.eventService.deleteEventClubByUid(item.eventId).subscribe();
@@ -113,24 +113,44 @@ export class AllEventComponent implements OnInit {
   sweetalert(item: any) {
     Swal.fire({
       title: 'คุณต้องการเข้าร่วมกิจกรรมใช่ไหม',
-      text: "กดยืนยันเพื่อเข้าร่วม",
+      text: 'กดยืนยันเพื่อเข้าร่วม',
       icon: 'warning',
       showCancelButton: true,
       iconColor: '#FFCD00',
       confirmButtonColor: '#243A73',
       cancelButtonColor: '#B73151',
       confirmButtonText: 'ยืนยัน',
-      cancelButtonText: "ยกเลิก"
+      cancelButtonText: 'ยกเลิก',
     }).then((result) => {
       if (result.isConfirmed) {
         this.uid = localStorage.getItem('userUid');
-        this.eventService.patchJoin(item.eventId, this.uid).subscribe();
-        Swal.fire({
-          icon: 'success',
-          title: 'คุณได้เข้าร่วมกิจกรรม',
-          showConfirmButton: false,
-          timer: 1500,
+        this.eventService.patchJoin(item.eventId, this.uid).subscribe({
+          next: (data: any) => {
+            console.log(data);
+            if (data.message === 'successfull joined event') {
+              Swal.fire({
+                icon: 'success',
+                title: 'คุณได้เข้าร่วมกิจกรรม',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              window.location.reload();
+            } else if (data.message === 'already joined event') {
+              this.toastr.error('คุณได้เข้าร่วมกิจกรรมนี้แล้ว', 'Error');
+            } else if (
+              data.message === `can't join this event because event is full`
+            ) {
+              this.toastr.error(
+                'กิจกรรมนี้ได้มีผู้สนใจเข้าร่วมเต็มจำนวนแล้ว',
+                'Error'
+              );
+            }
+          },
+          error: (error) => {
+            this.toastr.error(error.error.message, 'Error');
+          },
         });
+        
       }
     });
   }

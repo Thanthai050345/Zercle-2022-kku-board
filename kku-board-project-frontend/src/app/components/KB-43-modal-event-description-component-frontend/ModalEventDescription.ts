@@ -7,6 +7,7 @@ import { UploadImageService } from 'src/app/services/upload-image.service';
 import { UserService } from 'src/app/services/user.service';
 import { Club } from 'src/app/interfaces/club';
 import Swal from 'sweetalert2';
+import { delay } from 'rxjs';
 @Component({
   selector: 'modal-event',
   templateUrl: './ModalEventDescription.html',
@@ -169,8 +170,10 @@ export class ModalEventDescription implements OnInit {
             timer: 1500,
           });
           this.isVisible = false;
+          //  window.location.reload();
         }
       });
+      
     }
   }
 
@@ -185,4 +188,7 @@ export class ModalEventDescription implements OnInit {
   onChange(event: any) {
     this.file.push(event.target.files[0]);
   }
+
+  
+  
 }
