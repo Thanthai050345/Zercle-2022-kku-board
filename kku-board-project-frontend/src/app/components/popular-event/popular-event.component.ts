@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import "dayjs/locale/th";
-import * as dayjs from 'dayjs'
-import {dataEvent} from 'src/app/interfaces/dataEvent'
-import { log } from 'console';
+import * as dayjs from 'dayjs';
+import {dataEvent} from 'src/app/interfaces/dataEvent';
 import { NzModalService } from 'ng-zorro-antd/modal';
-
+import{TopEventService} from '../../services/top-event.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'popular-event',
   templateUrl: './popular-event.component.html',
@@ -12,66 +12,26 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class PopularEventComponent implements OnInit {
   index = 0;
-  dataBase = [
-    {
-      eventHeader: "รับน้องใหม่2565",
-      description: "ปฐมนิเทศนักศึกษาใหม่และพิธีบายศรีสู่ขวัญนักศึกษาใหม่",
-      attendees: 99,
-      eventType: "onsite",
-      location: "ณ หอกาญจนาภิเษก",
-      startDate: 1554275600,
-      endDate: 1654362000,
-      startTime: 1654327541,
-      endTime: 1654328541,
-      roleAccept: ["KKU59"],
-      image: "https://campus.campus-star.com/app/uploads/2019/07/KKU01-768x511.jpg",
-      eventId: 123,
-      clubName: "องค์การนักศึกษา",
-    },{
-      eventHeader: "มข.เข้าร่วมพิธีทอดผ้าป่าสนับสนุนโครงการทุนเล่าเรียนหลวงฯ",
-      description: "ในสมัยพุทธกาล เมื่อพระผู้มีพระภาคเจ้าประทับ ณ พระเชตวนาราม ซึ่งเป็นพระอารามที่อนาถบิณฑิกเศรษฐีได้สร้างถวายเป็นพุทธนิวาส ได้มีภิกษุ ๓๐ รูป ชาวเมืองปาฐา ซึ่งอยู่ด้านทิศตะวันตกในแคว้นโกศลเดินทางมาหมายจะเฝ้าพระพุทธองค์ที่เมืองสาวัตถี แต่มาไม่ทันเพราะใกล้ถึงวัน",
-      attendees: 99,
-      eventType: "onsite",
-      location: "ณ วัดธาตุ พระอารามหลวงขอนแก่น",
-      startDate: 1654275600,
-      endDate: 1654362000,
-      startTime: 1654327541,
-      endTime: 1654328541,
-      roleAccept: ["พุทธรรม"],
-      image: "https://image.makewebeasy.net/makeweb/0/wdU8ZjHiP/PicAngthong62/%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B8%9C%E0%B9%89%E0%B8%B2%E0%B8%9B%E0%B9%88%E0%B8%B2_%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%AD%E0%B8%87_%E0%B8%88_%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87_11052019_%E0%B9%91%E0%B9%99%E0%B9%90%E0%B9%95%E0%B9%91%E0%B9%93_0286.jpg",
-      eventId: 12345,
-      clubName: "พุทธรรม",
-    },
-    {
-      eventHeader: "โครงการ ZERCLE INCUBATION PROGRAM",
-      description: "ปฐมนิเทศนักศึกษาใหม่และพิธีบายศรีสู่ขวัญนักศึกษาใหม่",
-      attendees: 99,
-      eventType: "onsite",
-      location: "sci-park ชั้น 1",
-      startDate: 1654220600,
-      endDate: 1654362000,
-      startTime: 1654327541,
-      endTime: 1654328541,
-      roleAccept: ["KKU59"],
-      image: "https://www.bloggang.com/data/vinitsiri/picture/1331280812.jpg",
-      eventId: 456,
-      clubName: "CoE EN",
-    },
+  dataBase:any[]= [];
+  userUid: string | undefined | null = "";
+  authority: string | undefined | null = "";
+  datas: any[] = [];
 
-  ];
-  convertDatas = (data: dataEvent[]): any => {
+  convertDatas = (data: dataEvent[]) => {
+    // console.log("data test", data);
     return data.map((item) => {
       const dateS = item.startDate * 1000;
+      const dateE = item.endDate * 1000;
       return {
-        eventHeader: item.eventHeader,
+        Header: item.header,
         description: item.description,
         attendees: item.attendees,
         eventType: item.eventType,
         location: item.location,
-        startDate: dayjs(item.startDate * 1000).locale("th").format('ddd D MMM YYYY'),
-        endDate: dayjs(item.endDate * 1000).locale("th").format('ddd D MMM YYYY'),
-        startTime: dayjs(item.startTime * 1000).locale("th").format('H:mm'),
-        endTime: dayjs(item.endTime * 1000).locale("th").format('H:mm'),
+        startDate: dayjs(dateS).locale("th").format('ddd D MMM YYYY'),
+        endDate: dayjs(dateE).locale("th").format('ddd D MMM YYYY'),
+        startTime: dayjs(dateS).locale("th").format('H:mm'),
+        endTime: dayjs(dateE).locale("th").format('H:mm'),
         roleAccept: item.roleAccept,
         image: item.image,
         eventId: item.eventId,
@@ -79,21 +39,24 @@ export class PopularEventComponent implements OnInit {
       };
     });
   };
-  datas = this.convertDatas(this.dataBase);
 
   isVisible = false;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userUid = localStorage.getItem('userUid');
+    this.authority = localStorage.getItem('authority');
+    this.productService.insertProduct(`${this.userUid}`).subscribe(res =>{
+      this.dataBase = res;
+      this.datas = this.convertDatas(this.dataBase);
+    });
+}
 
-  constructor(private modal: NzModalService) {
-
-  }
 
   showModal(): void {
     this.isVisible = true;
 
     this.modal.create({
-      nzTitle: `${this.datas[this.index].eventHeader}`,
+      nzTitle: `${this.datas[this.index].Header}`,
       nzFooter: null,
       nzContent:`<b>วันที่จัดกิจกรรม</b><br>
       ${this.datas[this.index].startDate} เวลา ${this.datas[this.index].startTime} <b> ถึง </b> ${this.datas[this.index].endDate} เวลา ${this.datas[this.index].endTime}<br>
@@ -112,12 +75,11 @@ export class PopularEventComponent implements OnInit {
 
 
   handleCancel(): void {
-    console.log('closed detail modal!');
     this.isVisible = false;
   }
   checkIndex(e:any): void {
     this.index = e;
-    // console.log(this.index);
+
   }
   cancel(): void {
     console.log('user do not join');
@@ -125,8 +87,12 @@ export class PopularEventComponent implements OnInit {
   }
 
   confirm(eventId:string): void {
-    console.log(`user join ${eventId}`);
+    // console.log(`user join ${eventId}`);
+    this.productService.patchJoin(this.datas[this.index].eventId,this.userUid).subscribe();
 
   }
+
+  constructor(private http: HttpClient,private modal: NzModalService,private productService: TopEventService) { }
+
 
 }

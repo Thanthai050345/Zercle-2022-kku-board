@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CountDownComponent } from './components/count-down/count-down.component';
 import { MyTableEventComponent } from './components/my-table-event/my-table-event.component';
-import { PopularComponent } from './components/popular/popular.component';
 import { ModalEventDescription } from './components/KB-43-modal-event-description-component-frontend/ModalEventDescription';
 import { AllEventComponent } from './components/KB-26-all-event-component-frontend/all-event-component';
 import { PopularEventComponent } from './components/popular-event/popular-event.component';
@@ -71,7 +70,6 @@ registerLocaleData(th);
 @NgModule({
   declarations: [
     AppComponent,
-    PopularComponent,
     CountDownComponent,
     MyTableEventComponent,
     LoginPageComponent,

@@ -31,11 +31,11 @@ export class ModalEventDescription implements OnInit {
   nodes = [
     {
       title: 'วิศวะ',
-      key: '100',
+      key: 'EN',
       children: [
         {
           title: 'วิศวะรวมๆ',
-          key: '1001',
+          key: 'ENALL',
           children: [
             { title: 'ชุมนุมแมคคา', key: '10010', isLeaf: true },
             { title: 'ชุมนุมยานยนต์', key: '10011', isLeaf: true },
@@ -43,7 +43,7 @@ export class ModalEventDescription implements OnInit {
         },
         {
           title: 'วิศวะคอม',
-          key: '1002',
+          key: 'CoE',
           children: [
             { title: 'ชุมนุมคอมพิวเตอร์', key: '10020', isLeaf: true },
           ],
@@ -52,15 +52,15 @@ export class ModalEventDescription implements OnInit {
     },
     {
       title: 'มหาลัย',
-      key: '200',
+      key: 'UN',
       children: [
         {
           title: 'พุทธรรม',
-          key: '2001',
+          key: 'buddhism',
         },
         {
           title: 'วิศวะคอม',
-          key: '2002',
+          key: 'CoE',
         },
       ],
     },
@@ -89,9 +89,9 @@ export class ModalEventDescription implements OnInit {
       console.log(this.validateForm.value);
       this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events/bRy0LPv9FhQtduQlgkbdZRhtCzb4.json',this.validateForm.value).subscribe();
     }
-    
+    this.isVisible = false;
   }
-  
+
   public onImageUpload(event: any) {
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
@@ -106,5 +106,5 @@ export class ModalEventDescription implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
-  } 
+  }
 }
