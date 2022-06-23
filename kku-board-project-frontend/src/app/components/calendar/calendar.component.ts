@@ -20,10 +20,12 @@ export class CalendarComponent implements OnInit {
     if (this.authority === 'clubAdmin') {
       this.eventService.getEventClubByUid(this.uid).subscribe((res) => {
         this.calendarOptions.events = this.convertDataForCalendar(res);
+        // console.log(this.convertDataForCalendar(res));
       });
     } else if (this.authority === 'student') {
       this.eventService.getEventUserByUid(this.uid).subscribe((res) => {
         this.calendarOptions.events = this.convertDataForCalendar(res);
+        // console.log(this.convertDataForCalendar(res));
       });
     }
   }
@@ -36,19 +38,18 @@ export class CalendarComponent implements OnInit {
 
   convertDataForCalendar(data: Event[]) {
     return data.map((item) => {
-      const dateS = item.startDate;
-      const dateE = item.endDate;
-      const randomColor = this.color[Math.floor(Math.random() * this.color.length)];
+      const randomColor =
+        this.color[Math.floor(Math.random() * this.color.length)];
       return {
         title: item.header,
-        start: dayjs(dateS).format('YYYY-MM-DD'),
-        end: dayjs(dateE).format('YYYY-MM-DD'),
+        start: dayjs(item.startDate).format('YYYY-MM-DD'),
+        end: dayjs(item.endDate).add(1, 'day').format('YYYY-MM-DD'),
         color: randomColor,
       };
     });
   }
 
   handleDateClick(arg: any) {
-    console.log(arg);
+    // console.log(arg);
   }
 }

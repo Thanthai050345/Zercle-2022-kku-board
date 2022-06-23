@@ -1,12 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
-import { MyTableEvent } from 'src/app/interfaces/myTableEvent';
 import * as buddhistEra from 'dayjs/plugin/buddhistEra';
 import { Event } from 'src/app/interfaces/event';
 import { EventService } from 'src/app/services/event.service';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
-
 dayjs.extend(buddhistEra);
 
 @Component({
@@ -15,29 +13,39 @@ dayjs.extend(buddhistEra);
   styleUrls: ['./my-table-event.component.css'],
 })
 export class MyTableEventComponent implements OnInit {
-  @Input() events: any[] = [];
   @Input() uid: string | null | undefined;
   @Input() authority: string | null | undefined;
+  events: any[] = [];
   toDay = Date.now();
-  aDay = 86400;
-  aHour = 3600;
+  aDay = 86400 * 1000;
+  aHour = 3600 * 1000;
   isVisible: boolean = false;
   isOkLoading: boolean = false;
   dataModal: any;
+  constructor(
+    private eventService: EventService,
+    private toastr: ToastrService
+  ) {}
+  ngOnInit(): void {
+    if (this.authority === 'student') {
+      this.eventService.getEventUserByUid(this.uid).subscribe((res) => {
+        this.events = this.convertDataForTable(res);
+      });
+    } else if (this.authority === 'clubAdmin') {
+      this.eventService.getEventClubByUid(this.uid).subscribe((res) => {
+        this.events = this.convertDataForTable(res);
+      });
+    }
+  }
+
   getEvent(data: any) {
-    // console.log(data);
     this.isVisible = true;
     this.dataModal = data;
-    console.log(this.dataModal);
   }
   deleteEvent(data: any) {
-    console.log(this.uid);
-    console.log(this.authority);
-
-    console.log(data);
     Swal.fire({
       title: 'ยืนยันการยกเลิกกิจกรรม?',
-      text: `${data.eventHeader}`,
+      text: `${data.header}`,
       icon: 'warning',
       iconColor: '#FFCD00',
       showCancelButton: true,
@@ -78,20 +86,26 @@ export class MyTableEventComponent implements OnInit {
       }
     });
   }
-  handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.isVisible = false;
-      this.isOkLoading = false;
-    }, 3000);
-  }
-
   handleCancel(): void {
     this.isVisible = false;
   }
-  constructor(
-    private eventService: EventService,
-    private toastr: ToastrService
-  ) {}
-  ngOnInit(): void {}
+  convertDataForTable(data: Event[]) {
+    return data.map((item) => {
+      return {
+        eventId: item.eventId,
+        header: item.header,
+        startDate: dayjs(item.startDate).locale('th').format('D/MMM/BB'),
+        endDate: dayjs(item.endDate).locale('th').format('D/MMM/BB'),
+        startTime: dayjs(item.startDate).locale('th').format('H:mm'),
+        endTime: dayjs(item.endDate).locale('th').format('H:mm'),
+        deadline: item.startDate,
+        eventType: item.eventType,
+        location: item.location,
+        attendees: item.attendees,
+        clubName: item.clubName,
+        description: item.description,
+        image: item.image,
+      };
+    });
+  }
 }
