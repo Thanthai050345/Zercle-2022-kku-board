@@ -10,6 +10,7 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./event-user-page.component.css']
 })
 export class EventUserPageComponent implements OnInit {
+  authority: string | null | undefined;
   uid: string | null | undefined;
   eventCalendar: EventCalendar[] = [];
   eventTable: any[] = [];
@@ -17,6 +18,7 @@ export class EventUserPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('userUid');
+    this.authority = localStorage.getItem('authority');
     this.eventService.getEventUserByUid(this.uid).subscribe((res) => {
       this.eventCalendar = this.convertDataForCalendar(res);
       // console.log(this.eventCalendar);

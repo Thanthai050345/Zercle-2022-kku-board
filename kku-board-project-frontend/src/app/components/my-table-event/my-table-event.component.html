@@ -1,11 +1,5 @@
 <div class="res-width">
-  <nz-table
-    #myTableEvent
-    [nzData]="events"
-    [nzPageSize]="4"
-    [nzScroll]="{ x: '800px' }"
-    nzTableLayout="fixed"
-  >
+  <nz-table #myTableEvent [nzData]="events" [nzPageSize]="4" [nzScroll]="{ x: '800px' }" nzTableLayout="fixed">
     <thead>
       <tr>
         <th nzEllipsis [nzAlign]="'left'" nzWidth="57%" id="eventHeader">
@@ -20,13 +14,7 @@
         <th nzEllipsis [nzAlign]="'center'" nzWidth="11%" id="deadline">
           นับเวลาถอยหลัง
         </th>
-        <th
-          nzEllipsis
-          [nzAlign]="'center'"
-          nzWidth="200px"
-          nzRight=""
-          id="active"
-        ></th>
+        <th nzEllipsis [nzAlign]="'center'" nzWidth="200px" nzRight="" id="active"></th>
       </tr>
     </thead>
     <tbody>
@@ -36,34 +24,23 @@
         <td nzEllipsis [nzAlign]="'center'">{{ item.endDate }}</td>
         <td nzEllipsis [nzAlign]="'center'">
           <ng-container *ngIf="item.deadline - toDay > aDay">
-            <nz-countdown
-              [nzValue]="item.deadline"
-              [nzFormat]="'D วัน'"
-            ></nz-countdown>
+            <nz-countdown [nzValue]="item.deadline" [nzFormat]="'D วัน'"></nz-countdown>
           </ng-container>
-          <ng-container
-            *ngIf="
+          <ng-container *ngIf="
               item.deadline - toDay > aHour && item.deadline - toDay < aDay
-            "
-          >
-            <nz-countdown
-              [nzValue]="item.deadline"
-              [nzFormat]="'H ชั่วโมง'"
-            ></nz-countdown>
+            ">
+            <nz-countdown [nzValue]="item.deadline" [nzFormat]="'H ชั่วโมง'"></nz-countdown>
           </ng-container>
           <ng-container *ngIf="item.deadline - toDay < aHour">
-            <nz-countdown
-              [nzValue]="item.deadline"
-              [nzFormat]="'m นาที'"
-            ></nz-countdown>
+            <nz-countdown [nzValue]="item.deadline" [nzFormat]="'m นาที'"></nz-countdown>
           </ng-container>
         </td>
         <td nzRight>
           <div class="flex gap-2 justify-center">
-            <button nz-button nzType="primary" (click)="getEvent()">
+            <button nz-button nzType="primary" (click)="getEvent(item)">
               รายละเอียด
             </button>
-            <button nz-button nzDanger nzType="primary" (click)="deleteEvent()">
+            <button nz-button nzDanger nzType="primary" (click)="deleteEvent(item)">
               ลบ
             </button>
           </div>
@@ -72,3 +49,28 @@
     </tbody>
   </nz-table>
 </div>
+<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading"
+  [nzFooter]="null">
+  <div *nzModalContent class="flex flex-col mt-10">
+    <!-- <div class="flex flex-col mt-8 mx-16 justify-items-start">
+      
+    </div> -->
+    <h1 class=" text-3xl font-bold mb-4">{{dataModal.eventHeader}}</h1>
+    <nz-carousel nzAutoPlay>
+      <div nz-carousel-content *ngFor="let item of dataModal.image">
+        <img class=" w-full h-48 object-cover" src="{{item}}" alt="">
+      </div>
+    </nz-carousel>
+    <p class="text-gray-400 mt-8">วันที่จัดกิจกรรม</p>
+    <p>{{dataModal.startDate}} เวลา {{dataModal.startTime}}<span> ถึง </span>{{dataModal.endDate}} เวลา
+      {{dataModal.endTime}}</p>
+    <p class="text-gray-400 mt-2">รายละเอียดกิจกรรม</p>
+    <p>{{dataModal.description}}</p>
+    <p class="text-gray-400 mt-2">รูปแบบกิจกรรม</p>
+    <p>{{dataModal.eventType}}</p>
+    <p class="text-gray-400 mt-2">สถานที่จัดกิจกรรม</p>
+    <p>{{dataModal.location}}</p>
+    <p class="text-gray-400 mt-2">จำนวนผู้เข้าร่วมแล้ว</p>
+    <p>{{dataModal.attendees}} ท่าน</p>
+  </div>
+</nz-modal>

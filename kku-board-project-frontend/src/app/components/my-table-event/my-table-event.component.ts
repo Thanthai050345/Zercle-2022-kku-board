@@ -1,16 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { MyTableEvent } from 'src/app/interfaces/myTableEvent';
-import * as buddhistEra from "dayjs/plugin/buddhistEra";
+import * as buddhistEra from 'dayjs/plugin/buddhistEra';
+import { Event } from 'src/app/interfaces/event';
+import { EventService } from 'src/app/services/event.service';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 dayjs.extend(buddhistEra);
-
-interface Person {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-}
 
 @Component({
   selector: 'app-my-table-event',
@@ -18,72 +15,83 @@ interface Person {
   styleUrls: ['./my-table-event.component.css'],
 })
 export class MyTableEventComponent implements OnInit {
-  @Input() events: any[] = []
+  @Input() events: any[] = [];
+  @Input() uid: string | null | undefined;
+  @Input() authority: string | null | undefined;
   toDay = Date.now();
   aDay = 86400 * 1000;
   aHour = 3600 * 1000;
-  dataBase: MyTableEvent[] = [
-    {
-      eventId: '1',
-      eventHeader: 'เส้นทางสู่นักทดสอบเจาะระบบและสายงานไซเบอร์ซีคิวริตี้',
-      startDate: 1654937278,
-      endDate: 1654951678,
-    },
-    {
-      eventId: '2',
-      eventHeader: 'เส้นทางสู่นักทดสอบเจาะระบบและสายงานไซเบอร์ซีคิวริตี้',
-      startDate: 1657543678,
-      endDate: 1657630078,
-    },
-    {
-      eventId: '3',
-      eventHeader: 'เส้นทางสู่นักทดสอบเจาะระบบและสายงานไซเบอร์ซีคิวริตี้',
-      startDate: 1657716478,
-      endDate: 1657723678,
-    },
-    {
-      eventId: '4',
-      eventHeader: 'เส้นทางสู่นักทดสอบเจาะระบบและสายงานไซเบอร์ซีคิวริตี้',
-      startDate: 1654937278,
-      endDate: 1654951678,
-    },
-    {
-      eventId: '5',
-      eventHeader: 'เส้นทางสู่นักทดสอบเจาะระบบและสายงานไซเบอร์ซีคิวริตี้',
-      startDate: 1654937278,
-      endDate: 1654951678,
-    },
-    {
-      eventId: '6',
-      eventHeader: 'เส้นทางสู่นักทดสอบเจาะระบบและสายงานไซเบอร์ซีคิวริตี้',
-      startDate: 1654937278,
-      endDate: 1654951678,
-    },
-  ];
-  convertDatas = (data: MyTableEvent[]): any => {
-    return data.map((item) => {
-      const dateS = item.startDate * 1000;
-      const dateE = item.endDate * 1000;
-      return {
-        id: item.eventId,
-        eventHeader: item.eventHeader,
-        startDate: dayjs(dateS).locale("th").format('D/MMM/BB'),
-        endDate: dayjs(dateE).locale("th").format('D/MMM/BB'),
-        deadline: dateS,
-      };
+  isVisible: boolean = false;
+  isOkLoading: boolean = false;
+  dataModal: any;
+  getEvent(data: any) {
+    // console.log(data);
+    this.isVisible = true;
+    this.dataModal = data;
+    console.log(this.dataModal);
+  }
+  deleteEvent(data: any) {
+    console.log(this.uid);
+    console.log(this.authority);
+
+    console.log(data);
+    Swal.fire({
+      title: 'ยืนยันการยกเลิกกิจกรรม?',
+      text: `${data.eventHeader}`,
+      icon: 'warning',
+      iconColor: '#FFCD00',
+      showCancelButton: true,
+      confirmButtonColor: '#243A73',
+      cancelButtonColor: '#B73151',
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.authority === 'student') {
+          this.eventService.deleteEventClubByUid(data.eventId).subscribe({
+            next: (_data) => {
+              console.log('Delete successful');
+              window.location.reload();
+            },
+            error: (error) => {
+              console.error('There was an error!', error.message);
+              this.toastr.error(error.message, 'Error');
+            },
+          });
+        } else if (this.authority === 'clubAdmin') {
+          this.eventService.patchUnJoin(data.eventId, this.uid).subscribe({
+            next: (_data) => {
+              console.log('Delete successful');
+              window.location.reload();
+            },
+            error: (error) => {
+              this.toastr.error(error.message, 'Error');
+            },
+          });
+        }
+        Swal.fire({
+          icon: 'success',
+          title: 'ลบกิจกรรมเสร็จสิ้น',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     });
-  };
-  
-  listOfData = this.convertDatas(this.dataBase)
-  
-  getEvent () {
-    console.log('รายละเอียด');
   }
-  deleteEvent () {
-    console.log('ออกจากกิจกรรม');
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
   }
-  constructor() {}
-  ngOnInit(): void {
-    // this.getData();
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
+  constructor(
+    private eventService: EventService,
+    private toastr: ToastrService
+  ) {}
+  ngOnInit(): void {}
 }

@@ -1,0 +1,38 @@
+.container {
+  @apply flex flex-row w-screen p-9 m-0;
+}
+.container-rigth {
+  @apply w-[70%] flex flex-col px-10;
+}
+.container-left {
+  @apply w-[30%] flex flex-col;
+}
+.header {
+  @apply text-4xl font-bold py-3;
+}
+.container-countdown {
+  @apply flex flex-col items-center;
+}
+
+@media screen and (max-width: 1280px) {
+  .container {
+    @apply flex flex-col;
+  }
+  .container-rigth {
+    @apply w-full;
+  }
+  .container-left {
+    @apply w-full px-10;
+  }
+  .container-countdown {
+    @apply flex flex-row items-start flex-wrap;
+  }
+}
+@media screen and (max-width: 600px) {
+    .container-rigth {
+        @apply p-0;
+      }
+      .container-left {
+        @apply p-0;
+      }
+}

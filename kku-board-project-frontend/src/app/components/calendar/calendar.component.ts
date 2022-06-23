@@ -20,7 +20,10 @@ export class CalendarComponent implements OnInit {
 
   constructor(private eventService: EventService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.events);
+    
+  }
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     dateClick: this.handleDateClick.bind(this),
