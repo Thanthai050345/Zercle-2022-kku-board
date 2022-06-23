@@ -5,6 +5,7 @@ import { dataEvent } from 'src/app/interfaces/dataEvent';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { TopEventService } from '../../services/top-event.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'popular-event',
   templateUrl: './popular-event.component.html',
@@ -92,6 +93,32 @@ export class PopularEventComponent implements OnInit {
     this.productService
       .patchJoin(this.datas[this.index].eventId, this.userUid)
       .subscribe();
+  }
+
+  showAlert() {
+    Swal.fire({
+      title: 'ยืนยันการเข้าร่วมกิจกรรม?',
+      text: `${this.datas[this.index].eventHeader}`,
+      icon: 'warning',
+      iconColor: '#FFCD00',
+      showCancelButton: true,
+      confirmButtonColor: '#243A73',
+      cancelButtonColor: '#B73151',
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.productService
+        .patchJoin(this.datas[this.index].eventId, this.userUid)
+        .subscribe();
+        Swal.fire({
+          icon: 'success',
+          title: 'เข้าร่วมกิจกรรมเสร็จสิ้น',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   }
 
   constructor(
