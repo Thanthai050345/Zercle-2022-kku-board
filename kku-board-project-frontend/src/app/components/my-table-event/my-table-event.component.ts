@@ -47,7 +47,7 @@ export class MyTableEventComponent implements OnInit {
       cancelButtonText: 'ยกเลิก',
     }).then((result) => {
       if (result.isConfirmed) {
-        if (this.authority === 'student') {
+        if (this.authority === 'clubAdmin') {
           this.eventService.deleteEventClubByUid(data.eventId).subscribe({
             next: (_data) => {
               console.log('Delete successful');
@@ -58,7 +58,7 @@ export class MyTableEventComponent implements OnInit {
               this.toastr.error(error.message, 'Error');
             },
           });
-        } else if (this.authority === 'clubAdmin') {
+        } else if (this.authority === 'student') {
           this.eventService.patchUnJoin(data.eventId, this.uid).subscribe({
             next: (_data) => {
               console.log('Delete successful');
