@@ -19,4 +19,7 @@ export class HomePageComponent implements OnInit {
     //   console.log(this.data);
     // });
   }
+  onPageIndexChange(event: any): void {
+
+  }
 }

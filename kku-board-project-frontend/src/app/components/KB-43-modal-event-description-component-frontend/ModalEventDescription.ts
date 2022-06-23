@@ -27,7 +27,7 @@ export class ModalEventDescription implements OnInit {
       this.clubName = this.club.clubName;
       this.dataBase[0].image = this.club.urlImage;
     });
-    
+
   }
   validateForm!: FormGroup;
   isVisible = false;
@@ -104,6 +104,9 @@ export class ModalEventDescription implements OnInit {
         {
           title: 'พุทธรรม',
           key: 'buddhism',
+        },{
+          title: 'แมคคาทรอนิกส์',
+          key: 'Mnics',
         },
       ],
     },
@@ -169,12 +172,13 @@ export class ModalEventDescription implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
+
           this.isVisible = false;
-          //  window.location.reload();
         }
       });
-      
+
     }
+
   }
 
   showModal(): void {
@@ -189,6 +193,6 @@ export class ModalEventDescription implements OnInit {
     this.file.push(event.target.files[0]);
   }
 
-  
-  
+
+
 }

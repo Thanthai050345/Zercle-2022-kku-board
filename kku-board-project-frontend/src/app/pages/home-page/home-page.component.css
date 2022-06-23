@@ -37,6 +37,7 @@ body {
 
 .allEvents {
     @apply mt-24 w-[1000px];
+    @apply mb-24 w-[1000px];
 }
 
 @media (max-width: 1600px) {

@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./all-event-component.css'],
 })
 export class AllEventComponent implements OnInit {
+  @Input() events: any[] = [];
   datas: any[] = [];
   uid: string | null | undefined;
   authority: string | null | undefined;
@@ -29,6 +30,8 @@ export class AllEventComponent implements OnInit {
       this.buttonJoinVisible = true;
       this.eventService.getEvenById(this.uid).subscribe((res) => {
         this.datas = this.convertDatas(res);
+        console.log(this.datas);
+
       });
     } else if (this.authority == 'clubAdmin') {
       this.buttonJoinDelete = true;
