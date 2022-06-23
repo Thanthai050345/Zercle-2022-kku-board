@@ -67,6 +67,7 @@
 
 <nz-modal
   [(nzVisible)]="isVisible"
+  nzTitle="{{datamodal.header}}"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
   [nzFooter]="null"
@@ -92,4 +93,11 @@
     <p class="text-gray-400 mt-2">จำนวนผู้เข้าร่วมแล้ว</p>
     <p>{{datamodal.attendees}} ท่าน</p>
   </div>
+  <ng-container *nzModalContent>
+    <p class="" nz-row nzJustify="end">{{datamodal.startDate}}</p>
+
+    <img class=" w-[300px] h-[300px] " src="{{datamodal.image}}" />
+    <p>{{datamodal.description}}</p>
+    <p class="mt-[10px]" nz-row nzJustify="end">{{datamodal.location}}</p>
+  </ng-container>
 </nz-modal>

@@ -1,16 +1,48 @@
-<button nz-button [nzType]="'primary'" (click)="showModal()"><span>Show Modal</span></button>
-<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzFooter]="null">
-    <ng-container *nzModalContent>
-        <p class="text-xl font-bold mb-4">เพิ่มสมาชิกเข้าชมรม/ชุมนุม</p>
-        <p class="mb-4 text-gray-400">กรอกอีเมลของสมาชิก</p>
-        <nz-tag class="mb-2" *ngFor="let tag of tags; let i = index" [nzMode]="'closeable'"
-            (nzOnClose)="handleClose(tag)">
-            {{ sliceTagName(tag) }}
-        </nz-tag>
-        <input แสฟ #inputElement nz-input type="text" [(ngModel)]="inputValue" class="w-full" (blur)="handleInputConfirm()"
-            (keydown.enter)="handleInputConfirm()" />
-            <div class="w-full flex justify-end">
-                <button class="mt-[30px]" nz-button (click)="modal()">เพิ่มสมาชิก</button>
-            </div>
-    </ng-container>
+<button nz-button class="flex flex-row items-center gap-1 mb-3" (click)="showModal()">
+  เพิ่มสมาชิก
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+    />
+  </svg>
+</button>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzFooter]="null"
+>
+  <ng-container *nzModalContent>
+    <p class="text-xl font-bold mb-4">เพิ่มสมาชิกเข้าชมรม/ชุมนุม</p>
+    <p class="mb-4 text-gray-400">กรอกอีเมลของสมาชิก</p>
+    <nz-tag
+      class="mb-2"
+      *ngFor="let tag of tags; let i = index"
+      [nzMode]="'closeable'"
+      (nzOnClose)="handleClose(tag)"
+    >
+      {{ sliceTagName(tag) }}
+    </nz-tag>
+    <input
+      placeholder="กด Enter เพื่อเพิ่มรายชื่อสมาชิก"
+      #inputElement
+      nz-input
+      type="text"
+      [(ngModel)]="inputValue"
+      class="w-full"
+      (keydown.enter)="handleInputConfirm()"
+    />
+    <div class="w-full flex justify-end">
+      <button class="mt-[30px]" nz-button (click)="modal()">เพิ่มสมาชิก</button>
+    </div>
+  </ng-container>
 </nz-modal>

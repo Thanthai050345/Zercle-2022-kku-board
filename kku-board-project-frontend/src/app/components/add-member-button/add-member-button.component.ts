@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MemberService } from 'src/app/services/member.service';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-member-button',
   templateUrl: './add-member-button.component.html',
@@ -12,9 +13,10 @@ export class AddMemberButtonComponent implements OnInit {
   inputValue = '';
   tags: string[] = [];
   uid: string | null | undefined;
+  authority: string | null | undefined;
 
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
-  constructor(private memberService: MemberService) {}
+  constructor(private memberService: MemberService,private toastr: ToastrService) {}
 
   ngOnInit(): void {}
 
@@ -28,16 +30,10 @@ export class AddMemberButtonComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
-    console.log(this.tags);
-    this.uid = localStorage.getItem('userUid');
-    this.tags.forEach(element => {
-      
-    });
-    // this.memberService.addMemberByClub(this.uid,"asd").subscribe();
   }
 
   handleClose(removedTag: {}): void {
-    this.tags = this.tags.filter((tag) => tag !== removedTag);    
+    this.tags = this.tags.filter((tag) => tag !== removedTag);
   }
 
   showInput(): void {
@@ -56,30 +52,51 @@ export class AddMemberButtonComponent implements OnInit {
     this.tags = [...this.tags, this.inputValue];
     this.inputValue = '';
     this.inputVisible = false;
-  } 
+    console.log(this.tags);
+  }
 
   modal() {
-     
-Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
+    Swal.fire({
+      title: 'ยืนยันการเพิ่มสมาชิก',
+      text: 'กดปุ่มยืนยันเพื่อยืนยันการเพิ่มสมาชิก',
+      icon: 'warning',
+      showCancelButton: true,
+      iconColor: '#FFCD00',
+      confirmButtonColor: '#243A73',
+      cancelButtonColor: '#B73151',
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        for (let index = 0; index < this.tags.length; index++) {
+          const element = this.tags[index];
+          console.log(element);
+          this.uid = localStorage.getItem('userUid');
+          this.memberService.addMemberByClub(this.uid, element).subscribe({
+            next: (data:any ) => {
+              console.log(data);
+              
+              if (data.message === 'already member') {
+                this.toastr.error(`อีเมลล์ ${element} ได้เข้าร่วมคลับนี้แล้ว`, 'Error');
+              }else if (data.message === `not have user`) {
+                this.toastr.error(`ไม่พบอีเมลล์ ${element} ในระบบ`, 'Error');
+              } else if (data.message === 'successfully added member') {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'เพิ่มสมาชิกสำเร็จ',
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                window.location.reload();
+              }
+              },
+              error: (error) => {
+              this.toastr.error(error.error.message, 'Error');
+              },
+          });
+          console.log(index);
+        }
+      }
+    });
   }
-})
-  }
-
-  
-
-
 }
