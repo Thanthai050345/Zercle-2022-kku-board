@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { endOfMonth } from 'date-fns';
 import 'dayjs/locale/th';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { UploadImageService } from 'src/app/services/upload-image.service';
 
 @Component({
   selector: 'modal-event',
@@ -10,13 +11,21 @@ import { HttpClient} from '@angular/common/http';
   styleUrls: ['./ModalEventDescription.css'],
 })
 export class ModalEventDescription implements OnInit {
-  constructor(private fb: FormBuilder,
-              private http: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private uploadService: UploadImageService
+  ) {}
   validateForm!: FormGroup;
   isVisible = false;
   value: string[] = [];
   imageUrl: string[] = [];
   output: any[] = [];
+  loading: boolean = false; // Flag variable
+  file: File[] = []; // Variable to store file
+  fileBlob: Blob[] = [];
+  userId: string | null | undefined = '';
+  authority: string | null | undefined = '';
   @Input() role = '';
   dataBase = [
     {
@@ -67,35 +76,49 @@ export class ModalEventDescription implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userUid');
+    this.authority = localStorage.getItem('authority');
     this.validateForm = this.fb.group({
       header: [null, [Validators.required]],
       description: [null, [Validators.required]],
-      attendees: [null, [Validators.pattern(/^[0-9]\d*$/)]],
+      attendees: [0],
+      maxAttendees: [null, [Validators.pattern(/^[0-9]\d*$/)]],
       eventType: [null, [Validators.required]],
       location: [null, [Validators.required]],
       eventDate: [null, [Validators.required]],
       roleAccept: [null, [Validators.required]],
-      clubName: ["mnic"],
-      join: [[]]
+      clubName: ['mnic'],
+      join: [[]],
     });
-    // console.log(localStorage.getItem('user'));
   }
 
   submitForm(): void {
-    if (this.validateForm.valid){
-      this.validateForm.value.startDate = this.validateForm.value.eventDate[0].getTime();
-      this.validateForm.value.endDate = this.validateForm.value.eventDate[1].getTime();
-      this.validateForm.value.image = this.imageUrl;
-      console.log(this.validateForm.value);
-      this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events/bRy0LPv9FhQtduQlgkbdZRhtCzb4.json',this.validateForm.value).subscribe();
+    if (this.validateForm.valid) {
+      this.loading = !this.loading;
+      this.uploadService.FileToBlob(this.file[0]).then((blob) => {
+        this.fileBlob.push(blob);
+        this.uploadService
+          .UploadImageReturnUrl(
+            this.authority === '"clubAdmin"'
+              ? '/images/clubAdmins'
+              : '/images/students',
+            [this.fileBlob[0]],
+            `${this.userId}`
+          )
+          .then((url: any) => {
+            this.imageUrl = url;
+            this.validateForm.value.startDate =
+            this.validateForm.value.eventDate[0].getTime();
+            this.validateForm.value.endDate =
+            this.validateForm.value.eventDate[1].getTime();
+            this.validateForm.value.image = this.imageUrl;
+            console.log(this.validateForm.value);
+            
+            this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events/bRy0LPv9FhQtduQlgkbdZRhtCzb4.json',this.validateForm.value).subscribe();
+          });
+      });
     }
     this.isVisible = false;
-  }
-
-  public onImageUpload(event: any) {
-      this.imageUrl = event;
-      console.log(this.imageUrl);
-      
   }
 
   showModal(): void {
@@ -104,5 +127,9 @@ export class ModalEventDescription implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+  }
+
+  onChange(event: any) {
+    this.file.push(event.target.files[0]);
   }
 }
