@@ -19,7 +19,7 @@ export const getAllEvents = async () => {
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
   const now = Date.now();
   const filterEvents = events.filter((event: Event, index: number) => {
-    const startDate = event.startDate * 1000;
+    const startDate = event.startDate;
     return now < startDate;
   });
   return filterEvents;
@@ -35,7 +35,7 @@ export const getEventById = async (eventId: string) => {
   event.forEach((doc) => (user = { ...(doc.data() as Event), id: doc.id }));
   const now = Date.now();
   const filterEvents = user.filter((event: Event, index: number) => {
-    const startDate = event.startDate * 1000;
+    const startDate = event.startDate;
     return now < startDate;
   });
   return filterEvents;
@@ -65,7 +65,7 @@ export const getAllEventsByClubId = async (clubId: string) => {
   docs.forEach((doc) => events.push({ ...(doc.data() as Event), id: doc.id }));
   const now = Date.now();
   const filterEvents = events.filter((event: Event, index: number) => {
-    const startDate = event.startDate * 1000;
+    const startDate = event.startDate;
     return now < startDate;
   });
   return filterEvents;
@@ -126,7 +126,7 @@ export const getEventByUid = async (uid: string) => {
   });
   const now = Date.now();
   const filterEvents = events.filter((event: Event, index: number) => {
-    const startDate = event.startDate * 1000;
+    const startDate = event.startDate;
     return now < startDate;
   });
   return filterEvents;
@@ -165,7 +165,7 @@ export const getEventForMyRole = async (uid: string) => {
   });
   const now = Date.now();
   const filterEvents = eventForMyRole.filter((event: Event, index: number) => {
-    const startDate = event.startDate * 1000;
+    const startDate = event.startDate;
     return now < startDate;
   });
   return filterEvents;
