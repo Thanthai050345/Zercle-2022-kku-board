@@ -52,7 +52,7 @@
         <nz-form-item>
           <nz-form-control nzErrorTip="กรุณากรอกตัวเลขเท่านั้น">
             <textarea
-              formControlName="attendees"
+              formControlName="maxAttendees"
               nz-input
               rows="1"
               class="resize-none"
@@ -120,9 +120,7 @@
           </nz-form-control>
         </nz-form-item>
         <p>อัปโหลดรูปภาพ</p>
-        <nz-form-item>
-          <input type="file" (change)="onImageUpload($event)" />
-        </nz-form-item>
+        <input type="file" (change)="onChange($event)" class="upload_image" name="image-upload" id="input" accept="image/png, image/jpeg" />
         <div nz-row nzJustify="center">
           <button
             class="bg-blue-900 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
@@ -137,3 +135,12 @@
     </ng-template>
   </nz-modal>
 </div>
+
+
+<!-- <p>upload-image works!</p> -->
+<!-- <input type="file" (change)="onChange($event)" class="upload_image" name="image-upload" id="input" accept="image/png, image/jpeg" /> -->
+<!-- <label for="input" class="upload_image_label">อัปโหลดรูปภาพ</label> -->
+
+<!-- <button nz-button for="input" (click)="onUpload()" class="btn btn-success">
+    อัปโหลดรูปภาพ
+</button>    -->

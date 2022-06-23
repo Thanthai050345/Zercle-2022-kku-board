@@ -22,6 +22,9 @@ export const catchingError = (
 };
 
 export const errMassage: ErrorMessageObj = {
+  "member/already-member": "เกิดข้อผิดพลาด คุณเพิ่มอีเมลนี้ในชุมนุม/ชมรมแล้ว",
+  "member/already-left": "เกิดข้อผิดพลาด คุณได้ลบสมาชิกออกจากระบบไปแล้ว",
+  "events/already-joined-event": "เกิดข้อผิดพลาด เนื่องจากคุณได้เข้าร่วมกิจกรรมนี้ไว้แล้ว",
   "auth/forbidden": "ไม่มีสิทธิ์การเข้าถึงการดำเนินการนี้",
   "auth/invalid-custom-token": "ไม่พบ token ที่ระบุ ไม่สามารถดำเนินการต่อได้",
   "auth/no-role-accessed": "ไม่สามารถเข้าใช้งานเนื่องจากไม่มีสิทธิ์การเข้าถึง",

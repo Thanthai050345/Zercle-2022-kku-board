@@ -10,7 +10,7 @@
         <input แสฟ #inputElement nz-input type="text" [(ngModel)]="inputValue" class="w-full" (blur)="handleInputConfirm()"
             (keydown.enter)="handleInputConfirm()" />
             <div class="w-full flex justify-end">
-                <button class="mt-[30px]" nz-button>เพิ่มสมาชิก</button>
+                <button class="mt-[30px]" nz-button (click)="modal()">เพิ่มสมาชิก</button>
             </div>
     </ng-container>
 </nz-modal>

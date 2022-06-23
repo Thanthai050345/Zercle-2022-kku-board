@@ -7,7 +7,12 @@ import { baseUrl } from 'src/assets/datas/url';
 export class MemberService {
   baseUrl = baseUrl;
   constructor(private http: HttpClient) {}
+
   getMemberByClubId (clubId:string | null | undefined){
-    return this.http.get<any[]>(this.baseUrl + 'members/' +clubId);
+    return this.http.get<any[]>(this.baseUrl + 'members/' + clubId);
+  }
+
+  addMemberByClub (clubId:string | null | undefined, email: string | null | undefined){
+    return this.http.get<any[]>(this.baseUrl + 'members/updateClubMember/' + clubId + '/' + email);
   }
 }

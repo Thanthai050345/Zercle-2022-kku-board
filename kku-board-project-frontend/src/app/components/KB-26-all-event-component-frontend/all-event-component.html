@@ -1,36 +1,63 @@
-<div class="flex md:flex-row bg-white drop-shadow-2xl p-[5px] md:p-0 md:h-[190px] w-[330px] md:w-full rounded-2xl mb-5"
-  *ngFor="let item of datas">
+<div
+  class="flex md:flex-row bg-white drop-shadow-2xl p-[5px] md:p-0 md:h-[190px] w-[330px] md:w-full rounded-2xl mb-5"
+  *ngFor="let item of datas"
+>
   <div class="content-image">
     <img
       class="md:h-full h-[80px] md:w-[300px] w-[140px] rounded-2xl md:rounded-l-2xl mt-[20px] md:mt-0 hidden md:flex object-cover"
-      src="{{item.image}}" alt="content" />
+      src="{{item.image}}"
+      alt="content"
+    />
   </div>
   <div class="relative my-2 md:w-full w-full h-full">
     <p class="mt-8 ml-8 text-base text-gray-500 md:flex">{{item.startDate}}</p>
-    <p class="ml-8 text-xl leading-6 font-bold text-gray-900 md:align-middle" nz-typography nzEllipsis
-      [nzEllipsisRows]="2">
+    <p
+      class="ml-8 text-xl leading-6 font-bold text-gray-900 md:align-middle"
+      nz-typography
+      nzEllipsis
+      [nzEllipsisRows]="2"
+    >
       {{item.header}}
     </p>
-    <p class="ml-8 text-base leading-6 font-light text-gray-600 md:flex" nz-typography nzEllipsis [nzEllipsisRows]="1">
+    <p
+      class="ml-8 text-base leading-6 font-light text-gray-600 md:flex"
+      nz-typography
+      nzEllipsis
+      [nzEllipsisRows]="1"
+    >
       {{item.location}}
     </p>
     <div class="flex flex-row justify-between">
-      <p class="ml-8 text-base leading-6 font-light text-gray-600 hidden md:flex">
+      <p
+        class="ml-8 text-base leading-6 font-light text-gray-600 hidden md:flex"
+      >
         ผู้เข้าร่วม {{item.attendees}} ท่าน
       </p>
       <div class="flex flex-row justify-end">
-        <button (click)="showModal(item)" class=" ml-8 md:ml-12 w-28 h-8 " nz-button>
+        <button
+          (click)="showModal(item)"
+          class="ml-8 md:ml-12 w-28 h-8"
+          nz-button
+        >
           รายละเอียด
         </button>
-        <button *ngIf="buttonJoinVisible" nz-popconfirm nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?"
-          nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm(item)" (nzOnCancel)="cancel()"
-          class=" ml-4 md:ml-8 mr-5 w-28 h-8 " nz-button nzType="primary">
+        <button
+          *ngIf="buttonJoinVisible"
+          class="ml-4 md:ml-8 mr-5 w-28 h-8"
+          nz-button
+          nzType="primary"
+          (click)="sweetalert(item)"
+        >
           เข้าร่วม
         </button>
-
-        <button *ngIf="buttonJoinDelete" nz-popconfirm nzPopconfirmTitle="กรุณากดยืนยันเพื่อลบกิจกรรม"
-          nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirmDelete()" (nzOnCancel)="cancel()"
-          class=" ml-4 md:ml-8 mr-5 w-28 h-8 " nz-button nzType="primary" nzDanger>
+        <button
+          *ngIf="buttonJoinDelete"
+          (click)="sweetalertDelete(item)"
+          class="ml-4 md:ml-8 mr-5 w-28 h-8"
+          nz-button
+          nzType="primary"
+          nzDanger
+        >
           ลบ
         </button>
       </div>
@@ -38,18 +65,24 @@
   </div>
 </div>
 
-<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
-  [nzFooter]="null">
+<nz-modal
+  [(nzVisible)]="isVisible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzFooter]="null"
+>
   <div *nzModalContent class="flex flex-col mt-10">
-    <h1 class=" text-3xl font-bold mb-4">{{datamodal.header}}</h1>
+    <h1 class="text-3xl font-bold mb-4">{{datamodal.header}}</h1>
     <nz-carousel nzAutoPlay>
       <div nz-carousel-content *ngFor="let item of datamodal.image">
-        <img class=" w-full h-48 object-cover" src="{{item}}" alt="">
+        <img class="w-full h-48 object-cover" src="{{item}}" alt="" />
       </div>
     </nz-carousel>
     <p class="text-gray-400 mt-8">วันที่จัดกิจกรรม</p>
-    <p>{{datamodal.startDate}} เวลา {{datamodal.startTime}}<span> ถึง </span>{{datamodal.endDate}} เวลา
-      {{datamodal.endTime}}</p>
+    <p>
+      {{datamodal.startDate}} เวลา {{datamodal.startTime}}<span> ถึง </span
+      >{{datamodal.endDate}} เวลา {{datamodal.endTime}}
+    </p>
     <p class="text-gray-400 mt-2">รายละเอียดกิจกรรม</p>
     <p>{{datamodal.description}}</p>
     <p class="text-gray-400 mt-2">รูปแบบกิจกรรม</p>
