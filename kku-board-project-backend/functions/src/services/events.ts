@@ -112,13 +112,14 @@ export const getEventByUid = async (uid: string) => {
     if (join) {
       join.forEach((joinData: any) => {
         if (joinData.uid === uid) {
-          const eventId = eventData?.eventId;
-          const eventHeader = eventData?.header;
-          const startDate = eventData?.startDate;
+          // const eventId = eventData?.eventId;
+          // const eventHeader = eventData?.header;
+          // const startDate = eventData?.startDate;
           events.push({
-            eventId: eventId,
-            startDate: startDate,
-            header: eventHeader,
+            ...eventData
+            // eventId: eventId,
+            // startDate: startDate,
+            // header: eventHeader,
           });
         }
       });

@@ -24,7 +24,7 @@ export class CatchApiInterceptor implements HttpInterceptor {
     if (
       !this.canCacheUser(request) &&
       !this.canCacheCountdownUser(request) &&
-      !this.canCacheClub(request) &&
+      // !this.canCacheClub(request) &&
       !this.canCacheCountdownClub(request)
     ) {
       return next.handle(request);

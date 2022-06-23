@@ -38,8 +38,8 @@ export class PopularEventComponent implements OnInit {
   convertDatas = (data: dataEvent[]) => {
     // console.log("data test", data);
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
-      const dateE = item.endDate * 1000;
+      const dateS = item.startDate;
+      const dateE = item.endDate;
       return {
         Header: item.header,
         description: item.description,
@@ -48,8 +48,8 @@ export class PopularEventComponent implements OnInit {
         location: item.location,
         startDate: dayjs(dateS).locale('th').format('ddd D MMM YYYY'),
         endDate: dayjs(dateE).locale('th').format('ddd D MMM YYYY'),
-        startTime: dayjs(dateS).locale('th').format('H:mm'),
-        endTime: dayjs(dateE).locale('th').format('H:mm'),
+        startTime: dayjs(dateS).locale('th').format('HH:mm'),
+        endTime: dayjs(dateE).locale('th').format('HH:mm'),
         roleAccept: item.roleAccept,
         image: item.image,
         eventId: item.eventId,

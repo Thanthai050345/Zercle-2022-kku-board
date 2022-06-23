@@ -19,26 +19,30 @@ export const updateMember = async (clubId: string, email: string) => {
   });
 
   if (checkClubMember) {
-    return { message: "already member"};
+    return { message: "already member" };
   } else {
-    const newMembers = clubMembers.concat({
-      firstName: user[0].firstName,
-      lastName: user[0].lastName,
-      email: user[0].email,
-      uid: user[0].uid,
-      urlImage: user[0].urlImage,
-    });
-    const newClub = {
-      ...clubMembers,
-      members: newMembers,
-    };
-    await db.collection("clubAdmins").doc(clubId).update(newClub);
-    const newClubed = [...user[0].clubed, club.clubName];
-    await db
-      .collection("students")
-      .doc(user[0].uid)
-      .update({ clubed: newClubed });
-    return { message: "successfully added member"};
+    if (user.length <= 0) {
+      return { message: "not have user" };
+    } else {
+      const newMembers = clubMembers.concat({
+        firstName: user[0].firstName,
+        lastName: user[0].lastName,
+        email: user[0].email,
+        uid: user[0].uid,
+        urlImage: user[0].urlImage,
+      });
+      const newClub = {
+        ...clubMembers,
+        members: newMembers,
+      };
+      await db.collection("clubAdmins").doc(clubId).update(newClub);
+      const newClubed = [...user[0].clubed, club.clubName];
+      await db
+        .collection("students")
+        .doc(user[0].uid)
+        .update({ clubed: newClubed });
+      return { message: "successfully added member" };
+    }
   }
 };
 
@@ -65,14 +69,14 @@ export const deleteMember = async (clubId: string, email: string) => {
       .collection("students")
       .doc(user[0].uid)
       .update({ clubed: newClubed });
-    return { message: "successfully left"};
+    return { message: "successfully left" };
   } else {
-    return { message: "already left"};
+    return { message: "already left" };
   }
 };
 
 export const getMemberByClubId = async (clubId: string) => {
-    const clubAdmin = await getClubAdminById(clubId);
-    const clubMembers = clubAdmin.members;
-    return clubMembers;
+  const clubAdmin = await getClubAdminById(clubId);
+  const clubMembers = clubAdmin.members;
+  return clubMembers;
 };
