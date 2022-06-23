@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-
+import { MemberService } from 'src/app/services/member.service';
 @Component({
   selector: 'app-add-member-button',
   templateUrl: './add-member-button.component.html',
@@ -10,9 +10,10 @@ export class AddMemberButtonComponent implements OnInit {
   inputVisible = false;
   inputValue = '';
   tags: string[] = [];
+  uid: string | null | undefined;
 
   @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
-  constructor() {}
+  constructor(private memberService: MemberService) {}
 
   ngOnInit(): void {}
 
@@ -21,17 +22,21 @@ export class AddMemberButtonComponent implements OnInit {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
+    console.log(this.tags);
+    this.uid = localStorage.getItem('userUid');
+    this.tags.forEach(element => {
+      
+    });
+    // this.memberService.addMemberByClub(this.uid,"asd").subscribe();
   }
 
   handleClose(removedTag: {}): void {
-    this.tags = this.tags.filter((tag) => tag !== removedTag);
+    this.tags = this.tags.filter((tag) => tag !== removedTag);    
   }
 
   showInput(): void {
@@ -50,5 +55,15 @@ export class AddMemberButtonComponent implements OnInit {
     this.tags = [...this.tags, this.inputValue];
     this.inputValue = '';
     this.inputVisible = false;
+  } 
+
+  confirm() {
+
   }
+
+  cancel() {
+    
+  }
+
+
 }

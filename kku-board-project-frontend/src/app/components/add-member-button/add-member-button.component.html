@@ -7,10 +7,15 @@
             (nzOnClose)="handleClose(tag)">
             {{ sliceTagName(tag) }}
         </nz-tag>
-        <input แสฟ #inputElement nz-input type="text" [(ngModel)]="inputValue" class="w-full" (blur)="handleInputConfirm()"
-            (keydown.enter)="handleInputConfirm()" />
+        <input #inputElement nz-input type="text" [(ngModel)]="inputValue" class="w-full" (blur)="handleInputConfirm()"
+        
+            (keydown.enter)="handleInputConfirm()" placeholder="กด enter เพื่อเพิ่มสมาชิก" />
             <div class="w-full flex justify-end">
-                <button class="mt-[30px]" nz-button>เพิ่มสมาชิก</button>
+                <button class="mt-[30px]" nz-popconfirm
+                nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="confirm()"
+                (nzOnCancel)="cancel()" nz-button>เพิ่มสมาชิก</button>
             </div>
     </ng-container>
 </nz-modal>
