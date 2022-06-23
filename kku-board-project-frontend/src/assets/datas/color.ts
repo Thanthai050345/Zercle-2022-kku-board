@@ -1,0 +1,15 @@
+export const colors = [
+  'darkcyan',
+  'red',
+  'darkgoldenrod',
+  'orange',
+  'brown',
+  'green',
+  'blue',
+  'purple',
+  'darkslateblue',
+  'magenta',
+  'tomato',
+  'gold',
+  'chocolate',
+];
