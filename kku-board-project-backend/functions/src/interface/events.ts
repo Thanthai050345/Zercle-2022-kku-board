@@ -1,6 +1,7 @@
 export interface Event {
   [key: string]: any;
   header: string;
+  maxAttendees: number;
   description: string;
   attendees: number;
   eventType: string;

@@ -6,6 +6,7 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
     // Jun 26 2022
     header: "กิจกรรมอบรมเพิ่มทักษะ",
     description: "กิจกรรมเพิ่มความรู้เรื่องการสัมภาษณ์งานให้นักศึกษา",
+    maxAttendees: 5,
     attendees: 0,
     eventType: "ออนไลน์",
     location: "อาคาร 50 ปี วิศวกรรมศาสตร์",
@@ -20,6 +21,7 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
     // Jun 07 2022
     header: "กิจกรรมทำความสะอาดห้องปฏิบัติการ",
     description: "กิจกรรมทำความสะอาดห้องปฏิบัติการ",
+    maxAttendees: 2,
     attendees: 0,
     eventType: "ออนไซต์",
     location: "ห้อง Lab คณะวิทยาศาสตร์",
@@ -34,6 +36,7 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
     // Jun 23 2022
     header: "กิจกรรมปลูกต้นไม้",
     description: "กิจกรรมปลูกต้นไม้เฉลิมพระเกียรติ",
+    maxAttendees: 10,
     attendees: 0,
     eventType: "ออนไซต์",
     location: "ถนนเส้นสักสายรหัส",
@@ -48,6 +51,7 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
     // Jul 20 2022
     header: "กิจกรรมปลูกป่า",
     description: "กิจกรรมปลูกป่า",
+    maxAttendees: 100,
     attendees: 0,
     eventType: "ออนไซต์",
     location: "ถนนเส้นสักสายรหัส",
@@ -62,6 +66,7 @@ export const MOCKUP_EVENT: Omit<Event, "eventId">[] = [
     // May 22 2022
     header: "กิจกรรมปลูกป่าอิหยังวะ",
     description: "กิจกรรมปลูกป่าอิหยังวะ",
+    maxAttendees: 10,
     attendees: 0,
     eventType: "ออนไซต์",
     location: "ถนนเส้นสักสายรหัส",
