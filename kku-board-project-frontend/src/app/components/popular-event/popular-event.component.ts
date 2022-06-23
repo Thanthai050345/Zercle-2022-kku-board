@@ -6,10 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { TopEventService } from '../../services/top-event.service';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
-<<<<<<< HEAD
 import { ToastrService } from 'ngx-toastr';
-=======
->>>>>>> 349455baaf62d1842e94231d5707b8c799e00ac5
 @Component({
   selector: 'popular-event',
   templateUrl: './popular-event.component.html',
@@ -102,11 +99,6 @@ export class PopularEventComponent implements OnInit {
   }
 
   confirm(eventId: string): void {
-    // console.log(`user join ${eventId}`);
-    // this.Service
-    //   .patchJoin(this.datas[this.index].eventId, this.userUid)
-    //   .subscribe();
-
     Swal.fire({
       title: 'ยืนยันการเข้าร่วมกิจกรรม',
       text: `${this.datas[this.index].Header}`,
@@ -120,7 +112,6 @@ export class PopularEventComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.Service.patchJoin(this.datas[this.index].eventId, this.userUid).subscribe({
-
           next: (data:any ) => {
             console.log(data);
             if (data.message === 'successfull joined event'){
@@ -130,11 +121,8 @@ export class PopularEventComponent implements OnInit {
             }else if (data.message === `can't join this event because event is full`) {
               this.toastr.error("กิจกรรมนี้ได้มีผู้สนใจเข้าร่วมเต็มจำนวนแล้ว", 'Error');
             }
-
-
             },
             error: (error) => {
-            // console.error('There was an error!', error.message);
             this.toastr.error(error.error.message, 'Error');
             },
         });
@@ -142,39 +130,5 @@ export class PopularEventComponent implements OnInit {
     })
   }
 
-<<<<<<< HEAD
 
-=======
-  showAlert() {
-    Swal.fire({
-      title: 'ยืนยันการเข้าร่วมกิจกรรม?',
-      text: `${this.datas[this.index].eventHeader}`,
-      icon: 'warning',
-      iconColor: '#FFCD00',
-      showCancelButton: true,
-      confirmButtonColor: '#243A73',
-      cancelButtonColor: '#B73151',
-      confirmButtonText: 'ยืนยัน',
-      cancelButtonText: 'ยกเลิก',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.productService
-        .patchJoin(this.datas[this.index].eventId, this.userUid)
-        .subscribe();
-        Swal.fire({
-          icon: 'success',
-          title: 'เข้าร่วมกิจกรรมเสร็จสิ้น',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  }
-
-  constructor(
-    private http: HttpClient,
-    private modal: NzModalService,
-    private productService: TopEventService
-  ) {}
->>>>>>> 349455baaf62d1842e94231d5707b8c799e00ac5
 }
