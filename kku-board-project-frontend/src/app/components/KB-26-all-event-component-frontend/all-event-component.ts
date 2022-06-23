@@ -48,12 +48,8 @@ export class AllEventComponent implements OnInit {
         endDate: dayjs(item.endDate)
           .locale('th')
           .format('ddd D MMM YYYY'),
-        startTime: dayjs(item.startTime)
-          .locale('th')
-          .format('ddd D MMM YYYY'),
-        endTime: dayjs(item.endTime)
-          .locale('th')
-          .format('ddd D MMM YYYY'),
+        startTime: dayjs(item.startDate).locale('th').format('HH:mm'),
+        endTime: dayjs(item.endDate).locale('th').format('HH:mm'),
         roleAccept: item.roleAccept,
         image: item.image,
         eventId: item.eventId,
