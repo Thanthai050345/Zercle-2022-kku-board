@@ -4,6 +4,7 @@ import 'dayjs/locale/th';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UploadImageService } from 'src/app/services/upload-image.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'modal-event',
