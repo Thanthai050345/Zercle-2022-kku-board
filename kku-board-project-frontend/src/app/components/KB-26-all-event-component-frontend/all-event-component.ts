@@ -3,6 +3,7 @@ import * as dayjs from 'dayjs';
 import { Event } from 'src/app/interfaces/event';
 import 'dayjs/locale/th';
 import { EventService } from 'src/app/services/event.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'all-event',
@@ -20,17 +21,14 @@ export class AllEventComponent implements OnInit {
   constructor(private eventService: EventService) {
     this.uid = localStorage.getItem('userUid');
     this.authority = localStorage.getItem('authority');
-    console.log(this.uid);
-    if (this.authority  == 'student') {
+    if (this.authority == 'student') {
+      this.buttonJoinVisible = true;
       this.eventService.getEvenById(this.uid).subscribe((res) => {
-        this.buttonJoinVisible = true;
-        console.log("stu/",res);
         this.datas = this.convertDatas(res);
       });
-    } else if (this.authority  == 'clubAdmin') {
+    } else if (this.authority == 'clubAdmin') {
+      this.buttonJoinDelete = true;
       this.eventService.getEventClubByUid(this.uid).subscribe((res) => {
-        this.buttonJoinDelete = true;
-        console.log("club/",res);
         this.datas = this.convertDatas(res);
       });
     }
@@ -92,11 +90,52 @@ export class AllEventComponent implements OnInit {
   }
   cancel(): void {}
 
-  confirm(item: any): void {
-    this.uid = localStorage.getItem('userUid');
-    this.eventService.patchJoin(item.eventId, this.uid).subscribe();
+  sweetalertDelete(item: any): void {
+    Swal.fire({
+      title: 'คุณต้องการลบกิจกรรมใช่ไหม',
+      text: "กดยืนยันเพื่อลบกิจกรรม",
+      icon: 'warning',
+      showCancelButton: true,
+      iconColor: '#FFCD00',
+      confirmButtonColor: '#243A73',
+      cancelButtonColor: '#B73151',
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: "ยกเลิก"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eventService.deleteEventClubByUid(item.eventId).subscribe();
+        Swal.fire({
+          icon: 'success',
+          title: 'คุณได้ลบกิจกรรม',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   }
 
-  confirmDelete(): void {
+  sweetalert(item: any) {
+    Swal.fire({
+      title: 'คุณต้องการเข้าร่วมกิจกรรมใช่ไหม',
+      text: "กดยืนยันเพื่อเข้าร่วม",
+      icon: 'warning',
+      showCancelButton: true,
+      iconColor: '#FFCD00',
+      confirmButtonColor: '#243A73',
+      cancelButtonColor: '#B73151',
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: "ยกเลิก"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.uid = localStorage.getItem('userUid');
+        this.eventService.patchJoin(item.eventId, this.uid).subscribe();
+        Swal.fire({
+          icon: 'success',
+          title: 'คุณได้เข้าร่วมกิจกรรม',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   }
 }

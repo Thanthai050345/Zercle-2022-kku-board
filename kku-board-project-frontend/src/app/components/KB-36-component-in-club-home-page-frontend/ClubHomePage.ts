@@ -32,7 +32,6 @@ export class ClubHomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.clubId);
     this.clubId = localStorage.getItem('userUid');
     this.memberService.getMemberByClubId(this.clubId).subscribe(res => {
       this.data = res;
