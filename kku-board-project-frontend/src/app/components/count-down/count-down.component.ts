@@ -19,7 +19,6 @@ export class CountDownComponent implements OnInit {
   constructor(private http: HttpClient,private Service: CountDownService) {
     this.userUid = localStorage.getItem('userUid');
     this.authority = localStorage.getItem('authority');
-    console.log(`${this.authority}`);
     if (this.authority == 'clubAdmin'){
       this.Service.getcountdownClubID(`${this.userUid}`).subscribe((res) => {
       this.dataBase = res;
@@ -36,13 +35,12 @@ export class CountDownComponent implements OnInit {
   }
   convertDatas = (data: Countdown[]): any => {
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
       return {
         id: item.eventId,
         eventHeader: item.eventHeader,
-        startDate: dayjs(dateS).locale('th').format('dd D MMM'),
-        startTime: dayjs(dateS).locale('th').format('H:mm'),
-        deadline: dateS,
+        startDate: dayjs(item.startDate).locale('th').format('dd D MMM'),
+        startTime: dayjs(item.startDate).locale('th').format('H:mm'),
+        deadline: item.startDate,
       };
     });
   };

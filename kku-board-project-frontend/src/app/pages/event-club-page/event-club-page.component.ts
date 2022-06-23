@@ -27,16 +27,14 @@ export class EventClubPageComponent implements OnInit {
   
   convertDataForTable(data: Event[]) {
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
-      const dateE = item.endDate * 1000;
       return {
         eventId: item.eventId,
         eventHeader: item.header,
-        startDate: dayjs(dateS).locale("th").format('D/MMM/BB'),
-        endDate: dayjs(dateE).locale("th").format('D/MMM/BB'),
-        startTime: dayjs(dateS).locale("th").format('H:mm'),
-        endTime: dayjs(dateE).locale("th").format('H:mm'),
-        deadline: dateS,
+        startDate: dayjs(item.startDate).locale("th").format('D/MMM/BB'),
+        endDate: dayjs(item.endDate).locale("th").format('D/MMM/BB'),
+        startTime: dayjs(item.startDate).locale("th").format('H:mm'),
+        endTime: dayjs(item.endDate).locale("th").format('H:mm'),
+        deadline: item.startDate,
         eventType: item.eventType,
         location: item.location,
         attendees: item.attendees,
