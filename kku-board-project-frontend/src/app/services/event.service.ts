@@ -24,7 +24,10 @@ export class EventService {
     return this.http.get<Countdown[]>(this.baseUrl + 'countdown/clubs/' + id);
   }
   patchJoin(evenId: string | null | undefined, Uid: string | null | undefined) {
-    return this.http.patch<any[]>(this.baseUrl + 'events/updateJoin/' + evenId +'/'+ Uid,null);
+    return this.http.patch<any[]>(
+      this.baseUrl + 'events/updateJoin/' + evenId + '/' + Uid,
+      null
+    );
   }
   getEventByStudentUid(id: string | null | undefined) {
     return this.http.get<EventTable[]>(this.baseUrl + 'events/students/' + id);
@@ -34,5 +37,17 @@ export class EventService {
   }
   getEventUserByUid(id: string | null | undefined) {
     return this.http.get<Event[]>(this.baseUrl + 'events/students/' + id);
+  }
+  deleteEventClubByUid(id: string | null | undefined) {
+    return this.http.delete<Event[]>(this.baseUrl + 'events/' + id);
+  }
+  patchUnJoin(
+    evenId: string | null | undefined,
+    Uid: string | null | undefined
+  ) {
+    return this.http.patch<any[]>(
+      this.baseUrl + 'events/leftFromEvent/' + evenId + '/' + Uid,
+      null
+    );
   }
 }
