@@ -81,17 +81,22 @@ export const updateUserJoinEvent = async (uid: string, eventId: string) => {
   const lastName = userData?.lastName;
   const attendees = eventData?.attendees;
   const join = eventData?.join;
+  const maxAttendees = eventData?.maxAttendees;
 
   const checkJoin = join.find((student: any) => student.uid === uid);
   if (!checkJoin) {
-    await db
+    if(attendees < maxAttendees) {
+      await db
       .collection("events")
       .doc(eventId)
       .update({
         join: [...join, { firstName, lastName, uid }],
         attendees: attendees + 1,
       });
-    return { message: "successfull joined event" };
+      return { message: "successfull joined event" };
+    } else {
+      return { message: "can't join this event because event is full" };
+    }
   } else {
     return { message: "already joined event" };
   }
