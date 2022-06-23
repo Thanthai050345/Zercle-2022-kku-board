@@ -15,7 +15,7 @@ export class ModalEventDescription implements OnInit {
   validateForm!: FormGroup;
   isVisible = false;
   value: string[] = [];
-  uploadedImage: any;
+  imageUrl: string[] = [];
   output: any[] = [];
   @Input() role = '';
   dataBase = [
@@ -85,7 +85,7 @@ export class ModalEventDescription implements OnInit {
     if (this.validateForm.valid){
       this.validateForm.value.startDate = this.validateForm.value.eventDate[0].getTime();
       this.validateForm.value.endDate = this.validateForm.value.eventDate[1].getTime();
-      this.validateForm.value.image = this.uploadedImage;
+      this.validateForm.value.image = this.imageUrl;
       console.log(this.validateForm.value);
       this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events/bRy0LPv9FhQtduQlgkbdZRhtCzb4.json',this.validateForm.value).subscribe();
     }
@@ -93,11 +93,9 @@ export class ModalEventDescription implements OnInit {
   }
 
   public onImageUpload(event: any) {
-    const element = event.currentTarget as HTMLInputElement;
-    let fileList: FileList | null = element.files;
-    if (fileList) {
-      this.uploadedImage = fileList;
-    }
+      this.imageUrl = event;
+      console.log(this.imageUrl);
+      
   }
 
   showModal(): void {

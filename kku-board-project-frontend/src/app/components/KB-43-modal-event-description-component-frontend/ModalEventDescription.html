@@ -120,9 +120,12 @@
           </nz-form-control>
         </nz-form-item>
         <p>อัปโหลดรูปภาพ</p>
-        <nz-form-item>
+        <!-- <nz-form-item>
           <input type="file" (change)="onImageUpload($event)" />
-        </nz-form-item>
+        </nz-form-item> -->
+        <nz-form-item>
+        <app-upload-image (change)="onImageUpload($event)"></app-upload-image>
+      </nz-form-item>
         <div nz-row nzJustify="center">
           <button
             class="bg-blue-900 w-28 h-8 rounded-2xl border-2 border-blue-900 text-white hover:bg-white hover:text-blue-900 delay-100"
