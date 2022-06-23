@@ -8,9 +8,11 @@
                 <p class="text-base sm:text-xl  text-gray-500 truncate">{{item.location}}</p>
                 <div class="flex flex-row text-base sm:text-xl justify-between">
                     <p class=" text-center text-gray-500 mr-2">{{item.attendees}} ท่าน </p>
-                    <div>
-                        <button class="px-5 py-[0px] border-2 border-blue-900 rounded-2xl text-blue-900  mr-2  " nzType="primary" (click)="showModal()"> รายละเอียด</button>
-                        <button class="px-8 py-0.5 rounded-2xl  text-white bg-blue-900" nzType="primary" nz-popconfirm nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?" nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm(item.eventId)" (nzOnCancel)="cancel()">เข้าร่วม</button>
+                    <div class="flex flex-row">
+                        <button class="flex px-6 py-2 mr-4 text-lg items-center"nz-button nzType="default" (click)="showModal()"> รายละเอียด</button>
+                        <button class="flex px-8 text-lg items-center "nz-button nzType="primary" (click)="confirm(item.eventId)">เข้าร่วม</button>
+                        <!-- px-5 py-[0px] border-2 border-blue-900 rounded-2xl text-blue-900  mr-2   -->
+                        <!-- px-8 py-0.5 rounded-2xl  text-white bg-blue-900 -->
                     </div>
                 </div>
             </div>
