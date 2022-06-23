@@ -45,6 +45,6 @@ export class CountDownComponent implements OnInit {
     });
   };
   toDay = Date.now();
-  aDay = 86400 * 1000;
-  aHour = 3600 * 1000;
+  aDay = 86400;
+  aHour = 3600;
 }

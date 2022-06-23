@@ -36,8 +36,8 @@ export class CalendarComponent implements OnInit {
 
   convertDataForCalendar(data: Event[]) {
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
-      const dateE = item.endDate * 1000;
+      const dateS = item.startDate;
+      const dateE = item.endDate;
       const randomColor = this.color[Math.floor(Math.random() * this.color.length)];
       return {
         title: item.header,

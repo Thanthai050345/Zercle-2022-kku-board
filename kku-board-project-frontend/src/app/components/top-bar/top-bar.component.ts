@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent implements OnInit {
-  aDay = 86400 * 1000;
+  aDay = 86400;
   authority: string | null | undefined;
   userUid: string | null | undefined;
   user: User = {
@@ -66,7 +66,7 @@ export class TopBarComponent implements OnInit {
       });
       this.eventService.getCountdownUserById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
-          (element) => this.aDay > element.startDate * 1000 - Date.now()
+          (element) => this.aDay > element.startDate - Date.now()
         );
         this.datas = this.convertDatas(this.countdown);
         // console.log(this.datas);
@@ -82,7 +82,7 @@ export class TopBarComponent implements OnInit {
       });
       this.eventService.getCountdownClubById(this.userUid).subscribe((res) => {
         this.countdown = res.filter(
-          (element) => this.aDay > element.startDate * 1000 - Date.now()
+          (element) => this.aDay > element.startDate - Date.now()
         );
         this.datas = this.convertDatas(this.countdown);
         // console.log(this.datas);
@@ -92,7 +92,7 @@ export class TopBarComponent implements OnInit {
   }
   convertDatas = (data: Countdown[]) => {
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
+      const dateS = item.startDate;
       return {
         id: item.eventId,
         eventHeader: item.eventHeader,
@@ -105,7 +105,7 @@ export class TopBarComponent implements OnInit {
 
   convertEventTableDatas = (data: EventTable[]) => {
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
+      const dateS = item.startDate;
       return {
         eventId: item.eventId,
         startDate:dayjs(dateS).locale('th').format('dd D MMM'),

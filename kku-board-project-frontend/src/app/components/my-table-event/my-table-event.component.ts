@@ -19,8 +19,8 @@ export class MyTableEventComponent implements OnInit {
   @Input() uid: string | null | undefined;
   @Input() authority: string | null | undefined;
   toDay = Date.now();
-  aDay = 86400 * 1000;
-  aHour = 3600 * 1000;
+  aDay = 86400;
+  aHour = 3600;
   isVisible: boolean = false;
   isOkLoading: boolean = false;
   dataModal: any;
