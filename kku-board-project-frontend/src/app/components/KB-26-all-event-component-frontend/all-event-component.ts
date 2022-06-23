@@ -30,8 +30,6 @@ export class AllEventComponent implements OnInit {
       this.buttonJoinVisible = true;
       this.eventService.getEvenById(this.uid).subscribe((res) => {
         this.datas = this.convertDatas(res);
-        console.log(this.datas);
-
       });
     } else if (this.authority == 'clubAdmin') {
       this.buttonJoinDelete = true;
@@ -129,7 +127,6 @@ export class AllEventComponent implements OnInit {
         this.uid = localStorage.getItem('userUid');
         this.eventService.patchJoin(item.eventId, this.uid).subscribe({
           next: (data: any) => {
-            console.log(data);
             if (data.message === 'successfull joined event') {
               Swal.fire({
                 icon: 'success',

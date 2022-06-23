@@ -4,7 +4,10 @@
   }
 }
 @media screen and (max-width: 500px) {
-    .res-width {
-      width: 355px;
-    }
+  .res-width {
+    width: 355px;
   }
+}
+::ng-deep .ant-modal {
+  top: calc(50% - 290px);
+}
