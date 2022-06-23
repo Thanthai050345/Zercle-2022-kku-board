@@ -3,7 +3,10 @@ import * as dayjs from 'dayjs';
 import { Event } from 'src/app/interfaces/event';
 import 'dayjs/locale/th';
 import { EventService } from 'src/app/services/event.service';
+<<<<<<< Updated upstream
 import Swal from 'sweetalert2';
+=======
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'all-event',
@@ -11,6 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./all-event-component.css'],
 })
 export class AllEventComponent implements OnInit {
+<<<<<<< Updated upstream
   datas: any[] = [];
   uid: string | null | undefined;
   authority: string | null | undefined;
@@ -34,6 +38,24 @@ export class AllEventComponent implements OnInit {
     }
   }
   ngOnInit(): void {}
+=======
+  datas : any[] = [];
+  uid: string | null | undefined;
+
+  constructor(private eventService: EventService) {
+    this.uid = localStorage.getItem('userUid');
+    this.eventService.getEvenById(this.uid).subscribe((res) => {
+      this.datas = this.convertDatas(res)
+      
+      console.log(res);
+      
+    });
+    
+  }
+  ngOnInit(): void {
+    
+  }
+>>>>>>> Stashed changes
   convertDatas = (data: Event[]) => {
     return data.map((item) => {
       return {
@@ -76,6 +98,11 @@ export class AllEventComponent implements OnInit {
     eventId: 0,
     clubName: '',
   };
+<<<<<<< Updated upstream
+=======
+  isVisible = false;
+
+>>>>>>> Stashed changes
   showModal(data: Event): void {
     this.datamodal = data;
     this.isVisible = true;
@@ -90,6 +117,7 @@ export class AllEventComponent implements OnInit {
   }
   cancel(): void {}
 
+<<<<<<< Updated upstream
   sweetalertDelete(item: any): void {
     Swal.fire({
       title: 'คุณต้องการลบกิจกรรมใช่ไหม',
@@ -137,5 +165,10 @@ export class AllEventComponent implements OnInit {
         });
       }
     });
+=======
+  confirm(item:any): void {
+    this.uid = localStorage.getItem('userUid');
+    this.eventService.patchJoin(item.eventId,this.uid).subscribe();
+>>>>>>> Stashed changes
   }
 }

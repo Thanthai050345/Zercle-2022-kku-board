@@ -42,11 +42,21 @@
           รายละเอียด
         </button>
         <button
+<<<<<<< Updated upstream
           *ngIf="buttonJoinVisible"
           class="ml-4 md:ml-8 mr-5 w-28 h-8"
           nz-button
           nzType="primary"
           (click)="sweetalert(item)"
+=======
+          nz-popconfirm
+          nzPopconfirmTitle="กรุณากดยืนยันเพื่อเข้าร่วมกิจกรรม?"
+          nzPopconfirmPlacement="bottom"
+          (nzOnConfirm)="confirm(item)"
+          (nzOnCancel)="cancel()"
+          class=" ml-4 md:ml-8 mr-5 w-28 h-8 "
+          nz-button  nzType="primary"
+>>>>>>> Stashed changes
         >
           เข้าร่วม
         </button>

@@ -45,10 +45,13 @@ export class TopBarComponent implements OnInit {
   }];
   countdown: Countdown[] = [];
   datas: any[] = [];
+<<<<<<< Updated upstream
 
   isVisible = false;
   isOkLoading = false;
 
+=======
+>>>>>>> Stashed changes
   constructor(
     private userService: UserService,
     private eventService: EventService,
