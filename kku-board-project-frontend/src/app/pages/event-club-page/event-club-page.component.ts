@@ -12,12 +12,14 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class EventClubPageComponent implements OnInit {
   uid: string | null | undefined;
+  authority: string | null | undefined;
   eventCalendar: EventCalendar[] = [];
   eventTable: any[] = [];
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('userUid');
+    this.authority = localStorage.getItem('authority');
     this.eventService.getEventClubByUid(this.uid).subscribe((res) => {
       this.eventCalendar = this.convertDataForCalendar(res);
       // console.log(this.eventCalendar);
