@@ -50,13 +50,13 @@
         </nz-form-item>
         <p>จำนวนคนเข้าร่วม</p>
         <nz-form-item>
-          <nz-form-control nzErrorTip="กรุณากรอกตัวเลขเท่านั้น">
+          <nz-form-control nzErrorTip="กรุณากรอกตัวเลขเท่านั้น ">
             <textarea
               formControlName="maxAttendees"
               nz-input
               rows="1"
               class="resize-none"
-              placeholder="กรุณากรอกจำนวนคนเข้าร่วมกิจกรรม"
+              placeholder="กรุณากรอกจำนวนคนเข้าร่วมกิจกรรม (ถ้าไม่จำกัดจำนวนคนเข้าร่วมให้กรอก0)"
             ></textarea>
           </nz-form-control>
         </nz-form-item>
@@ -68,7 +68,6 @@
               id="small"
               class="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
-              <option selected>กรุณากรอกรูปแบบกิจกรรม</option>
               <option value="ออนไซต์">ออนไซต์</option>
               <option value="ออนไลน์">ออนไลน์</option>
             </select>

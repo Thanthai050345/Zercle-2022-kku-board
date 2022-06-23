@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 import { UserService } from 'src/app/services/user.service';
 import { Club } from 'src/app/interfaces/club';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'modal-event',
   templateUrl: './ModalEventDescription.html',
@@ -17,7 +18,16 @@ export class ModalEventDescription implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private uploadService: UploadImageService
-  ) {}
+  ) {
+    this.userId = localStorage.getItem('userUid');
+    this.authority = localStorage.getItem('authority');
+    this.userService.getClubById(this.userId).subscribe((res) => {
+      this.club = res;
+      this.clubName = this.club.clubName;
+      this.dataBase[0].image = this.club.urlImage;
+    });
+    
+  }
   validateForm!: FormGroup;
   isVisible = false;
   value: string[] = [];
@@ -28,6 +38,7 @@ export class ModalEventDescription implements OnInit {
   fileBlob: Blob[] = [];
   userId: string | null | undefined = '';
   authority: string | null | undefined = '';
+  clubName: string | null | undefined = '';
   @Input() role = '';
   club: Club = {
     password: '',
@@ -98,16 +109,6 @@ export class ModalEventDescription implements OnInit {
   ];
 
   ngOnInit(): void {
-    if (this.authority === 'clubAdmin') {
-      this.userId = localStorage.getItem('userUid');
-      this.userService.getClubById(this.userId).subscribe((res) => {
-        this.club = res;
-      });
-     
-    }
-    
-    this.userId = localStorage.getItem('userUid');
-    this.authority = localStorage.getItem('authority');
     this.validateForm = this.fb.group({
       header: [null, [Validators.required]],
       description: [null, [Validators.required]],
@@ -117,36 +118,60 @@ export class ModalEventDescription implements OnInit {
       location: [null, [Validators.required]],
       eventDate: [null, [Validators.required]],
       roleAccept: [null, [Validators.required]],
-      clubName: [`${this.club.clubName}`],
+      clubName: [],
       join: [[]],
     });
   }
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      this.loading = !this.loading;
-      this.uploadService.FileToBlob(this.file[0]).then((blob) => {
-        this.fileBlob.push(blob);
-        this.uploadService
-          .UploadImageReturnUrl(
-            this.authority === '"clubAdmin"'
-              ? '/images/clubAdmins'
-              : '/images/students',
-            [this.fileBlob[0]],
-            `${this.userId}`
-          )
-          .then((url: any) => {
-            this.imageUrl = url;
-            this.validateForm.value.startDate =
-            this.validateForm.value.eventDate[0].getTime();
-            this.validateForm.value.endDate =
-            this.validateForm.value.eventDate[1].getTime();
-            this.validateForm.value.image = this.imageUrl;
-            this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events/bRy0LPv9FhQtduQlgkbdZRhtCzb4.json',this.validateForm.value).subscribe();
+      Swal.fire({
+        title: 'คุณต้องการเพิ่มกิจกรรมใช่ไหม',
+        text: "กดยืนยันเพื่อเพิ่มกิจกรรม",
+        icon: 'warning',
+        showCancelButton: true,
+        iconColor: '#FFCD00',
+        confirmButtonColor: '#243A73',
+        cancelButtonColor: '#B73151',
+        confirmButtonText: 'ยืนยัน',
+        cancelButtonText: "ยกเลิก"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.loading = !this.loading;
+        this.uploadService.FileToBlob(this.file[0]).then((blob) => {
+          this.fileBlob.push(blob);
+          this.uploadService
+            .UploadImageReturnUrl(
+              this.authority === '"clubAdmin"'
+                ? '/images/clubAdmins'
+                : '/images/students',
+              [this.fileBlob[0]],
+              `${this.userId}`
+            )
+            .then((url: any) => {
+              this.imageUrl = url;
+              this.validateForm.value.startDate =
+              this.validateForm.value.eventDate[0].getTime();
+              this.validateForm.value.endDate =
+              this.validateForm.value.eventDate[1].getTime();
+              this.validateForm.value.image = this.imageUrl;
+              this.validateForm.value.clubName = this.clubName;
+              if (this.validateForm.value.maxAttendees == 0) {
+                this.validateForm.value.maxAttendees = 900000;
+              }
+              this.http.post('http://localhost:5001/zercle-2022-kku-board/asia-southeast2/api/v1/events/bRy0LPv9FhQtduQlgkbdZRhtCzb4.json',this.validateForm.value).subscribe();
+            });
+        });
+          Swal.fire({
+            icon: 'success',
+            title: 'คุณได้เพิ่มกิจกรรม',
+            showConfirmButton: false,
+            timer: 1500,
           });
+          this.isVisible = false;
+        }
       });
     }
-    this.isVisible = false;
   }
 
   showModal(): void {
