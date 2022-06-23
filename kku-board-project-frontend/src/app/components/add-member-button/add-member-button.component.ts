@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MemberService } from 'src/app/services/member.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-member-button',
   templateUrl: './add-member-button.component.html',
@@ -57,13 +58,28 @@ export class AddMemberButtonComponent implements OnInit {
     this.inputVisible = false;
   } 
 
-  confirm() {
-
+  modal() {
+     
+Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
   }
 
-  cancel() {
-    
-  }
+  
 
 
 }
