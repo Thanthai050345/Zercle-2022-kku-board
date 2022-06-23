@@ -28,7 +28,7 @@ export class EventUserPageComponent implements OnInit {
   }
   convertDataForCalendar(data: Event[]) {
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
+      const dateS = item.startDate;
       return {
         title: item.header,
         start: dayjs(dateS).format('YYYY-MM-DD'),
@@ -39,8 +39,8 @@ export class EventUserPageComponent implements OnInit {
   }
   convertDataForTable(data: Event[]) {
     return data.map((item) => {
-      const dateS = item.startDate * 1000;
-      const dateE = item.endDate * 1000;
+      const dateS = item.startDate;
+      const dateE = item.endDate;
       return {
         eventId: item.eventId,
         eventHeader: item.header,
