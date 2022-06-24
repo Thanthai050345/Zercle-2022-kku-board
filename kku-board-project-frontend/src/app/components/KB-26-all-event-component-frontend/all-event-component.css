@@ -1,4 +1,9 @@
-/* ::ng-deep .ant-modal {
-    top: 50%; 
-    transform: translateY(-50%);
-  } */
+
+.allEvent {
+  @apply flex md:flex-row bg-white drop-shadow-md h-[190px] rounded-2xl mb-10 w-[98%]
+}
+@media (max-width: 1097px) {
+  .allEvent {
+    @apply  h-[190px] w-[98%];
+  }
+}
