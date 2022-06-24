@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent implements OnInit {
-  aDay = 86400;
+  aDay = 86400 * 1000;
   authority: string | null | undefined;
   userUid: string | null | undefined;
   user: User = {
@@ -69,8 +69,7 @@ export class TopBarComponent implements OnInit {
           (element) => this.aDay > element.startDate - Date.now()
         );
         this.datas = this.convertDatas(this.countdown);
-        // console.log(this.datas);
-
+        console.log(this.datas);
       });
       this.eventService.getEventByStudentUid(this.userUid).subscribe((res) => {
         this.eventTable = this.convertEventTableDatas(res);

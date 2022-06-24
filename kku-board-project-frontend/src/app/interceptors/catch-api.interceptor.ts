@@ -22,10 +22,10 @@ export class CatchApiInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     if (
-      !this.canCacheUser(request) &&
-      !this.canCacheCountdownUser(request) &&
+      !this.canCacheUser(request)
+      // !this.canCacheCountdownUser(request) &&
       // !this.canCacheClub(request) &&
-      !this.canCacheCountdownClub(request)
+      // !this.canCacheCountdownClub(request)
     ) {
       return next.handle(request);
     }
