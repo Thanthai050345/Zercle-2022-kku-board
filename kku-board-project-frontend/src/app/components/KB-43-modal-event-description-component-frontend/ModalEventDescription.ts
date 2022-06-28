@@ -172,7 +172,6 @@ export class ModalEventDescription implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-
           this.isVisible = false;
         }
       });

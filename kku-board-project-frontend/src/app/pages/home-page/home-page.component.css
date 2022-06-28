@@ -147,7 +147,7 @@ body {
         @apply text-4xl;
     }
     .all_event_element {
-        @apply drop-shadow-2xl grid grid-cols-1 justify-items-center;
+        @apply  grid grid-cols-1 justify-items-center;
     }
 }
 
@@ -159,7 +159,7 @@ body {
         @apply mt-8 w-[500px];
     }
     .all_event_element {
-        @apply drop-shadow-2xl grid grid-cols-1 justify-items-center;
+        @apply  grid grid-cols-1 justify-items-center;
     }
 }
 
@@ -195,7 +195,7 @@ body {
         @apply text-3xl;
     }
     .all_event_element {
-        @apply drop-shadow-2xl grid grid-cols-1 justify-items-center;
+        @apply  grid grid-cols-1 justify-items-center;
     }
 }
 
@@ -225,6 +225,6 @@ body {
         @apply items-center;
     }
     .all_event_element {
-        @apply drop-shadow-2xl grid grid-cols-1 justify-items-center;
+        @apply  grid grid-cols-1 justify-items-center;
     }
 }

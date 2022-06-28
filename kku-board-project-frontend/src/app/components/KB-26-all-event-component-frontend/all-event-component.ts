@@ -107,6 +107,7 @@ export class AllEventComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
+        window.location.reload();
       }
     });
   }
@@ -150,7 +151,6 @@ export class AllEventComponent implements OnInit {
             this.toastr.error(error.error.message, 'Error');
           },
         });
-        
       }
     });
   }

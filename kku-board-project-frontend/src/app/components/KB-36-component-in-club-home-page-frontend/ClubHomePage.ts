@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./ClubHomePage.css'],
 })
 export class ClubHomePage implements OnInit {
-  @Input() role = "" 
+  @Input() role = ""
   isVisible = false;
   data:any[] =[];
   index = 0;
@@ -29,12 +29,14 @@ export class ClubHomePage implements OnInit {
   }
 
   constructor(private memberService: MemberService) {
-    
+
   }
 
   ngOnInit(): void {
     this.clubId = localStorage.getItem('userUid');
     this.memberService.getMemberByClubId(this.clubId).subscribe(res => {
+      console.log(res);
+
       this.data = res;
     });
 
@@ -51,11 +53,11 @@ export class ClubHomePage implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
-  } 
+  }
 
   sweetalertDelete(item: any): void {
     console.log(item);
-    
+
     Swal.fire({
       title: 'คุณต้องการลบสมาชิกที่เลือกใช่ไหม',
       text: "กดยืนยันเพื่อลบสมาชิก",
